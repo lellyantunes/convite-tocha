@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Convites — Escola Tocha</title>
+    <title>Sistema de Convites — Grupo Soul</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 
@@ -18,47 +18,74 @@
 
     <style>
         :root {
-            --gold: #C9A84C; --gold-light: #E8C97A; --gold-dark: #9A7A32;
-            --dark: #0D0D0D; --dark-2: #161616; --dark-3: #1E1E1E;
-            --cream: #F5F0E8; --cream-dim: #C8C0B0; --green: #2E7D52;
+            --gold:       #C9A84C;
+            --gold-light: #E8C97A;
+            --gold-dark:  #9A7A32;
+            --dark:       #0D0D0D;
+            --dark-2:     #161616;
+            --dark-3:     #1E1E1E;
+            --cream:      #F5F0E8;
+            --cream-dim:  #C8C0B0;
+            --green:      #2E7D52;
+            --green-light:#3DA06A;
+            --red:        #B03A2E;
         }
 
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            font-family: 'Lato', sans-serif; background: var(--dark); min-height: 100vh;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            padding: 24px 16px; position: relative; overflow-x: hidden;
+            font-family: 'Lato', sans-serif;
+            background: var(--dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 16px;
+            position: relative;
+            overflow-x: hidden;
         }
 
         body::before {
-            content: ''; position: fixed; inset: 0;
+            content: '';
+            position: fixed;
+            inset: 0;
             background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,168,76,0.08) 0%, transparent 70%);
-            pointer-events: none; z-index: 0;
+            pointer-events: none;
+            z-index: 0;
         }
 
-        body::after {
-            content: ''; position: fixed; top: 0; left: 0; right: 0; height: 3px;
-            background: linear-gradient(90deg, transparent, var(--gold), var(--gold-light), var(--gold), transparent);
-        }
+        #app { width: 100%; max-width: 440px; position: relative; z-index: 1; }
 
         .card {
             background: linear-gradient(160deg, var(--dark-2) 0%, var(--dark-3) 100%);
-            border: 1px solid rgba(201,168,76,0.25); border-radius: 4px; padding: 48px 40px;
-            width: 100%; max-width: 440px; box-shadow: 0 32px 64px rgba(0,0,0,0.6); position: relative;
+            border: 1px solid rgba(201,168,76,0.25);
+            border-radius: 4px;
+            padding: 48px 40px 40px;
+            box-shadow: 0 32px 64px rgba(0,0,0,0.6);
+            position: relative;
+            overflow: hidden;
         }
 
-        .header { text-align: center; margin-bottom: 36px; }
+        /* Ornamentos de canto */
+        .card::before, .card::after {
+            content: ''; position: absolute; width: 40px; height: 40px;
+            border-color: var(--gold-dark); border-style: solid; opacity: 0.4;
+        }
+        .card::before { top: 12px; left: 12px; border-width: 1px 0 0 1px; }
+        .card::after  { bottom: 12px; right: 12px; border-width: 0 1px 1px 0; }
 
+        .header { text-align: center; margin-bottom: 36px; }
         .emblem {
             width: 72px; height: 72px; border-radius: 50%;
             background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light));
-            display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;
-            box-shadow: 0 4px 20px rgba(201,168,76,0.35); color: var(--dark);
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 20px; box-shadow: 0 4px 20px rgba(201,168,76,0.35);
         }
+        .emblem svg { width: 32px; height: 32px; color: var(--dark); }
 
-        h1 { font-family: 'Cinzel', serif; font-size: 1.5rem; font-weight: 700; color: var(--cream); letter-spacing: 0.04em; }
-        .subtitle { font-size: 0.78rem; color: var(--gold); text-transform: uppercase; margin-top: 8px; letter-spacing: 0.08em; }
+        h1 { font-family: 'Cinzel', serif; font-size: 1.5rem; color: var(--cream); letter-spacing: 0.04em; }
+        .subtitle { font-size: 0.78rem; color: var(--cream-dim); text-transform: uppercase; margin-top: 8px; }
 
         .field-group { margin-bottom: 14px; }
         label { display: block; font-size: 0.72rem; font-weight: 700; color: var(--gold); margin-bottom: 6px; text-transform: uppercase; }
@@ -66,28 +93,41 @@
         input {
             width: 100%; padding: 13px 16px; background: rgba(255,255,255,0.04);
             border: 1px solid rgba(201,168,76,0.2); border-radius: 3px; color: var(--cream);
-            outline: none; transition: 0.25s; font-family: 'Lato', sans-serif;
+            outline: none; transition: all 0.25s;
         }
         input:focus { border-color: var(--gold); background: rgba(255,255,255,0.06); }
 
         .btn {
-            width: 100%; padding: 14px; border: none; border-radius: 3px; cursor: pointer;
-            font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: 600;
-            display: flex; align-items: center; justify-content: center; gap: 10px; transition: 0.2s; margin-top: 20px;
+            width: 100%; padding: 14px; border: none; border-radius: 3px;
+            font-family: 'Cinzel', serif; font-weight: 600; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            margin-top: 20px; transition: transform 0.15s; text-decoration: none;
         }
-        .btn-gold { background: var(--gold); color: var(--dark); }
-        .btn-green { background: var(--green); color: #fff; }
+        .btn-gold { background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light)); color: var(--dark); }
+        .btn-green { background: linear-gradient(135deg, var(--green), var(--green-light)); color: #fff; }
+        .btn-whatsapp { background: linear-gradient(135deg, #128C7E, #25D366); color: #fff; font-family: 'Lato'; font-weight: 700; }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
-        #feedback { margin-top: 16px; padding: 11px 14px; border-radius: 3px; font-size: 0.82rem; display: none; text-align: center; }
-        .error { background: rgba(176,58,46,0.15); color: #E8A09A; border: 1px solid rgba(176,58,46,0.4); }
-        .info { background: rgba(201,168,76,0.1); color: var(--gold-light); border: 1px solid rgba(201,168,76,0.3); }
+        /* Badge Contador */
+        .invite-badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.25);
+            border-radius: 20px; padding: 5px 12px; font-size: 0.72rem; color: var(--gold-light);
+            margin-bottom: 10px;
+        }
 
-        .loader { border: 2px solid rgba(255,255,255,0.2); border-top: 2px solid #fff; border-radius: 50%; width: 16px; height: 16px; animation: spin 0.8s linear infinite; }
-        @keyframes spin { to { transform: rotate(360deg); } }
+        .quota-bar-wrap { height: 4px; background: rgba(255,255,255,0.06); border-radius: 2px; overflow: hidden; margin-bottom: 20px; }
+        .quota-bar { height: 100%; background: var(--gold); transition: width 0.6s ease; }
+
+        #feedback { margin-top: 16px; padding: 11px; border-radius: 3px; font-size: 0.82rem; display: none; }
+        #feedback.error { background: rgba(176,58,46,0.15); border: 1px solid rgba(176,58,46,0.4); color: #E8A09A; }
+        #feedback.info { background: rgba(201,168,76,0.1); color: var(--gold-light); }
 
         .hidden { display: none !important; }
         .fade-in { animation: fade-in 0.4s ease both; }
-        .footer { text-align: center; margin-top: 24px; font-size: 0.68rem; color: rgba(200,192,176,0.3); text-transform: uppercase; }
+        @keyframes fade-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        .loader { width: 18px; height: 18px; border: 2px solid #fff; border-top-color: transparent; border-radius: 50%; animation: spin 0.8s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
@@ -95,128 +135,141 @@
 <div id="app">
     <div class="card">
         <div class="header">
-            <div class="emblem">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg>
+            <div class="emblem" id="emblem">
+                <svg id="emblem-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
+                </svg>
             </div>
-            <h1>Escola Tocha</h1>
-            <p class="subtitle" id="step-desc">Portal de Convidados</p>
+            <h1 id="main-title">Sistema de Convites</h1>
+            <p class="subtitle" id="step-desc">Acesso restrito • Alunos Tocha</p>
         </div>
 
         <div id="auth-section" class="fade-in">
             <div class="field-group">
-                <label>E-mail de Aluno Ativo</label>
-                <input type="email" id="auth-email" placeholder="seuemail@exemplo.com">
+                <label>Seu E-mail de Aluno</label>
+                <input type="email" id="auth-email" placeholder="seu@email.com">
             </div>
             <button class="btn btn-gold" onclick="verifyAccess()" id="btn-verify">Verificar Acesso</button>
         </div>
 
         <div id="form-section" class="hidden fade-in">
-            <div id="invite-status" style="text-align:center; font-size:0.75rem; color:var(--gold); margin-bottom:15px; font-weight:700;"></div>
-            <div class="field-group"><label>Nome do Convidado</label><input type="text" id="guest-name"></div>
-            <div class="field-group"><label>E-mail do Convidado</label><input type="email" id="guest-email"></div>
-            <div class="field-group"><label>WhatsApp</label><input type="tel" id="guest-phone" placeholder="11999999999"></div>
-            <button class="btn btn-green" onclick="submitGuest()" id="btn-submit">Cadastrar Convidado</button>
+            <div id="invite-status-ui"></div>
+            <div class="field-group">
+                <label>Nome do Convidado</label>
+                <input type="text" id="guest-name" placeholder="Nome Completo">
+            </div>
+            <div class="field-group">
+                <label>E-mail do Convidado</label>
+                <input type="email" id="guest-email" placeholder="email@convidado.com">
+            </div>
+            <div class="field-group">
+                <label>Telefone (WhatsApp)</label>
+                <input type="tel" id="guest-phone" placeholder="(00) 00000-0000">
+            </div>
+            <button class="btn btn-green" onclick="submitGuest()" id="btn-submit">Enviar Convite</button>
         </div>
 
         <div id="success-section" class="hidden fade-in" style="text-align:center;">
-            <div style="background:var(--green); width:64px; height:64px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 20px;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
-            <h2 style="font-family:'Cinzel'; color:var(--gold);">Sucesso!</h2>
-            <p style="color:var(--cream-dim); font-size:0.85rem; margin-top:10px;">Convidado registrado com a tag <b>db-convidado-tocha</b>.</p>
-            <button class="btn btn-gold" onclick="location.reload()">Novo Cadastro</button>
+            <div style="background: var(--green); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <h2 style="color:var(--cream); margin-bottom:10px; font-family: 'Cinzel';">Convite Enviado!</h2>
+            <p style="color:var(--cream-dim); font-size:0.85rem; line-height:1.5; margin-bottom:25px;">
+                O cadastro foi concluído com sucesso.<br>Peça para o convidado entrar no grupo abaixo:
+            </p>
+            
+            <a href="https://sndflw.com/i/decifrandoossegredosdabiblia" target="_blank" class="btn btn-whatsapp">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                Entrar no Grupo WhatsApp
+            </a>
+
+            <div style="height: 1px; background: rgba(201,168,76,0.2); margin: 25px 0;"></div>
+            <button onclick="location.reload()" style="background:none; border:none; color:var(--gold); cursor:pointer; font-size:0.75rem; text-transform:uppercase; font-weight:700;">Cadastrar outro convidado</button>
         </div>
 
         <div id="feedback"></div>
     </div>
-    <p class="footer">© 2026 Escola Tocha · Sistema Restrito</p>
 </div>
 
 <script>
-// --- LISTA DE ALUNOS ATIVOS ---
-const ALUNOS = new Set(['terapeutasilviamaria@hotmail.com', 'patricia.depieri@gmail.com', 'luizatamikos@gmail.com', 'convivencia70@gmail.com', 'andreadalbellozeni@hotmail.com', 'mdcarmopaico@gmail.com', 'doriscalixto@gmail.com', 'alexandream2013@gmail.com', 'claudialim1963@gmail.com', 'anasacucci@gmail.com', 'g.strecht@gmail.com', 'marianacamera1@gmail.com', 'caroljsn@gmail.com', 'leoninasc@hotmail.com', 'lechinilucila@gmail.com', 'flaviomoreira5580@yahoo.com', 'judiniz2004@gmail.com', 'leandro.ribeiro3145@gmail.com', 'ivonefleite123@gmail.com', 'matiangelatelles.07@gmail.com', 'maria.cristina.hopkins@gmail.com', 'socastelo@gmail.com', 'milenereismgv@gmail.com', 'mariahelenafagundes@terra.com.br', 'izabelittaqs@gmail.com', 'rosesuzirey@gmail.com', 'hauensteinedineia@gmail.com', 'solarhertz@hotmail.com', 'elainearocena@gmail.com', 'alberto.fetzer@gmail.com', 'thiagobf.wa@gmail.com', 'ta.tumenas@gmail.com', 'penhafaro@gmail.com', 'mwm.florestal@gmail.com', 'lcoutinho1308@gmail.com', 'swisslink@terra.com.br', 'lulisboadesigner@hotmail.com', 'vinicius.investidor72@gmail.com', 'laura_crosariol@hotmail.com', 'k.marchetti@hotmail.com', 'margo_neff@hotmail.com', 'aragao.cecilia@gmail.com', 'joycruvinel@gmail.com', 'clregina0911@gmail.com', 'rosabeck@hotmail.com', 'mdsodre@yahoo.com.br', '1963rm@gmail.com', 'sandrafnunes@gmail.com', 'mariachlnellatoadami@gmail.com', 'elianacosta22@yahoo.com.br', 'grazielapintoferraz@gmail.com', 'priscila.vannuchi@gmail.com', 'elzatrzharaujo@gmail.com', 'brunaholiveira@hotmail.com', 'paulajlimaa@gmail.com', 'juliana13scha@gmail.com', 'marciamoraes05@gmail.com', 'watanabe.olga@gmail.com', 'vhoelzle@gmail.com', 'daniddan@yahoo.com.br', 'franciscapalavizini10@gmail.com', 'dstreit@netuno.com.br', 'lbacellar23@gmail.com', 'kamposnovos@gmail.com', 'syl@bhurbanismo.com.br', 'simoneholznutrition@gmail.com', 'elisetefv@yahoo.com.br', 'eflorafi@uol.com.br', 'maira.a.buchwitz@gmail.com', 'victorpires@uol.com.br', 'cheila.magui@gmail.com', 'alice@conexao.com.br', 'emiliaobata@gmail.com', 'claraoiticica@hotmail.com', 'sn.nilsen07@gmail.com', 'gabrielhenriqueluz88@gmail.com', 'eduardoperalta@terra.com.br', 'mizonta@hotmail.com', 'almeidagraca073@gmail.com', 'julliana.rsantiago@gmail.com', 'stsantos42@gmail.com', 'tania.azor@gmail.com', 'marciamonfroni@gmail.com', 'elisabet_boelter@hotmail.com', 'thaplessa@gmail.com', 'danishayeb@uol.com.br', 'sandrabcelpp@gmail.com', 'speder@terra.com.br', 'molindark@hotmail.com', 'andreamabaroneza@gmail.com', 'reginaanaliafranco@gmail.com', 'danizinha.balbinot@hotmail.com', 'flaviasrangel@hotmail.com', 'm1vs@yahoo.com.br', 'silvia@smearquitetura.com.br', 'sabrinadsg19@gmail.com', 'angelica.santannar@gmail.com', 'celiacaram@gmail.com', 'marcelolucenti@gmail.com', 'rejsassi@hotmail.com', 'leise.fernandes@ifmg.edu.br', 'biankabonifacio@gmail.com', 'teixeiragss@gmail.com', 'verarubial.vr@gmail.com', 'tsalvetti@gmail.com', 'marcoab97@yahoo.com.br', 'rzpaty@hotmail.com', 'trindademariagilza@gmail.com', 'recsartori@hotmail.com', 'reiscity@hotmail.com', 'anafisiofeitosa33@gmail.com', 'mmsscomercio@gmail.com', 'andrezaplais@hotmail.com', 'rosiclercelant@yahoo.com.br', 'regilla.marcia@hotmail.com', 'ana.radunz@terra.com.br', 'daniellebarreto2317@gmail.com', 'elzapaiva1953@gmail.com', 'tefisa@tefisa.com.br', 'soniamagalhaes.estetica@gmail.com', 'comercial.sdc@hotmail.com', 'pastoapicola@gmail.com', 'paty8farias@gmail.com', 'deonisialu@yahoo.com.br', 'mariaaparecidadacosta58@gmail.com', 'cardosocarla1510@gmail.com', 'paulalorenz.sc@gmail.com', 'lmfreitas864@gmail.com', 'nmlcbran@yahoo.com.br', 'marthamartins17@gmail.com', 'renatastickel@hotmail.com', 'elba.pereira@ellofinancas.com.br', 'am.albino@hotmail.com', 'marcela.msouza@gmail.com', 'luciana.erlichman@hotmail.com', 'suzanacha@uol.com.br', 'simoni.thomaz@hotmail.com', 'mariasa0251@yahoo.com', 'katia-hg@hotmail.com', 'monedefarias@yahoo.com.br', 'marinatozzipg@hotmail.com', 'busybia@yahoo.co.uk', 'tamarakulb@gmail.com', 'ceciliagoliv@gmail.com', 'artizabel@me.com', 'betaniaribeiro@terra.com.br', 'marcelodaroit@gmail.com', 'anakrausebraga@me.com', 'pmetida22ago87@gmail.com', 'anamargaridacorreia888@gmail.com', 'tonelliluciene@gmail.com', 'dany_prandini@hotmail.com', 'naralucia53@gmail.com', 'brumilitao@hotmail.com', 'cimoneh6@gmail.com', 'eliane.pierre@gmail.com', 'vansouzabap@gmail.com', 'crismroger@gmail.com', 'lmguanais@gmail.com', 'kma_portal@hotmail.com', 'dvbmetamorfose@yahoo.com.br', 'mf051281@gmail.com', 'fbittarneves@gmail.com', 'simone.simoes3idade@gmail.com', 'isabelgarciaarq@gmail.com', 'pricilacaldas93@gmail.com', 'crochiquiacandice@gmail.com', 'stelasancio@yahoo.com.br', 'mirian.vieira19@gmail.com', 'danielasantiago1811@gmail.com', 'carlinharamos@gmail.com', 'ritzmacsan@gmail.com', 'cgaspe82@gmail.com', 'sylviamello05@gmail.com', 'andreiajbj@gmail.com', 'criscros_nobrega@hotmail.com', 'kakandrade@gmail.com', 'paula.antunes@ufac.br', 'tpiacesi@gmail.com', 'carla.lins@icloud.com', 'meiremohn@yahoo.com.br', 'marlygennari.midia@gmail.com', 'fabianagomes_sp@hotmail.com', 'castro19812015@outlook.com', 'mayra.hergovic@gmail.com', 'marcus.bonini@outlook.com', 'anamoussa1979@gmail.com', 'adriana.febonasi@gmail.com', 'makotofukunishi@gmail.com', 'marschner.marcos@gmail.com', 'terezinaf@yahoo.com.br', 'bebelzinha@gmail.com', 'ana.luz@live.com', 'lourdesandrade5@yahoo.com.br', 'mayarabardauil@hotmail.com', 'vania.larroy@gmail.com', 'alvesdealonso@gmail.com', 'daniel.hawer@gmail.com', 'kellyrosy1@gmail.com', 'gilmartillmann@gmail.com', 'goyamarcia@gmail.com', 'juulianalimaa97@gmail.com', 'katia_pe67@hotmail.com', 'valeriamedeiros859@gmail.com', 'roseezer@yahoo.com.br', 'neigmar.tonon@gmail.com', 'mdecastrothomaz@gmail.com', 'renata_adv_jf2@hotmail.com', 'deamleao@gmail.com', 'williansmacedo85@gmail.com', 'luz.eliane@terra.com.br', 'leda_ls@hotmail.com', 'anarealista@gmail.com', 'biancarodrigues.rj@gmail.com', 'solsaconato@yahoo.com.br', 'josemario@grupocheck.com.br', 'educarlo@uol.com.br', 'saudebemestar1@sapo.pt', 'rafa.magon.neroni@gmail.com', 'vitoria2054@gmail.com', 'danithomasi@hotmail.com', 'ccaf30@gmail.com', 'adrix057@hotmail.com', 'egiobbi@me.com', 'pkhonarvar@gmail.com', 'andradeturcatto@gmail.com', 'ramalho.flavio@gmail.com', 'sandratracolivre@gmail.com', 'anndretomas@gmail.com', 'ammanfrim@hotmail.com', 'rcbatist@gmail.com', 'viviwaaro@gmail.com', 'andreadlvieira@gmail.com', 'ailiramboscolo22@gmail.com', 'aneteonco@terra.com.br', 'andcrioli@gmail.com', 'roseiravalerioalexandra@gmail.com', 'simone_rocha54@hotmail.com', 'nadir.genehr@gmail.com', 'glsestari1@gmail.com', 'mararezende30@gmail.com', 'ma_dragone@yahoo.com.br', 'maracristinamoreira@hotmail.com', 'benrutemercedes@gmail.com', 'elmirafb@hotmail.com', 'fernandaterlizzi24@gmail.com', 'anamartanicodemo@gmail.com', 'denyzedepargas@gmail.com', 'sucessobalaguez@gmail.com', 'neidevbb@gmail.com', 'glaucogasten@gmail.com', 'reginadrc@yahoo.com.br', 'cristianorafael.com@gmail.com', 'marciofcb@yahoo.com.br', 'nicakrakhecke@gmail.com', 'gisadelb@hotmail.com', 'helenapiva@uol.com.br', 'iurypolo@gmail.com', 'lindi_costa@hotmail.com', 'sabrinalacerda@hotmail.com', 'fernandaschneider86@hotmail.com', 'lauro@kellerproldados.com.br', 'mariazimmermann@live.fr', 'arletealves52@outlook.com', 'conhecer091829@gmail.com', 'denisedragoes@gmail.com', 'irebi59@gmail.com', 'annecasa13@gmail.com', 'slueji@gmail.com', 'reginacerchiari@gmail.com', 'fabiluani8@gmail.com', 'lilianspferraro@gmail.com', 'anajerkic@uol.com.br', 'marcelvieirasolda@gmail.com', 'cmanoelrocha@gmail.com', 'sanmello10@yahoo.com.br', 'belare17@gmail.com', 'claudiasanzochi@gmail.com', 'ivanifernandes69@gmail.com', 'lebebber@hotmail.com', 'asstega@outlook.com', 'irmgard.hh@gmail.com', 'ruthhishioka@gmail.com', 'sayoshimori@gmail.com', 'fabio@flarconsulting.com.br', 'rosanakatcipis@gmail.com', 'lucanader@gmail.com', 'ideli773@gmail.com', 'mlptarbes@gmail.com', 'marthagribel@uol.com.br', 'saboia.marta@gmail.com', 'vani.pavoni@gmail.com', 'giseledansot@gmail.com', 'tiyoe.tsuyama@gmail.com', 'leilanblauth@gmail.com', 'fabimend@hotmail.com', 'alexandrejcordeiro@hotmail.com', 'sandramariacampos74@gmail.com', 'lisangelahaag@yahoo.com.br', 'bminela123@hotmail.com', 'elisabethnovellivicentin@gmail.com', 'eloahourneaux@gmail.com', 'bia.monteiro@gmail.com', 'luhortencio@hotmail.com', 'leilasat@hotmail.com', 'artemoda_anadia@yahoo.com.br', 'lefleck@gmail.com', 'angela@driesner.org', 'alice.dehnert@gmail.com', 'castorinaprofeta34@gmail.com', 'aeigenheer36@gmail.com', 'fadiniz@uol.com.br', 'linahshimizu@gmail.com', 'mariaelisa.carvalho@gmail.com', 'mgmarcovaldi@gmail.com', 'monicapolonia@yahoo.com.br', 'smarisnogueira2@gmail.com', 'marianaagguiar77@gmail.com', 'angela.m.lobo@outlook.com', 'colombopsi@gmail.com', 'thaysap@gmail.com', 'prilohmann1704@gmail.com', 'liliangklinger@gmail.com', 'terezaseganfredo73@gmail.com', 'anielled88@gmail.com', 'carvalhorocha@hotmail.com', 'n7lopez9@gmail.com', 'rachel.celidonio@gmail.com', 'rosdinmacedo@gmail.com', 'mariannafsaad@gmail.com', 'coda.t@yahoo.com', 'lejfarani54@gmail.com', 'leilian77@hotmail.com', 'lucianabaptista46@gmail.com', 'maria.mysowaia@gmail.com', 'rdaninn@yahoo.com.br', 'heraidamarques@gmail.com', 'katiaborba@gmail.com', 'marcia.amm@gmail.com', 'teresapatrima@gmail.com', 'belezavipdanicris@gmail.com', 'm.cristina.ferriani@gmail.com', 'eliacimgj@gmail.com', 'adri.bernardo71@gmail.com', 'edjmaria@gmail.com', 'g.aguirre@uol.com.br', 'inesermida9@gmail.com', 'acfc@terra.com.br', 'anelehmcs@gmail.com', 'so_regi@hotmail.com', 'guto.textil@gmail.com', 'neirepedroza@gmail.com', 'denise.farah@icloud.com', 'goretepiva@gmail.com', 'francign@gmail.com', 'ijpg.adm@gmail.com', 'rsxavier.57@gmail.com', 'niviapinheiro@hotmail.com', 'bacatatto@icloud.com', 'mclaudiafg@gmail.com', 'amarcinichen@gmail.com', 'iararsvieira@gmail.com', 'a.p.marum09@gmail.com', 'rosalina.neves@gmail.com', 'glauciabh@gmail.com', 'swklondero@gmail.com', 'celiaarap@gmail.com', 'vania.fistarol51@gmail.com', 'fsrckcwr@yahoo.com.br', 'rosaliaflorais@gmail.com', 'erikaswame@gmail.com', 'elisapozzer@gmail.com', 'ulli.milz@gmail.com', 'perin.nilva@gmail.com', 'isabeltischler@yahoo.com.br', 'meldutra@hotmail.com', 'elusapzorzi@gmail.com', 'ladysissi17@gmail.com', 'andreaalmeida108@gmail.com', 'heloisacatalan@hotmail.com', 'cileneguimaraes67@gmail.com', 'marciacdna@gmail.com', 'burcaoapr@hotmail.com', 'nchiavegattop@gmail.com', 'fabianoalvesbarbosa@gmail.com', 'luconviver@gmail.com', 'magaly.audi@hotmail.com', 'ihwolff@terra.com.br', 'nelsina_franco@terra.com.br', 'bruno.mrdecastro@gmail.com', 'renatajagosehit@hotmail.com', 'eduardocaixeta@uol.com.br', 'ari.brito.gomes@gmail.com', 'lidiafacci@ig.com.br', 'bethmandelli@gmail.com', 'ursulamhecht@gmail.com', 'bressananapaula@yahoo.com.br', 'irenoccosta@gmail.com', 'maicyfilizzola@hotmail.com', 'vi.batalha59@gmail.com', 'biancaapiovesan@gmail.com', 'rolandopretojr@gmail.com', 'fsergiorcn@gmail.com', 'suelybatistoni@yahoo.com.br', 'aykoaoyama@gmail.com', 'bella-rose1@hotmail.com', 'helomaf@yahoo.com.br', 'sergio.coelho@tcpredial.com.br', 'amariatreze@gmail.com', 'amrb@hotmail.nl', 'susslemes@gmail.com', 'msoluar@gmail.com', 'malentacchi_r@yahoo.com.br', 'lillian.carla@gmail.com', 'saturninodeaguiar@hotmail.com', 'aflaviom@gmail.com', 'maripenati@gmail.com', 'marialuzmel@gmail.com.br', 'luciana.zanette04@gmail.com', 'claudia.alves12@gmail.com', 'cyzameirelles@gmail.com', 'nborowiski@gmail.com', 'cirilane@terra.com.br', 'marc.pt2zx@gmail.com', 'giselle@gisellemoreira.com.br', 'gigamartinelli96@gmail.com', 'celiaamaro63@gmail.com', 'sonaldobaptista122@gmail.com', 'enerikaki@hotmail.com', 'millani.joaocarlos@gmail.com', 'malicetorres.rj@gmail.com', 'gizamgr@gmail.com', 'juliana.bartonelli@gmail.com', 'codone@gmail.com', 'toledo.edina@gmail.com', 'shoniareg@hotmail.com', 'normamoraes@gmail.com', 'lia_araujos@hotmail.com', 'sueliipas@gmail.com', 'cidalehmann@gmail.com', 'neusamarilene@bol.com.br', 'yokuniyoshicuraca@gmail.com', 'patigf@gmail.com', 'mpguim@msn.com', 'nardinoheloisa@gmail.com', 'roberto_peruchini@hotmail.com', 'prof.ragazzi@hotmail.com', 'galega1606@gmail.com', 'deboracclinrad@gmail.com', 'josinamelo133@gmail.com', 'landysuzuki@gmail.com', 'mardeleinerj@gmail.com', 'suclin@terra.com.br', 'barolomarcia@gmail.com', 'cecilia.travaim@hotmail.com', 'iussef.zaidenfilho@gmail.com', 'luciamergulhao1950@gmail.com', 'cemmas3@gmail.com', 'nat10nat10@gmail.com', 'tania_nara08@yahoo.com.br', 'adriamatti@hotmail.com', 'elaine.reginebrizzi@gmail.com', 't_jcs@hotmail.com', 'marificagnac7@outlook.com', 'irenegomes.sbc@gmail.com', 'nemirandab@gmail.com', 'rosemgama@gmail.com', 'clirosa05@gmail.com', 'sonia.pinc@gmail.com', 'rodrigogaldino_6@hotmail.com', 'malusouza22@gmail.com', 'beatrizchavesbrandao7@gmail.com', 'jrdc1901@gmail.com', 'valdivajorge@hotmail.com', 'rachel.celidonio@gmail.com', 'georgeteband@gmail.com', 'belmontebaconsultoria@gmail.com', 'roseoliveira520@outlook.com', 'janepereirapeixoto@gmail.com', 'leide_rocha@hotmail.com', 'angelamariadasilvaams2019@gmail.com', 'fjozias12@gmail.com', 'iararamacciott@gmail.com', 'auroraisaferreira@gmail.com', 'flagobbin@gmail.com', 'zezepulz@gmail.com', 'yedawinter@gmail.com', 'ptplopes@hotmail.com', 'mariliamasn@gmail.com', 'crisbarros38@gmail.com', 'marisegsoares@terra.com.br', 'rosangelagxferreira@yahoo.com.br', 'clemassagem@gmail.com', 'mapf.seguros@gmail.com', 'vallimas@hotmail.com', 'lucilajunqueira@terra.com.br', 'mellraz@gmail.com', 'aureaperrotta@gmail.com', 'marga.augusta@terra.com.br', 'lilicalegari6@gmail.com', 'isabel@montanesalbuquerque.adv.br', 'aureacosta326@gmail.com', 'menececi@gmail.com', 'dg-fb@hotmail.com', 'rdrago72@gmail.com', 'ldl.dalla.roza@gmail.com', 'orane.fsa@gmail.com', 'luizclaudio9fr@gmail.com', 'mina.iodono@mundoartistico.com.br', 'ferrarijacira@gmail.com', 'rsrosabreu081@gmail.com', 'fbmoura596@gmail.com', 'gigimonteiro@hotmail.com', 'hermida.chamelette@gmail.com', 'guimarportugal@gmail.com', 'rubia@safig.com.br', 'ovsouza@gmail.com', 'fatsocial@yahoo.com.br', 'stellarenault@gmail.com', 'epssucesso11@gmail.com', 'mikaelamarkovics@gmail.com', 'marciarejanee@hotmail.com', 'vivianewfranca.adv@gmail.com', 'rosilene.diniz39@gmail.com', 'elzacristinacardoso@hotmail.com', 'thaisachm@gmail.com', 'drakarineserednicki@gmail.com', 'ivanildemachado@gmail.com', 'regilainemiguel@hotmail.com', 'andioliveira810@gmail.com', 'amandah.fs@hotmail.com', 'ro.goulart123@hotmail.com', 'leilanemasilva@gmail.com', 'ledamfontoura@gmail.com', 'acarrijopires@yahoo.com.br', 'maria.e.leme@gmail.com', 'wcenter25@gmail.com', 'mirnau18@gmail.com', 'vitorturismo2t2@gmail.com', 'fefacbraz@gmail.com', 'lusipferreira@gmail.com', 'morgana@mrceglia.com', 'talaqui3@gmail.com', 'biapachecors@hotmail.com', 'mbr.ruaro@gmail.com', 'km.teixeira@hotmail.com', 'marinagarciacp@gmail.com', 'gildete.valdameri@gmail.com', 'bettybeltran18@yahoo.com.br', 'felicidade345@gmail.com', 'aracelispecian@gmail.com', 'andressa_saito@yahoo.com.br', 'guilhermeprado9@hotmail.com', 'asfprm@gmail.com', 'hilda.maciel.hm13@gmail.com', 'ayresssoria@gmail.com', 'camilameliasmartins@gmail.com', 'adrianaklerner7@gmail.com', 'valeria3004@gmail.com', 'delania.sul@gmail.com', 'luizacaetanocorrea@icloud.com', 'lgozzi.designer@gmail.com', 'carlamigliari@uol.com.br', 'kmarusha@gmail.com', 'singularis@inbox.ru', 'luziablaserocha@gmail.com', 'leiloka_braga@yahoo.com.br', 'lupohlruschel@gmail.com', 'cicicarvalho11@gmail.com', 'susana.maria.cardoso@gmail.com', 'premoldadosrioverde@yahoo.com.br', 'nelson@lanaturelle.com.br', 'chikzx@gmail.com', 'financeiro.foryoufitness@gmail.com', 'marivelazevedo@gmail.com', 'gabriela.fasanelli@gmail.com', 'artboutone@gmail.com', 'nicehauch@hotmail.com', 'priscillamnb@uol.com.br', 'renata_paaula@hotmail.com', 'marli.tkg@gmail.com', 'anacristina_cgomes@hotmail.com', 'anamartinsf@yahoo.com.br', 'ccarolmanzi@gmail.com', 'karenerrador@gmail.com', 'costa.retosyde@hotmail.com', 'nevessoares.sandramagali80@gmail.com', 'famarques_29@hotmail.com', 'betoa0581@gmail.com', 'anasacucci@gmail.com', 'profpeppe1954@gmail.com', 'renildaglc2410@gmail.com', 'lucreciaeccher@gmail.com', 'LCS1978@uol.com.br', 'meguirafain@gmail.com', 'rodfons@uol.com.br', 'cyrospyro45005@gmail.com', 'carlacalexandre@gmail.com', 'gesse.neves.ggn@gmail.com', 'betaschurmann@gmail.com', 'alinefbian@gmail.com', 'soniagomesgomes@hotmail.com', 'tjgama36@gmail.com', 'ehcancado@yahoo.com.br', 'rjaeqa@hotmail.com', 'bethricci3@hotmail.com', 'danifer.1970@gmail.com', 'camaralsantos@yahoo.com.br', 'evelynmandagaran1@gmail.com', 'dilmacsilva@uol.com.br', 'darlene.lacerda@hotmail.com', 'ctheodoro@mac.com', 'spinola.claudio@gmail.com', 'rosiclerevandimar@hotmail.com', 'rochamel@hotmail.com', 'nairdesouza1983@gmail.com', 'catiarussosbampato@gmail.com', 'cleidethcosta@gmail.com', 'cfrugulhetti@gmail.com', 'tayanapinheiro@gmail.com', 'ana@iclbrasil.com', 'sandra.indriksons@gmail.com', 'evyeniavarmaxidis@gmail.com', 'virginia.studart@gmail.com', 'ileanatoniollo@yahoo.com.ar', 'claybraga33@gmail.com', 'claudia.povoa1@gmail.com', 'marizapassosvilas@gmail.com', 'dulci.rodrgues@gmail.com', 'zizi29122@yahoo.com.br', 'mmocelin@yahoo.com.br', 'liandrapedagoga@gmail.com', 'katiadecor@yahoo.com.br', 'dorwhite.white4@gmail.com', 'fegtex@hotmail.com', 'teodomirosalvadorfilho@gmail.com', 'maraoliver1950@gmail.com', 'rosanahadassah@gmail.com', 'mantoniapertile@gmail.com', 'argeemirocostacurta@gmail.com', 'scruzmhelena@gmail.com', 'lgatti1@gmail.com', 'cleria41@yahoo.com', 'silvaalx@icloud.com', 'flaviopinhatasartori@gmail.com', 'silvialrg@yahoo.com.br', 'daniloalc1@gmail.com', 'melissageronasso@hotmail.com', 'frankraetzig@gmail.com', 'marcusplaisant@gmail.com', 'darlantobaldini@gmail.com', 'sandra.mass@hotmail.com', 'rhanda_amim@hotmail.com', 'cristiani_cristofoli@yahoo.com', 'soniatzm@gmail.com', 'lai.lazarotto@hotmail.com', 'katiaantunesneuropsi@gmail.com', 'chirelli98@gmail.com', 'neiva.ferlin@hotmail.com', 'deborahgfreitas@hotmail.com', 'jackiebotti@gmail.com', 'myandrade@hotmail.com', 'herciliarg@yahoo.com.br', 'daniela_caumo@hotmail.com', 'sandra.durante@hotmail.com', 'madiuh57@gmail.com', 'meme020707@gmail.com', 'alinefigueiredopa@gmail.com', 'anapaula.gonzaga30@gmail.com', 'coelha@me.com', 'lairce.zanata@gmail.com', 'vaniaaabrito@yahoo.com.br', 'sueli.ardenghi@terra.com.br', 'danizen@hotmail.com', 'kakyluaestrela@gmail.com', 'annatrimmel@trimmel.co.uk', 'silviamtrentini@yahoo.com.br', 'lucianazanata@hotmail.com', 'gi.gleise@gmail.com', 'dnmarton@gmail.com', 'marcileneteixeira@bluewin.ch', 'aliceytanaka@gmail.com', 'kdalledone@gmail.com', 'marciaoneadriana@hotmail.com', 'fcamucolo@gmail.com', 'reginakon@yahoo.com.br', 'luciana.giselle30@gmail.com', 'laf.ribeiro@terra.com.br', 'fermino.escobar@gmail.com', 'matheus@etcarquitetos.com', 'perettianapaula@gmail.com', 'deisitgois@gmail.com', 'isaignaciocarvalho@yahoo.com.br', 'cesaran1208@gmail.com', 'cymarabello@hotmail.com', 'silenemenezes.arq@gmail.com', 'fatimamadalena.fp@gmail.com', 'gomesdasilvarose@gmail.com', 'luhendges@hotmail.com', 'mpbaptista.ubi@gmail.com', 'agcarmo13@icloud.com', 'leonice26128@gmail.com', 'ednasouza_na@hotmail.com', 'gianefagundes422@gmail.com', 'silbuerger@gmail.com', 'mariayeda@yahoo.com', 'Vagner.santana.ultra4.0@gmail.com', 'renata.melillo@uol.com.br', 'germanaaguiarfisioterapeuta@hotmail.com', 'ligiasousa05@gmail.com', 'moniquelindote2018@gmail.com', 'helenaspieker@yahoo.com.br', 'jukarolina26@gmail.com', 'akarakaki@fazenda.sp.gov.br', 'soniamariabraga2007@gmail.com', 'telmarosas@hotmail.com', 'nelsonbeckmannhoffmann@gmail.com', 'bethpascarelli@gmail.com', 'odeteneto@ymail.com', 'mcgalhardi@terra.com.br', 'tisebal@gmail.com', 'robsmartins@hotmail.com', 'karingropp@gmail.com', 'familiatonian@yahoo.com.br', 'fausilva@yahoo.com.br', 'mc.clebertoledo@gmail.com', 'soniaesacramento@gmail.com', 'juliosebben17@gmail.com', 'krismarster@gmail.com', 'rochelelorenzi@gmail.com', 'pxavierdacostarita@yahoo.com', 'marcuszerooito@gmail.com', 'miriamleda9@gmail.com', 'mcriscosta@gmail.com', 'alony.farah@gmail.com', 'ivonesciglianobotsaris381@gmail.com', 'regianebrait.63@gmail.com', 'micheleliamara@gmail.com', 'edi.ho@hotmail.com', 'guiiestevees@gmail.com', 'andreasette@outlook.com', 'sam639sam@gmail.com', 'georgiana_ribeiro@hotmail.com', 'kellvin@live.com', 'livili2015@gmail.com', 'madalenacell@gmail.com', 'larissa.pilz.br@gmail.com', 'pdg011@gmail.com', 'ketilynmacorim@gmail.com', 'shirlenenavarro@hotmail.com', 'rossanatharsila@gmail.com', 'lourdesoliveira1996@gmail.com', 'lealrosana@uol.com.br', 'bellcamargo@gmail.com', 'dracleusagambatto@gmail.com', 'jane.andrade@terra.com.br', 'ntoledo1@hotmail.com', 'ric.lavareda@hotmail.com', 'soraia.benetton@gmail.com', 'leandra.floresta@gmail.com', 'gerbraun@gmail.com', 'nina.l.costa@gmail.com', 'flaviafeltre@hotmail.com', 'eliane_pasternack@hotmail.com', 'amelialuize@gmail.com', 'nivia.g.coutinho@hotmail.com', 'claudia_turella308@hotmail.com', 'noemydantasilva6@gmail.com', 'mariabarbara1953@gmail.com', 'valeriamiirandadasilva@gmail.com', 'ninaschauren.terapias@gmail.com', 'brunoviana.74@hotmail.com', 'marco.sebestjen@hotmail.com', 'mariaaparecidsa@gmail.com', 'chrislucena@gmail.com', 'contato@luciasebben.com.br', 'melissaf26835@gmail.com', 'ritadecassia.as@gmail.com', 'fmignella@gmail.com', 'arakakemaria@gmail.com', 'brumasdeavalon07@gmail.com', 'margaretesccorreia@gmail.com', 'augustoandery@gmail.com', 'flavio.furukawa@hotmail.com', 'jobueno70@gmail.com', 'vilmagambatto@gmail.com', 'crisalbertipersonal@gmail.com', 'reginabrondi@yahoo.com.br', 'lairtonstoll@gmail.com', 'julianabortolomasi@gmail.com', 'neuzinhacosta@gmail.com', 'fernandacgenovez@gmail.com', 'mariachinellatoadami@gmail.com', 'meneguzzisimone47@gmail.com', 'liviamilk@yahoo.com.br', 'nogueira.alend@gmail.com', 'mateusb796ad1@gmail.com', 'marcos6974@gmail.com', 'rubenscg.09@gmail.com', 'reginaalourenco@gmail.com', 'ceciliarocha4559@gmail.com', 'mbkosanovic@gmail.com', 'ivanise.boff@terra.com.br', 'cidabertoncelo@hotmail.com', 'soniareginaloureno@yahoo.com.br', 'ammeliasm@gmail.com', 'hanahbomfim@hotmail.com', 'claudine.pimenta@hotmail.com', 'ivafreitas@gmail.com', 'jaan.bbaron@gmail.com', 'susu_pf@yahoo.com.br', 'lena@lenavidalaj.com.br', 'claricenadaletti@gmail.com', 'patriciaplds@gmail.com', 'sandrarejanet@gmail.com', 'vagner.cassiolato@gmail.com', 'bianamont@yahoo.com.br', 'mariaalicesevero@yahoo.com.br', 'taniafleite@gmail.com', 'lalarrocha@gmail.com', 'konguewanga@gmail.com', 'giiaoki@icloud.com', 'taniguchikimiko@gmail.com', 'edson-dalmo@uol.com.br', 'celestedias.68@gmail.com', 'santos.suely@ymail.com', 'raquelevandowski@gmail.com', 'aronvalente@gmail.com', 'neivajaskulski@gmail.com', 'giovannacarneiroj@gmail.com', 'regina_sil@live.com', 'armando.taniguchi@gmail.com', 'mafranisilva@gmail.com', 'rogeriofran07@gmail.com', 'p-mattar@uol.com.br', 'roselitorres07@gmail.com', 'almeidaermelinda606@gmail.com', 'francyellecsantos@hotmail.com', 'francielematos1@gmail.com', 'rosealves.law@gmail.com', 'jakozlowski0111@gmail.com', 'rafael-dentista@hotmail.com', 'darciompalma@gmail.com', 'bueno.filoeng@gmail.com', 'villanova.villanova2010@gmail.com', 'sevidulopes@gmail.com', 'kaarrais@gmail.com', 'milagresbaeta@gmail.com', 'pandysky@hotmail.com', 'elza.marcuzo@gmail.com', 'marinacnsa@gmail.com', 'diretoria@conanassessoria.com.br', 'marcelamoschemnina@gmail.com', 'candidavirginiaribeiro@yahoo.com.br', 'rutesaraiva@mail.com', 'toledosilvia300@gmail.com', 'leinadoigres88@gmail.com', 'archettiuc@gmail.com', 'samirsperandio@gmail.com', 'anaamota@yahoo.com.br', 'luciaveiganetto@gmail.com', 'elineygodinho@yahoo.com.br', 'liviaferreira@hotmail.com', 'mila_lucy@hotmail.com', 'vera.lucia07@gmail.com', 'leonelfabiansilvadossantos@gmail.com', 'aiach@oxypeople.com', 'rociriello@gmail.com', 'm.olivia.pereira@uol.com.br', 'judithtarasantchi@gmail.com', 'dionifiuza@hotmail.com', 'patriciaadm135@gmail.com', 'n.chimentao@gmail.com', 'isilveira937@gmail.com', 'edite@esferadourada.com', 'zanin.cortez@bol.com.br', 'barbara.vicenzi@gmail.com', 'maparecidapp@hotmail.com', 'tere1611@gmail.com', 'm.lurdes656@gmail.com', 'almeidapaulo735@gmail.com', 'nickelbueno@gmail.com', 'isafernandesml@gmail.com', 'luciane_prezzi@yahoo.com.br', 'anjinho_gomes@hotmail.com', 'daslupm@gmail.com', 'monicacapreticch@gmail.com', 'jurdi.fernanda@gmail.com', 'madalena.shirata@gmail.com', 'josemarcelogomesdasilva1962@gmail.com', 'delcia.casa@gmail.com', 'jacquemalmeida68@gmail.com', 'atecel@gmail.com', 'cisoares204@gmail.com', 'qualidadedevida133@gmail.com', 'vera.russa.design@gmail.com', 'bethluxfloripa@hotmail.com', 'luziahpontes@yahoo.com.br', 'glauciarpaula@gmail.com', 'carladamasribeiro@hotmail.com', 'deborahrmd@hotmail.com', 'eatayra@gmail.com', 'deiselcristofoli@gmail.com', 'aldeideszito@gmail.com', 'adelino@amcconsult.com.br', 'lianas_falcao@hotmail.com', 'jucianomonte@hotmail.com', 'parmezaniquinca@gmail.com', 'dodafico@gmail.com', 'xaviey43@gmail.com', 'rmquitschal@gmail.com', 'azevedo.epp@gmail.com', 'thunder.penteado@gmail.com', 'yvone_i_b@hotmail.com', 'luciadireitopsimarques1959@gmail.com', 'luciaezequiel@yahoo.com.br', 'mariazelialaurenti@yahoo.com.br', 'luizjasantosjr@hotmail.com', 'rosana.visconte@gmail.com', 'flaviobotrelagronomo@hotmail.com', 'talinecampello@gmail.com', 'monipabu@gmail.com', 'ulissesrs29@gmail.com', 'gilbertopnogueira2@gmail.com', 'bruno.denise03@yahoo.com.br', 'marinamarchioretto@hotmail.com', 'gonzagadvogado@gmail.com', 'fajesuss82@gmail.com', 'luizpauloorganico@gmail.com', 'cicamegu@gmail.com', 'mymandia@yahoo.com.br', 'cscramos@terra.com.br', 'apcandia29@gmail.com', 'zuzu.piraju@gmail.com', 'claudiagrave6@gmail.com', 'msmascheretti@gmail.com', 'roschaconpereira@hotmail.com', 'lyzricart@hotmail.com', 'soniatakedaromani@gmail.com', 'fredericopfrimer@hotmail.com', 'mari.camara003@gmail.com', 'joaonirso@gmail.com', 'altemisialourdes@gmail.com', 'regina.adam@hotmail.com', 'mrg.alimentos@hotmail.com', 'janemaracaja@gmail.com', 'helenadelfino@uol.com.br', 'santosnanah2015@gmail.com', 'portellajr@hotmail.com', 'belmtarita@gmail.com', 'bety.tirlone@gmail.com', 'geraldine-rp@hotmail.com', 'prisciadaniela@gmail.com', 'margaretepalhano@gmail.com', 'julianasprengel@gmail.com', 'luisalmeida8081@gmail.com', 'sonianavilli@gmail.com', 'mcelialustosa@gmail.com', 'monica.giacomini@hotmail.com', 'pdonizetip@gmail.com', 'stelamaristj@uol.com.br', 'rodrigoamaralsantana@gmail.com', 'elianeorichio@terra.com.br', 'sanconsa@terra.com.br', 'telmafloriani@gmail.com', 'ruiramosneto@gmail.com', 'dulcimaririato@gmail.com', 'jessepisanobelle@gmail.com', 'aguidanoli@yahoo.com.br', 'cristinabraga4159@gmail.com', 'magda.paredes.leal@gmail.com', 'juniaangelica2016@gmail.com', 'heliobrand.vale@gmail.com', 'lealvieiraalexandre10@gmail.com', 'advmarins@hotmail.com', 'asauter@uol.com.br', 'zildapdantas@hotmail.com', 'xicohonorio@gmail.com', 'didisobmedida@gmail.com', 'kleinsiegrid@gmail.com', 'emilsonls@hotmail.com', 'tiega7@yahoo.com.br', 'gabrielle.eufrasio@yahoo.com', 'sarappamplona@gmail.com', 'gleicic@uol.com.br', 'giselaclg@gmail.com', 'brunospl@yahoo.com.br', 'barrettamonica@gmail.com', 'verissimomhf@gmail.com', 'sidoniashaasjahn13@gmail.com', 'valeriadecassiabasse@gmail.com', 'hpj27@hotmail.com', 'roseli.irgp@gmail.com', 'nilmamaximo@gmail.com', 'celi.renner1962@gmail.com', 'paulinhadors@gmail.com', 'josijacques@yahoo.com.br', 'eunice517489719841@gmail.com', 'mariarosa_006@yahoo.com.br', 'rosicle.paiva@hotmail.com', 'mjacmiranda@gmail.com', 'lluziamaralucas64@gmail.com', 'vicente.hercilio266@gmail.com', 'lourdeskmiecik53@gmail.com', 'edinaapassos@gmail.com', 'henriquelucas_adv@yahoo.com.br', 'eloisadenegri@gmail.com', 'adrianafedrizzi@icloud.com', 'syuchima@yahoo.com', 'acoltro@hotmail.com', 'siegridwr@gmail.com', 'mazzinijr@hotmail.com', 'reginacleia@gmail.com', 'mcasp@uol.com.br', 'nairaq42@gmail.com', 'oneidearantes@gmail.com', 'lshisue@hotmail.com', 'abezer@gmail.com', 'silveiraliz@gmail.com', 'fazenda.falcao@yahoo.com.br', 'mdaitai@yahoo.com.br', 'vasconcelossonia304@gmail.com', 'sintonia92@gmail.com', 'raphaela.simon@gmail.com', 'renatarodriguescgomes@gmail.com', 'luizfolly@gmail.com', 'angelaanarosa@hotmail.com', 'andreia10coelho@gmail.com', 'soniazcabral@gmail.com', 'fjozias12@gmail.com', 'avanimartins@gmail.com', 'marrozm@yahoo.com.br', 'mahelcs@gmail.com', 'chapadag@gmail.com', 'titibc74@gmail.com', 'mcintiac@terra.com.br', 'marcelo.santos1957@gmail.com', 'pmd.carvalho79@gmail.com', 'prllemes@hotmail.com', 'agruiz71@gmail.com', 'contato@comexar.com.br', 'danielle.antunes@gmail.com'
-]);
+const CONFIG = {
+    maxInvitesPerEmail: 2,
+    webhookUrl: 'https://n8nwebhook.escolatocha.com.br/webhook/convite-tocha',
+    // LISTA DE EMAILS (Extraídos do seu CSV)
+    authorizedEmails: ["terapeutasilviamaria@hotmail.com", "patricia.depieri@gmail.com", "luizatamikos@gmail.com", "convivencia70@gmail.com", "andreadalbellozeni@hotmail.com", "mdcarmopaico@gmail.com", "doriscalixto@gmail.com", "alexandream2013@gmail.com", "claudialim1963@gmail.com", "anasacucci@gmail.com", "g.strecht@gmail.com", "marianacamera1@gmail.com", "caroljsn@gmail.com", "leoninasc@hotmail.com", "lechinilucila@gmail.com", "flaviomoreira5580@yahoo.com", "judiniz2004@gmail.com", "leandro.ribeiro3145@gmail.com", "ivoneidearantes@gmail.com", "lshisue@hotmail.com", "abezer@gmail.com", "silveiraliz@gmail.com", "castro19812015@outlook.com", "fazenda.falcao@yahoo.com.br", "mdaitai@yahoo.com.br", "vasconcelossonia304@gmail.com", "sintonia92@gmail.com", "raphaela.simon@gmail.com", "renatarodriguescgomes@gmail.com", "luizfolly@gmail.com", "angelaanarosa@hotmail.com", "andreia10coelho@gmail.com", "soniazcabral@gmail.com", "fjozias12@gmail.com", "avanimartins@gmail.com", "marrozm@yahoo.com.br"]
+};
 
-// URL DA SUA IMPLANTAÇÃO GOOGLE APPS SCRIPT (Obrigatório atualizar com o novo deploy)
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxw-KIA02UqaGhHZ2pFl6Km71_RWiXwXiRqRJaUNaFdUSftIsl3sFNG7OLGCLBSZeGi/exec';
+let state = { currentUserEmail: null };
 
-let currentUser = "";
+function getUsedCount(email) { return parseInt(localStorage.getItem('inv_' + email) || '0', 10); }
 
-function notify(msg, type) { 
-    const f = document.getElementById('feedback'); 
-    f.innerHTML = msg; 
-    f.className = type === 'error' ? 'error' : 'info'; 
-    f.style.display = 'block'; 
+function showFeedback(msg, type = 'info') {
+    const f = document.getElementById('feedback');
+    f.innerHTML = msg; f.className = type; f.style.display = 'block';
 }
 
-// 1. VERIFICAR ACESSO E LIMITE GLOBAL
-async function verifyAccess() {
+function verifyAccess() {
     const email = document.getElementById('auth-email').value.trim().toLowerCase();
-    const btn = document.getElementById('btn-verify');
-    
-    if(!email || !email.includes('@')) return notify('Por favor, insira um e-mail válido.', 'error');
-
-    // Validação local imediata
-    if(!ALUNOS.has(email)) {
-        return notify('E-mail não autorizado na Escola Tocha.', 'error');
+    if (!CONFIG.authorizedEmails.includes(email)) {
+        showFeedback('E-mail não autorizado para acesso aos convites.', 'error');
+        return;
+    }
+    const used = getUsedCount(email);
+    if (used >= CONFIG.maxInvitesPerEmail) {
+        showFeedback('Você já utilizou o limite de 2 convites.', 'error');
+        return;
     }
 
-    btn.disabled = true; 
-    btn.innerHTML = '<div class="loader"></div>';
-    notify('Consultando limite global...', 'info');
-
-    try {
-        // Consulta o servidor (Script) para ver quantos convites ele já fez no TOTAL
-        const res = await fetch(`${SCRIPT_URL}?action=checkLimit&userEmail=${encodeURIComponent(email)}`);
-        const data = await res.json();
-
-        if(data.remaining <= 0) {
-            notify(`Limite atingido! Você já utilizou seus 2 convites globais.`, 'error');
-            btn.disabled = false; btn.innerHTML = 'Verificar Acesso';
-        } else {
-            currentUser = email;
-            document.getElementById('auth-section').classList.add('hidden');
-            document.getElementById('form-section').classList.remove('hidden');
-            document.getElementById('step-desc').innerText = 'Dados do Convidado';
-            document.getElementById('feedback').style.display = 'none';
-            document.getElementById('invite-status').innerText = `Você possui ${data.remaining} convite(s) restante(s)`;
-        }
-    } catch(e) {
-        notify('Erro de conexão. Verifique se o Script foi publicado como "Qualquer pessoa".', 'error');
-        btn.disabled = false; btn.innerHTML = 'Verificar Acesso';
-    }
+    state.currentUserEmail = email;
+    document.getElementById('auth-section').classList.add('hidden');
+    document.getElementById('form-section').classList.remove('hidden');
+    renderBadge(used);
 }
 
-// 2. CADASTRAR E REGISTRAR USO
+function renderBadge(used) {
+    const remaining = CONFIG.maxInvitesPerEmail - used;
+    const pct = (used / CONFIG.maxInvitesPerEmail) * 100;
+    document.getElementById('invite-status-ui').innerHTML = `
+        <div class="invite-badge"><span></span> ${remaining} convite(s) restante(s)</div>
+        <div class="quota-bar-wrap"><div class="quota-bar" style="width:${pct}%"></div></div>
+    `;
+}
+
 async function submitGuest() {
     const name = document.getElementById('guest-name').value.trim();
     const email = document.getElementById('guest-email').value.trim();
     const phone = document.getElementById('guest-phone').value.trim();
     const btn = document.getElementById('btn-submit');
 
-    if(!name || !email || !phone) return notify('Preencha todos os campos.', 'error');
+    if (!name || !email || !phone) { showFeedback('Preencha todos os campos.', 'error'); return; }
 
-    btn.disabled = true; 
-    btn.innerHTML = '<div class="loader"></div>';
-    notify('Finalizando cadastro...', 'info');
+    btn.disabled = true; btn.innerHTML = '<div class="loader"></div>';
 
     try {
-        // Envia para o Script que faz o AC Sync e grava o Log global
-        const url = `${SCRIPT_URL}?action=register&userEmail=${encodeURIComponent(currentUser)}&email=${encodeURIComponent(email)}&name=${encodeURIComponent(name)}&phone=${encodeURIComponent(phone)}`;
-        const res = await fetch(url);
-        const data = await res.json();
+        // Envio Webhook n8n
+        await fetch(CONFIG.webhookUrl, {
+            method: 'POST',
+            mode: 'no-cors', // Para evitar bloqueios de CORS simples no navegador
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                aluno_origem: state.currentUserEmail,
+                convidado_nome: name,
+                convidado_email: email,
+                convidado_telefone: phone
+            })
+        });
 
-        if(data.success) {
-            if(typeof fbq === 'function') fbq('trackCustom', 'convidado-tocha');
+        // Simula delay para feedback visual
+        const current = getUsedCount(state.currentUserEmail);
+        localStorage.setItem('inv_' + state.currentUserEmail, (current + 1).toString());
 
-            document.getElementById('form-section').classList.add('hidden');
-            document.getElementById('success-section').classList.remove('hidden');
-            document.getElementById('step-desc').innerText = 'Finalizado';
-            document.getElementById('feedback').style.display = 'none';
-        } else {
-            throw new Error(data.error || 'Erro no processamento.');
-        }
-    } catch(e) {
-        notify('Erro ao cadastrar: ' + e.message, 'error');
-        btn.disabled = false; btn.innerHTML = 'Cadastrar Convidado';
+        document.getElementById('form-section').classList.add('hidden');
+        document.getElementById('success-section').classList.remove('hidden');
+        document.getElementById('step-desc').innerText = 'Cadastro concluído';
+        
+    } catch (err) {
+        showFeedback('Erro: ' + err.message, 'error');
+        btn.disabled = false; btn.innerText = 'Enviar Convite';
     }
 }
 </script>

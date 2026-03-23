@@ -4,45 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Convites — Grupo Soul</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         :root { --gold: #C9A84C; --gold-light: #E8C97A; --dark: #0D0D0D; --dark-2: #161616; --cream: #F5F0E8; --green: #2E7D52; }
         body { font-family: 'Lato', sans-serif; background: var(--dark); color: var(--cream); display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; padding: 16px; }
-        .card { background: var(--dark-2); border: 1px solid rgba(201,168,76,0.3); padding: 40px; border-radius: 8px; width: 100%; max-width: 400px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
-        h1 { font-family: 'Cinzel', serif; font-size: 1.4rem; margin-bottom: 20px; color: var(--gold-light); }
-        input { width: 100%; padding: 12px; margin-bottom: 15px; background: rgba(255,255,255,0.05); border: 1px solid rgba(201,168,76,0.2); border-radius: 4px; color: #fff; box-sizing: border-box; outline: none; }
-        .btn { width: 100%; padding: 14px; border: none; border-radius: 4px; cursor: pointer; font-family: 'Cinzel', serif; font-weight: 700; transition: 0.3s; }
+        .card { background: var(--dark-2); border: 1px solid rgba(201,168,76,0.3); padding: 40px; border-radius: 8px; width: 100%; max-width: 440px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.5); position: relative; }
+        h1 { font-family: 'Cinzel', serif; font-size: 1.5rem; margin-bottom: 10px; color: var(--gold-light); }
+        .subtitle { font-size: 0.75rem; text-transform: uppercase; color: var(--gold); letter-spacing: 1px; margin-bottom: 30px; }
+        input { width: 100%; padding: 13px; margin-bottom: 15px; background: rgba(255,255,255,0.05); border: 1px solid rgba(201,168,76,0.2); border-radius: 4px; color: #fff; box-sizing: border-box; outline: none; transition: 0.3s; }
+        input:focus { border-color: var(--gold); background: rgba(255,255,255,0.08); }
+        .btn { width: 100%; padding: 14px; border: none; border-radius: 4px; cursor: pointer; font-family: 'Cinzel', serif; font-weight: 700; transition: 0.3s; display: flex; align-items: center; justify-content: center; }
         .btn-gold { background: var(--gold); color: #000; }
         .btn-green { background: var(--green); color: #fff; }
         #feedback { margin-top: 15px; font-size: 0.85rem; padding: 10px; border-radius: 4px; display: none; }
         .error { background: rgba(255,0,0,0.1); color: #ff8a8a; border: 1px solid rgba(255,0,0,0.2); }
-        .info { background: rgba(201,168,76,0.1); color: var(--gold-light); }
+        .info { background: rgba(201,168,76,0.1); color: var(--gold-light); border: 1px solid rgba(201,168,76,0.2); }
         .hidden { display: none !important; }
-        .loader { border: 2px solid rgba(255,255,255,0.2); border-top: 2px solid #fff; border-radius: 50%; width: 16px; height: 16px; animation: spin 1s linear infinite; display: inline-block; vertical-align: middle; margin-right: 8px; }
+        .loader { border: 2px solid rgba(255,255,255,0.2); border-top: 2px solid #fff; border-radius: 50%; width: 16px; height: 16px; animation: spin 1s linear infinite; margin-right: 10px; }
         @keyframes spin { to { transform: rotate(360deg); } }
+        .invite-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.25); border-radius: 20px; padding: 5px 12px; font-size: 0.72rem; color: var(--gold-light); margin-bottom: 20px; }
     </style>
 </head>
 <body>
 
 <div class="card">
     <h1>Sistema de Convites</h1>
-    <p id="step-label" style="font-size: 0.75rem; color: var(--gold); margin-bottom: 20px; text-transform: uppercase;">Acesso Restrito</p>
+    <p class="subtitle" id="step-label">Acesso Restrito</p>
 
     <div id="view-auth">
         <input type="email" id="email-auth" placeholder="Seu e-mail autorizado">
-        <button class="btn btn-gold" onclick="processAuth()">Verificar Acesso</button>
+        <button class="btn btn-gold" onclick="processAuth()" id="btn-auth">Verificar Acesso</button>
     </div>
 
     <div id="view-form" class="hidden">
+        <div id="invite-status"></div>
         <input type="text" id="g-name" placeholder="Nome do Convidado">
         <input type="email" id="g-email" placeholder="E-mail do Convidado">
         <input type="tel" id="g-phone" placeholder="WhatsApp (00) 00000-0000">
-        <button class="btn btn-green" onclick="processSubmit()">Cadastrar Convidado</button>
+        <button class="btn btn-green" onclick="processSubmit()" id="btn-submit">Cadastrar Convidado</button>
     </div>
 
     <div id="view-success" class="hidden">
-        <h2 style="color:var(--green)">✓ Sucesso!</h2>
-        <p>Acesso registado com sucesso.</p>
+        <div style="font-size: 3rem; color: var(--green); margin-bottom: 15px;">✓</div>
+        <h2 style="margin-bottom: 10px;">Sucesso!</h2>
+        <p style="font-size: 0.9rem; margin-bottom: 25px;">O convidado foi enviado para o ActiveCampaign.</p>
         <button class="btn btn-gold" onclick="location.reload()">Novo Cadastro</button>
     </div>
 
@@ -52,36 +57,41 @@
 <script>
 const CFG = {
     sid: '1jsBoGErysr_p8dr0SCJykbeklapjsYHNelDASOF9LDc',
-    gid: '2079499885', // <-- VERIFIQUE SE O GID DA ABA "REPORT" É MESMO 0 NO LINK DO GOOGLE
+    gid: '2079499885', // GID atualizado conforme o seu link
     proxy: 'https://api.allorigins.win/get?url=',
     ac: {
         url: 'https://gruposoul.api-us1.com',
-        key: '90d74a42f0495ead928e7a047e53a10e536e85c9ebc8e46be54dab8d5f1508c149eb23e3'
-    }
+        key: '90d74a42f0495ead928e7a047e53a10e536e85c9ebc8e46be54dab8d5f1508c149eb23e3',
+        tagSlug: 'db001-26'
+    },
+    maxInvites: 2
 };
+
+let state = { user: '', used: 0 };
 
 function notify(msg, isErr) {
     const f = document.getElementById('feedback');
     f.innerHTML = msg; f.className = isErr ? 'error' : 'info'; f.style.display = 'block';
 }
 
+function getStorageKey(email) { return `soul_invites_${email.replace(/[^a-z0-9]/g, '_')}`; }
+
 async function processAuth() {
-    const emailInput = document.getElementById('email-auth').value.trim().toLowerCase();
-    const btn = document.querySelector('#view-auth button');
-    if(!emailInput.includes('@')) return notify('E-mail inválido.', true);
+    const email = document.getElementById('email-auth').value.trim().toLowerCase();
+    const btn = document.getElementById('btn-auth');
+    if(!email.includes('@')) return notify('E-mail inválido.', true);
 
-    btn.disabled = true; btn.innerHTML = '<span class="loader"></span> Validando...';
-
+    btn.disabled = true; btn.innerHTML = '<div class="loader"></div> Validando...';
+    
     try {
-        // Cache buster: adiciona a hora atual para evitar ler dados velhos do cache
-        const t = new Date().getTime();
-        const sheetUrl = `https://docs.google.com/spreadsheets/d/${CFG.sid}/export?format=csv&gid=${CFG.gid}&t=${t}`;
+        const timestamp = new Date().getTime();
+        const sheetUrl = `https://docs.google.com/spreadsheets/d/${CFG.sid}/export?format=csv&gid=${CFG.gid}&t=${timestamp}`;
         const res = await fetch(CFG.proxy + encodeURIComponent(sheetUrl));
         const json = await res.json();
         const csv = json.contents;
 
         if(!csv || csv.includes('<!DOCTYPE html>')) {
-            throw new Error("A folha de cálculo está bloqueada ou o GID está errado.");
+            throw new Error("A folha de cálculo está bloqueada. Verifique se a partilha está como 'Qualquer pessoa com o link'.");
         }
 
         const rows = csv.split(/\r?\n/).filter(line => line.trim() !== "").map(line => {
@@ -89,16 +99,25 @@ async function processAuth() {
             return line.split(sep).map(c => c.replace(/"/g, '').trim());
         });
 
-        // Procura em todas as linhas o e-mail na Coluna C (índice 2)
+        // Lê a Coluna C (índice 2) conforme a sua imagem
         const authorized = rows.map(r => r[2] ? r[2].toLowerCase() : "").filter(e => e !== "");
 
-        if(authorized.includes(emailInput)) {
+        if(authorized.includes(email)) {
+            const used = parseInt(localStorage.getItem(getStorageKey(email)) || '0', 10);
+            if(used >= CFG.maxInvites) {
+                notify(`Limite de ${CFG.maxInvites} convites atingido.`, true);
+                btn.disabled = false; btn.innerHTML = 'Verificar Acesso';
+                return;
+            }
+
+            state.user = email; state.used = used;
             document.getElementById('view-auth').classList.add('hidden');
             document.getElementById('view-form').classList.remove('hidden');
             document.getElementById('step-label').innerText = "Dados do Convidado";
             document.getElementById('feedback').style.display = 'none';
+            renderBadge();
         } else {
-            notify('E-mail não autorizado na Coluna C da aba Report.', true);
+            notify('E-mail não autorizado na lista (Coluna C).', true);
             btn.disabled = false; btn.innerHTML = 'Verificar Acesso';
         }
     } catch(e) {
@@ -107,25 +126,56 @@ async function processAuth() {
     }
 }
 
+function renderBadge() {
+    const rem = CFG.maxInvites - state.used;
+    document.getElementById('invite-status').innerHTML = `<div class="invite-badge">● ${rem} convite(s) restante(s)</div>`;
+}
+
 async function processSubmit() {
-    const name = document.getElementById('g-name').value;
-    const email = document.getElementById('g-email').value;
-    const phone = document.getElementById('g-phone').value;
-    const btn = document.querySelector('#view-form button');
+    const name = document.getElementById('g-name').value.trim();
+    const email = document.getElementById('g-email').value.trim();
+    const phone = document.getElementById('g-phone').value.trim();
+    const btn = document.getElementById('btn-submit');
 
     if(!name || !email || !phone) return notify('Preencha todos os campos.', true);
-    btn.disabled = true; btn.innerHTML = '<span class="loader"></span> Enviando...';
+    btn.disabled = true; btn.innerHTML = '<div class="loader"></div> Enviando...';
 
     try {
-        const acUrl = CFG.proxy + encodeURIComponent(`${CFG.ac.url}/api/3/contacts`);
-        await fetch(acUrl, {
-            method: 'POST',
-            headers: { 'Api-Token': CFG.ac.key, 'Content-Type': 'application/json' },
+        const proxyPrefix = CFG.proxy;
+        const acHeaders = { 'Api-Token': CFG.ac.key, 'Content-Type': 'application/json' };
+
+        // 1. Criar Contacto
+        const resC = await fetch(proxyPrefix + encodeURIComponent(`${CFG.ac.url}/api/3/contacts`), {
+            method: 'POST', headers: acHeaders,
             body: JSON.stringify({ contact: { email, firstName: name, phone } })
         });
+        const cData = await resC.json();
+        let cId = cData.contact ? cData.contact.id : null;
+
+        if(!cId) {
+            const resS = await fetch(proxyPrefix + encodeURIComponent(`${CFG.ac.url}/api/3/contacts?email=${email}`), { headers: acHeaders });
+            const sData = await resS.json();
+            cId = sData.contacts[0]?.id;
+        }
+
+        // 2. Buscar Tag e Aplicar
+        const resT = await fetch(proxyPrefix + encodeURIComponent(`${CFG.ac.url}/api/3/tags?search=${CFG.ac.tagSlug}`), { headers: acHeaders });
+        const tData = await resT.json();
+        const tag = tData.tags.find(t => t.tag === CFG.ac.tagSlug);
+
+        await fetch(proxyPrefix + encodeURIComponent(`${CFG.ac.url}/api/3/contactTags`), {
+            method: 'POST', headers: acHeaders,
+            body: JSON.stringify({ contactTag: { contact: cId, tag: tag.id } })
+        });
+
+        // Atualizar contador
+        state.used++;
+        localStorage.setItem(getStorageKey(state.user), state.used);
+        
         document.getElementById('view-form').classList.add('hidden');
         document.getElementById('view-success').classList.remove('hidden');
         document.getElementById('feedback').style.display = 'none';
+        document.getElementById('step-label').innerText = "Concluído";
     } catch(e) {
         notify('Erro ao enviar para o ActiveCampaign.', true);
         btn.disabled = false; btn.innerHTML = 'Cadastrar Convidado';

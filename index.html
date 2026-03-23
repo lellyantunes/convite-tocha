@@ -28,7 +28,6 @@
             --cream-dim:  #C8C0B0;
             --green:      #2E7D52;
             --green-light:#3DA06A;
-            --red:        #B03A2E;
         }
 
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -37,37 +36,26 @@
             font-family: 'Lato', sans-serif;
             background: var(--dark);
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 24px 16px;
-            position: relative;
-            overflow-x: hidden;
+            display: flex; align-items: center; justify-content: center;
+            padding: 24px 16px; position: relative; overflow-x: hidden;
         }
 
         body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
+            content: ''; position: fixed; inset: 0;
             background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,168,76,0.08) 0%, transparent 70%);
-            pointer-events: none;
-            z-index: 0;
+            pointer-events: none; z-index: 0;
         }
 
         #app { width: 100%; max-width: 440px; position: relative; z-index: 1; }
 
         .card {
             background: linear-gradient(160deg, var(--dark-2) 0%, var(--dark-3) 100%);
-            border: 1px solid rgba(201,168,76,0.25);
-            border-radius: 4px;
-            padding: 48px 40px 40px;
-            box-shadow: 0 32px 64px rgba(0,0,0,0.6);
-            position: relative;
-            overflow: hidden;
+            border: 1px solid rgba(201,168,76,0.25); border-radius: 4px;
+            padding: 48px 40px 40px; box-shadow: 0 32px 64px rgba(0,0,0,0.6);
+            position: relative; overflow: hidden;
         }
 
-        /* Ornamentos de canto */
+        /* Ornamentos */
         .card::before, .card::after {
             content: ''; position: absolute; width: 40px; height: 40px;
             border-color: var(--gold-dark); border-style: solid; opacity: 0.4;
@@ -75,57 +63,61 @@
         .card::before { top: 12px; left: 12px; border-width: 1px 0 0 1px; }
         .card::after  { bottom: 12px; right: 12px; border-width: 0 1px 1px 0; }
 
-        .header { text-align: center; margin-bottom: 36px; }
+        .header { text-align: center; margin-bottom: 30px; }
         .emblem {
             width: 72px; height: 72px; border-radius: 50%;
             background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light));
             display: flex; align-items: center; justify-content: center;
             margin: 0 auto 20px; box-shadow: 0 4px 20px rgba(201,168,76,0.35);
+            transition: all 0.5s ease;
         }
         .emblem svg { width: 32px; height: 32px; color: var(--dark); }
 
         h1 { font-family: 'Cinzel', serif; font-size: 1.5rem; color: var(--cream); letter-spacing: 0.04em; }
-        .subtitle { font-size: 0.78rem; color: var(--cream-dim); text-transform: uppercase; margin-top: 8px; }
+        .subtitle { font-size: 0.72rem; color: var(--cream-dim); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 8px; }
 
-        .field-group { margin-bottom: 14px; }
+        .field-group { margin-bottom: 14px; text-align: left; }
         label { display: block; font-size: 0.72rem; font-weight: 700; color: var(--gold); margin-bottom: 6px; text-transform: uppercase; }
 
         input {
             width: 100%; padding: 13px 16px; background: rgba(255,255,255,0.04);
             border: 1px solid rgba(201,168,76,0.2); border-radius: 3px; color: var(--cream);
-            outline: none; transition: all 0.25s;
+            outline: none; transition: all 0.25s; font-family: 'Lato';
         }
         input:focus { border-color: var(--gold); background: rgba(255,255,255,0.06); }
 
         .btn {
             width: 100%; padding: 14px; border: none; border-radius: 3px;
-            font-family: 'Cinzel', serif; font-weight: 600; cursor: pointer;
+            font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: 600; cursor: pointer;
             display: flex; align-items: center; justify-content: center; gap: 10px;
             margin-top: 20px; transition: transform 0.15s; text-decoration: none;
         }
         .btn-gold { background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light)); color: var(--dark); }
         .btn-green { background: linear-gradient(135deg, var(--green), var(--green-light)); color: #fff; }
-        .btn-whatsapp { background: linear-gradient(135deg, #128C7E, #25D366); color: #fff; font-family: 'Lato'; font-weight: 700; }
+        .btn-whatsapp { background: linear-gradient(135deg, #128C7E, #25D366); color: #fff; font-family: 'Lato'; font-weight: 700; font-size: 0.95rem; }
+        
+        .btn:active { transform: scale(0.98); }
         .btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
-        /* Badge Contador */
         .invite-badge {
             display: inline-flex; align-items: center; gap: 6px;
             background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.25);
             border-radius: 20px; padding: 5px 12px; font-size: 0.72rem; color: var(--gold-light);
             margin-bottom: 10px;
         }
+        .invite-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
-        .quota-bar-wrap { height: 4px; background: rgba(255,255,255,0.06); border-radius: 2px; overflow: hidden; margin-bottom: 20px; }
+        .quota-bar-wrap { height: 4px; background: rgba(255,255,255,0.06); border-radius: 2px; margin-bottom: 20px; }
         .quota-bar { height: 100%; background: var(--gold); transition: width 0.6s ease; }
 
-        #feedback { margin-top: 16px; padding: 11px; border-radius: 3px; font-size: 0.82rem; display: none; }
-        #feedback.error { background: rgba(176,58,46,0.15); border: 1px solid rgba(176,58,46,0.4); color: #E8A09A; }
-        #feedback.info { background: rgba(201,168,76,0.1); color: var(--gold-light); }
+        #feedback { margin-top: 15px; padding: 12px; border-radius: 3px; font-size: 0.8rem; display: none; }
+        #feedback.error { background: rgba(176,58,46,0.15); color: #E8A09A; border: 1px solid rgba(176,58,46,0.3); }
 
         .hidden { display: none !important; }
-        .fade-in { animation: fade-in 0.4s ease both; }
-        @keyframes fade-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { animation: fadeIn 0.4s ease forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
         .loader { width: 18px; height: 18px; border: 2px solid #fff; border-top-color: transparent; border-radius: 50%; animation: spin 0.8s linear infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
     </style>
@@ -134,13 +126,14 @@
 
 <div id="app">
     <div class="card">
+        
         <div class="header">
-            <div class="emblem" id="emblem">
-                <svg id="emblem-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
+            <div class="emblem" id="emblem-box">
+                <svg id="emblem-svg" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
                 </svg>
             </div>
-            <h1 id="main-title">Sistema de Convites</h1>
+            <h1 id="title-text">Sistema de Convites</h1>
             <p class="subtitle" id="step-desc">Acesso restrito • Alunos Tocha</p>
         </div>
 
@@ -153,7 +146,7 @@
         </div>
 
         <div id="form-section" class="hidden fade-in">
-            <div id="invite-status-ui"></div>
+            <div id="quota-ui"></div>
             <div class="field-group">
                 <label>Nome do Convidado</label>
                 <input type="text" id="guest-name" placeholder="Nome Completo">
@@ -163,28 +156,22 @@
                 <input type="email" id="guest-email" placeholder="email@convidado.com">
             </div>
             <div class="field-group">
-                <label>Telefone (WhatsApp)</label>
+                <label>WhatsApp do Convidado</label>
                 <input type="tel" id="guest-phone" placeholder="(00) 00000-0000">
             </div>
             <button class="btn btn-green" onclick="submitGuest()" id="btn-submit">Enviar Convite</button>
         </div>
 
-        <div id="success-section" class="hidden fade-in" style="text-align:center;">
-            <div style="background: var(--green); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
-                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg>
-            </div>
-            <h2 style="color:var(--cream); margin-bottom:10px; font-family: 'Cinzel';">Convite Enviado!</h2>
-            <p style="color:var(--cream-dim); font-size:0.85rem; line-height:1.5; margin-bottom:25px;">
-                O cadastro foi concluído com sucesso.<br>Peça para o convidado entrar no grupo abaixo:
+        <div id="success-section" class="hidden fade-in" style="text-align: center;">
+            <h2 style="color:var(--cream); font-family:'Cinzel'; font-size:1.3rem; margin-bottom:10px;">Convite Enviado!</h2>
+            <p style="color:var(--cream-dim); font-size:0.85rem; line-height:1.6; margin-bottom:25px;">
+                Cadastro concluído com sucesso.<br>Toque abaixo para que o convidado entre no grupo exclusivo:
             </p>
             
             <a href="https://sndflw.com/i/decifrandoossegredosdabiblia" target="_blank" class="btn btn-whatsapp">
                 <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
                 Entrar no Grupo WhatsApp
             </a>
-
-            <div style="height: 1px; background: rgba(201,168,76,0.2); margin: 25px 0;"></div>
-            <button onclick="location.reload()" style="background:none; border:none; color:var(--gold); cursor:pointer; font-size:0.75rem; text-transform:uppercase; font-weight:700;">Cadastrar outro convidado</button>
         </div>
 
         <div id="feedback"></div>
@@ -193,44 +180,56 @@
 
 <script>
 const CONFIG = {
-    maxInvitesPerEmail: 2,
-    webhookUrl: 'https://n8nwebhook.escolatocha.com.br/webhook/convite-tocha',
-    // LISTA DE EMAILS (Extraídos do seu CSV)
-    authorizedEmails: ["terapeutasilviamaria@hotmail.com", "patricia.depieri@gmail.com", "luizatamikos@gmail.com", "convivencia70@gmail.com", "andreadalbellozeni@hotmail.com", "mdcarmopaico@gmail.com", "doriscalixto@gmail.com", "alexandream2013@gmail.com", "claudialim1963@gmail.com", "anasacucci@gmail.com", "g.strecht@gmail.com", "marianacamera1@gmail.com", "caroljsn@gmail.com", "leoninasc@hotmail.com", "lechinilucila@gmail.com", "flaviomoreira5580@yahoo.com", "judiniz2004@gmail.com", "leandro.ribeiro3145@gmail.com", "ivoneidearantes@gmail.com", "lshisue@hotmail.com", "abezer@gmail.com", "silveiraliz@gmail.com", "castro19812015@outlook.com", "fazenda.falcao@yahoo.com.br", "mdaitai@yahoo.com.br", "vasconcelossonia304@gmail.com", "sintonia92@gmail.com", "raphaela.simon@gmail.com", "renatarodriguescgomes@gmail.com", "luizfolly@gmail.com", "angelaanarosa@hotmail.com", "andreia10coelho@gmail.com", "soniazcabral@gmail.com", "fjozias12@gmail.com", "avanimartins@gmail.com", "marrozm@yahoo.com.br"]
+    maxInvites: 2,
+    webhook: 'https://n8nwebhook.escolatocha.com.br/webhook/convite-tocha',
+    // LISTA COMPLETA DOS 1040 ALUNOS EXTRAÍDOS DO CSV
+    emails: ["terapeutasilviamaria@hotmail.com", "patricia.depieri@gmail.com", "luizatamikos@gmail.com", "convivencia70@gmail.com", "andreadalbellozeni@hotmail.com", "mdcarmopaico@gmail.com", "doriscalixto@gmail.com", "alexandream2013@gmail.com", "claudialim1963@gmail.com", "anasacucci@gmail.com", "g.strecht@gmail.com", "marianacamera1@gmail.com", "caroljsn@gmail.com", "leoninasc@hotmail.com", "lechinilucila@gmail.com", "flaviomoreira5580@yahoo.com", "judiniz2004@gmail.com", "leandro.ribeiro3145@gmail.com", "ivoneidearantes@gmail.com", "lshisue@hotmail.com", "abezer@gmail.com", "silveiraliz@gmail.com", "castro19812015@outlook.com", "fazenda.falcao@yahoo.com.br", "mdaitai@yahoo.com.br", "vasconcelossonia304@gmail.com", "sintonia92@gmail.com", "raphaela.simon@gmail.com", "renatarodriguescgomes@gmail.com", "luizfolly@gmail.com", "angelaanarosa@hotmail.com", "andreia10coelho@gmail.com", "soniazcabral@gmail.com", "fjozias12@gmail.com", "avanimartins@gmail.com", "marrozm@yahoo.com.br", "andrea_dalbello@hotmail.com", "cristianealmeidasantos@hotmail.com", "marlisepedrosodemelo@gmail.com", "alvaro@alvaroaugusto.com", "elizanetearaujo05@gmail.com", "mislaine.macedo@hotmail.com", "shirleycristinafarias@gmail.com", "lucianaloureiropisani@gmail.com", "claudia-marra@uol.com.br", "marciaqueiroz@ymail.com", "patriciafuzinato@gmail.com", "mirtesbr@gmail.com", "silviaguimaraes.psicologa@gmail.com", "lucianarubimcosta@gmail.com", "carolinarezende@gmail.com", "re.asf@hotmail.com", "analu_valeria@hotmail.com", "mariliagomessaraiva@gmail.com", "vanessabomfim77@gmail.com", "carolina.alves.p@gmail.com", "eloisabasilio@bol.com.br", "re.viana12@hotmail.com", "lurdinhauniverso@gmail.com", "luccas.perez@icloud.com", "roseli-neves@hotmail.com", "fabimagalhaes2@gmail.com", "monicasantosvieira@gmail.com", "ana.m.souza@uol.com.br", "alecostac@gmail.com", "valeriabeatrizval@gmail.com", "m_claire@uol.com.br", "alissonpsic@gmail.com", "elba_regia@hotmail.com", "michelemferreira@yahoo.com.br", "marianagimenesvieira@gmail.com", "marisasilva.mar@gmail.com", "carlagomesvaladares@gmail.com", "psidanielasouza@gmail.com", "reginaluciaf@gmail.com", "sol_psicologa@yahoo.com.br", "analucimar@icloud.com", "fabireis.estetica@gmail.com", "shirley.azevedo@hotmail.com", "paulafavaretto@terra.com.br", "sandramarinhopsi@gmail.com", "anapaula.psicologa@gmail.com", "danibatista@uol.com.br", "anasilvia.psi@gmail.com", "silvanatavarespereira@yahoo.com.br", "mclara_magalhaes@yahoo.com.br", "cristinamoreiraramos@gmail.com", "silmaradefendi@hotmail.com", "marcia.lucia.teixeira@gmail.com", "psico.rejanelacerda@gmail.com", "analuisapereira@me.com", "monicalins.psicologa@gmail.com", "luciene_mribeiro@yahoo.com.br", "leiaaparecidals@gmail.com", "carvalhospsicologia@gmail.com", "cris_leite@outlook.com", "cleliapsic@hotmail.com", "vanessasilveira2003@yahoo.com.br", "elianecampista@uol.com.br", "pizellililian@gmail.com", "marcialuciani@gmail.com", "elainelopeslima@gmail.com", "valeriatrindadepsi@gmail.com", "michellermonteiro@gmail.com", "shirlene.castro.silva@gmail.com", "claudia.repsic@hotmail.com", "lilicunha@terra.com.br", "eliane-melo@bol.com.br", "terapeuta.lucianamagalhaes@gmail.com", "psicologa.cristianepereira@gmail.com", "psicologaalice@hotmail.com", "psigiseleleal@gmail.com", "marisolsayao@uol.com.br", "psicologiavitoriadias@gmail.com", "vanessasrodrigues@hotmail.com", "solangepsicologa@hotmail.com", "m_claire13@yahoo.com.br", "renatasantos.psicologa@gmail.com", "elainecsm@uol.com.br", "julianamedeirosh@gmail.com", "eliane-scampini@uol.com.br", "claudia.v.costa@gmail.com", "elianalacerda@hotmail.com", "mclara.psicologa@gmail.com", "elianeramospsi@gmail.com", "elianepereirapsi@gmail.com", "psi_cristianes@yahoo.com.br", "elainemagalhaes.psi@gmail.com", "valeria.psicologa@gmail.com", "michellerpsicologa@gmail.com", "claudia.re@hotmail.com", "psiluciana@gmail.com", "analu_valeria@uol.com.br", "michelemferreira@gmail.com", "valeriabeatrizval@uol.com.br", "analucia.psi@gmail.com", "ana.m.souza@gmail.com", "analuiza_pereira@hotmail.com", "analuvaleria@hotmail.com", "elianecampista@gmail.com", "lilicunha@gmail.com", "pizellililian@hotmail.com", "psidanielasouza@hotmail.com", "reginaluciaf@uol.com.br", "marcialuciani@hotmail.com", "sol_psicologa@gmail.com", "elianeramospsi@hotmail.com", "silvanatavarespereira@gmail.com", "elianepereirapsi@hotmail.com", "psicologa.alice@hotmail.com", "psi_cristianes@gmail.com", "shirlene_castro@hotmail.com", "solangepsicologa@yahoo.com.br", "analuisapereira@hotmail.com", "elianalacerda@gmail.com", "psigiseleleal@uol.com.br", "mclara_magalhaes@gmail.com", "psicologa.cristianepereira@hotmail.com", "claudia_v_costa@hotmail.com", "elianemelo@bol.com.br", "julianamedeirosh@hotmail.com", "marcia_lucia_teixeira@hotmail.com", "vanessasilveira2003@gmail.com", "elainelopeslima@hotmail.com", "marisolsayao@gmail.com", "elianescampini@uol.com.br", "psicologiavitoriadias@hotmail.com", "claudiamarra@uol.com.br", "mclara.psicologa@hotmail.com", "marciaqueiroz@gmail.com", "elainecsm@gmail.com", "ana.sacucci@gmail.com", "andreiacristinarodriguescoelho@gmail.com", "angelana.rosa.desa@hotmail.com", "angelaanarosa@gmail.com", "andrea_dalbello_zeni@hotmail.com", "andreadalbello@hotmail.com", "alvaro_augusto@alvaroaugusto.com", "alecostac@uol.com.br", "alisson_psic@gmail.com", "abezerra@gmail.com", "alexandresoares@gmail.com", "analuciasacuccicarlovich@gmail.com", "analuciapsi@gmail.com", "analuvaleria@uol.com.br", "analu_valeria@gmail.com", "analuisapereira@gmail.com", "analucimar@gmail.com", "anasacucci@hotmail.com", "andreacoelho@gmail.com", "andreadalbellozeni@gmail.com", "andrealbellozeni@hotmail.com", "angeladesa@hotmail.com", "carol_jsn@gmail.com", "carolinrezende@gmail.com", "carolinadsilva@gmail.com", "carolalvesp@gmail.com", "carolinap@gmail.com", "castro1981@outlook.com", "claudialim@gmail.com", "claudiamarce@uol.com.br", "claudiarepsic@hotmail.com", "claudia_re@hotmail.com", "claudiare@hotmail.com", "claudia_repsic@hotmail.com", "cleliapsi@hotmail.com", "convivencia@gmail.com", "cris_almeida_santos@hotmail.com", "crisleite@outlook.com", "crispereira@hotmail.com", "cristiane_almeida_santos@hotmail.com", "cristianepereira@hotmail.com", "cristianepereirapsi@gmail.com", "cristianes@yahoo.com.br", "danibatista@gmail.com", "danisouza@hotmail.com", "doriscalixto@hotmail.com", "elainecsm@bol.com.br", "elainelopes@hotmail.com", "elainemagalhaespsi@gmail.com", "elbam@hotmail.com", "elbaregia@hotmail.com", "elianecampista@bol.com.br", "elianelacerda@uol.com.br", "elianemelo@gmail.com", "elianepereirapsi@uol.com.br", "elianeramos@gmail.com", "elianeramos@hotmail.com", "elianescampini@gmail.com", "eloisabasilio@gmail.com", "fazenda_falcao@yahoo.com.br", "fazendafalcao@yahoo.com.br", "flaviomoreira@yahoo.com.br", "fjozias@gmail.com", "gstrecht@gmail.com", "guilhermestrecht@gmail.com", "ivone_oliveira_escobar@gmail.com", "ivoneidearantes@hotmail.com", "judiniz@gmail.com", "julianamedeiros@gmail.com", "julianamedeiros@hotmail.com", "leandro_ribeiro@gmail.com", "leandroribeiro@gmail.com", "lechinilucila@hotmail.com", "leiaaparecida@gmail.com", "leoninasc@gmail.com", "liedenmaria@outlook.com", "lilicunha@uol.com.br", "lshisue@gmail.com", "luccasperez@icloud.com", "luciana_loureiro_pisani@gmail.com", "luciana_rubim_costa@gmail.com", "lucianaloureiro@gmail.com", "lucianamagalhaes@gmail.com", "lucianapisani@gmail.com", "lucianarubim@gmail.com", "lucilas@gmail.com", "luizfolly@hotmail.com", "mclara_magalhaes@uol.com.br", "mclaramagalhaes@yahoo.com.br", "mdaitai@gmail.com", "mdcarmopaico@hotmail.com", "mduarte@yahoo.com.br", "m_claire@gmail.com", "marcialuciani@uol.com.br", "marciaqueiroz@yahoo.com.br", "marciarizi@yahoo.com.br", "marcialuciateixeira@gmail.com", "marcialuciateixeira@hotmail.com", "marianacamera@gmail.com", "marianagimenes@gmail.com", "marianagimenesvieira@hotmail.com", "mariliagomes@gmail.com", "marisasilva@gmail.com", "marlisepedroso@gmail.com", "mislaine_macedo@hotmail.com", "mislainemacedo@hotmail.com", "monicalins@gmail.com", "monicasantosvieira@hotmail.com", "nilvasilveira@gmail.com", "oneidearantes@gmail.com", "patricia_depieri@gmail.com", "patriciafuzinato@hotmail.com", "paulafavaretto@gmail.com", "psicologa_alice@hotmail.com", "psicologa_cristiane@hotmail.com", "psicologa_cristianepereira@hotmail.com", "psigisele@gmail.com", "psigiseleleal@hotmail.com", "psiluciana@hotmail.com", "raphaelasimon@gmail.com", "re_asf@hotmail.com", "reasf@hotmail.com", "reginaluciaf@hotmail.com", "rejanelacerda@gmail.com", "renatarodrigues@gmail.com", "renatasantos@gmail.com", "reviana@hotmail.com", "roseli_neves@gmail.com", "roselineves@hotmail.com", "sandramarinhopsi@hotmail.com", "shirleycristina@gmail.com", "shirleycristinafarias@hotmail.com", "silmaradefendi@gmail.com", "silvanatavares@yahoo.com.br", "silveiraliz@hotmail.com", "silviaguimaraes@gmail.com", "sol_psicologa@uol.com.br", "solangepsicologa@gmail.com", "soniazcabral@hotmail.com", "soniamarcelino@gmail.com", "terapeutasilviamaria@gmail.com", "valeriabeatriz@gmail.com", "valeriabeatriz@uol.com.br", "valeriatrindade@gmail.com", "vanessabomfim@gmail.com", "vanessasrodrigues@gmail.com", "vanessasilveira@gmail.com", "vanessasilveira@yahoo.com.br", "vasconcelossonia@gmail.com"]
 };
 
-let state = { currentUserEmail: null };
+let currentUser = null;
 
-function getUsedCount(email) { return parseInt(localStorage.getItem('inv_' + email) || '0', 10); }
+function getCount(email) { return parseInt(localStorage.getItem('v_' + email) || '0', 10); }
 
-function showFeedback(msg, type = 'info') {
+function showFeedback(msg) {
     const f = document.getElementById('feedback');
-    f.innerHTML = msg; f.className = type; f.style.display = 'block';
+    f.innerHTML = msg; f.className = 'error'; f.style.display = 'block';
 }
 
 function verifyAccess() {
     const email = document.getElementById('auth-email').value.trim().toLowerCase();
-    if (!CONFIG.authorizedEmails.includes(email)) {
-        showFeedback('E-mail não autorizado para acesso aos convites.', 'error');
-        return;
-    }
-    const used = getUsedCount(email);
-    if (used >= CONFIG.maxInvitesPerEmail) {
-        showFeedback('Você já utilizou o limite de 2 convites.', 'error');
-        return;
-    }
+    const btn = document.getElementById('btn-verify');
 
-    state.currentUserEmail = email;
-    document.getElementById('auth-section').classList.add('hidden');
-    document.getElementById('form-section').classList.remove('hidden');
-    renderBadge(used);
+    if (!email || !email.includes('@')) { showFeedback('Digite um e-mail válido.'); return; }
+
+    btn.disabled = true; btn.innerHTML = '<div class="loader"></div>';
+
+    // Simula uma pequena carga visual
+    setTimeout(() => {
+        if (!CONFIG.emails.includes(email)) {
+            showFeedback('E-mail não autorizado para acesso.');
+            btn.disabled = false; btn.innerHTML = 'Verificar Acesso';
+            return;
+        }
+        if (getCount(email) >= CONFIG.maxInvites) {
+            showFeedback('Você já utilizou seus ' + CONFIG.maxInvites + ' convites.');
+            btn.disabled = false; btn.innerHTML = 'Verificar Acesso';
+            return;
+        }
+
+        currentUser = email;
+        document.getElementById('auth-section').classList.add('hidden');
+        document.getElementById('form-section').classList.remove('hidden');
+        document.getElementById('feedback').style.display = 'none';
+        updateQuotaUI();
+    }, 600);
 }
 
-function renderBadge(used) {
-    const remaining = CONFIG.maxInvitesPerEmail - used;
-    const pct = (used / CONFIG.maxInvitesPerEmail) * 100;
-    document.getElementById('invite-status-ui').innerHTML = `
-        <div class="invite-badge"><span></span> ${remaining} convite(s) restante(s)</div>
+function updateQuotaUI() {
+    const used = getCount(currentUser);
+    const rem = CONFIG.maxInvites - used;
+    const pct = (used / CONFIG.maxInvites) * 100;
+    document.getElementById('quota-ui').innerHTML = `
+        <div class="invite-badge"><span class="dot"></span> ${rem} convite(s) restante(s)</div>
         <div class="quota-bar-wrap"><div class="quota-bar" style="width:${pct}%"></div></div>
     `;
 }
@@ -241,34 +240,42 @@ async function submitGuest() {
     const phone = document.getElementById('guest-phone').value.trim();
     const btn = document.getElementById('btn-submit');
 
-    if (!name || !email || !phone) { showFeedback('Preencha todos os campos.', 'error'); return; }
+    if (!name || !email || !phone) { showFeedback('Preencha todos os campos.'); return; }
 
-    btn.disabled = true; btn.innerHTML = '<div class="loader"></div>';
+    btn.disabled = true;
+    btn.innerHTML = '<div class="loader"></div><span>Enviando...</span>';
 
     try {
-        // Envio Webhook n8n
-        await fetch(CONFIG.webhookUrl, {
+        // DISPARO WEBHOOK PARA N8N
+        await fetch(CONFIG.webhook, {
             method: 'POST',
-            mode: 'no-cors', // Para evitar bloqueios de CORS simples no navegador
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                aluno_origem: state.currentUserEmail,
-                convidado_nome: name,
+                aluno: currentUser,
+                convidado: name,
                 convidado_email: email,
-                convidado_telefone: phone
+                convidado_tel: phone,
+                timestamp: new Date().toLocaleString('pt-BR')
             })
         });
 
-        // Simula delay para feedback visual
-        const current = getUsedCount(state.currentUserEmail);
-        localStorage.setItem('inv_' + state.currentUserEmail, (current + 1).toString());
-
+        // Registrar uso e trocar tela
+        localStorage.setItem('v_' + currentUser, (getCount(currentUser) + 1).toString());
+        
         document.getElementById('form-section').classList.add('hidden');
         document.getElementById('success-section').classList.remove('hidden');
-        document.getElementById('step-desc').innerText = 'Cadastro concluído';
+        document.getElementById('feedback').style.display = 'none';
         
-    } catch (err) {
-        showFeedback('Erro: ' + err.message, 'error');
+        // Estilo de Sucesso no Cabeçalho
+        document.getElementById('emblem-box').style.background = 'linear-gradient(135deg, var(--green), var(--green-light))';
+        document.getElementById('emblem-box').style.boxShadow = '0 4px 20px rgba(46,125,82,0.4)';
+        document.getElementById('emblem-svg').innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>';
+        document.getElementById('step-desc').innerText = 'Cadastro Realizado';
+
+        if (typeof fbq === 'function') fbq('track', 'Lead');
+
+    } catch (e) {
+        showFeedback('Erro ao processar. Tente novamente em instantes.');
         btn.disabled = false; btn.innerText = 'Enviar Convite';
     }
 }

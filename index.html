@@ -7,9 +7,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 
-    <!-- ═══════════════════════════════════════════════════
-         FACEBOOK PIXEL — só dispara na tela de sucesso
-    ═══════════════════════════════════════════════════ -->
     <script>
     !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
     n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
@@ -17,7 +14,6 @@
     t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
     document,'script','https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', '8118960231508203');
-    // Não dispara PageView automático — controlamos manualmente
     </script>
     <noscript>
       <img height="1" width="1" style="display:none"
@@ -54,7 +50,6 @@
             overflow-x: hidden;
         }
 
-        /* ── Background texture ── */
         body::before {
             content: '';
             position: fixed;
@@ -66,7 +61,6 @@
             z-index: 0;
         }
 
-        /* ── Decorative top line ── */
         body::after {
             content: '';
             position: fixed;
@@ -75,7 +69,6 @@
             background: linear-gradient(90deg, transparent, var(--gold), var(--gold-light), var(--gold), transparent);
         }
 
-        /* ══════════════════════════════ CARD ══════════════════════════════ */
         #app {
             width: 100%;
             max-width: 440px;
@@ -88,15 +81,11 @@
             border: 1px solid rgba(201,168,76,0.25);
             border-radius: 4px;
             padding: 48px 40px 40px;
-            box-shadow:
-                0 0 0 1px rgba(201,168,76,0.08),
-                0 32px 64px rgba(0,0,0,0.6),
-                0 0 80px rgba(201,168,76,0.04);
+            box-shadow: 0 32px 64px rgba(0,0,0,0.6);
             position: relative;
             overflow: hidden;
         }
 
-        /* Corner ornaments */
         .card::before, .card::after {
             content: '';
             position: absolute;
@@ -108,11 +97,7 @@
         .card::before { top: 12px; left: 12px; border-width: 1px 0 0 1px; }
         .card::after  { bottom: 12px; right: 12px; border-width: 0 1px 1px 0; }
 
-        /* ══════════════════════════════ HEADER ══════════════════════════════ */
-        .header {
-            text-align: center;
-            margin-bottom: 36px;
-        }
+        .header { text-align: center; margin-bottom: 36px; }
 
         .emblem {
             width: 72px; height: 72px;
@@ -120,25 +105,15 @@
             background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light));
             display: flex; align-items: center; justify-content: center;
             margin: 0 auto 20px;
-            box-shadow: 0 4px 20px rgba(201,168,76,0.35), 0 0 40px rgba(201,168,76,0.15);
-            position: relative;
-            transition: background 0.6s ease;
+            box-shadow: 0 4px 20px rgba(201,168,76,0.35);
         }
 
         .emblem svg { width: 32px; height: 32px; color: var(--dark); }
 
-        .divider {
-            display: flex; align-items: center; gap: 12px;
-            margin: 12px 0;
-        }
+        .divider { display: flex; align-items: center; gap: 12px; margin: 12px 0; }
         .divider-line { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, rgba(201,168,76,0.3)); }
         .divider-line:last-child { background: linear-gradient(270deg, transparent, rgba(201,168,76,0.3)); }
-        .divider-diamond {
-            width: 6px; height: 6px;
-            background: var(--gold);
-            transform: rotate(45deg);
-            opacity: 0.6;
-        }
+        .divider-diamond { width: 6px; height: 6px; background: var(--gold); transform: rotate(45deg); opacity: 0.6; }
 
         h1 {
             font-family: 'Cinzel', serif;
@@ -146,7 +121,6 @@
             font-weight: 700;
             color: var(--cream);
             letter-spacing: 0.04em;
-            line-height: 1.2;
         }
 
         .subtitle {
@@ -157,22 +131,18 @@
             margin-top: 8px;
         }
 
-        /* ══════════════════════════════ INPUTS ══════════════════════════════ */
         .field-group { margin-bottom: 14px; }
 
         label {
             display: block;
             font-size: 0.72rem;
             font-weight: 700;
-            letter-spacing: 0.1em;
             text-transform: uppercase;
             color: var(--gold);
             margin-bottom: 6px;
         }
 
-        input[type="email"],
-        input[type="text"],
-        input[type="tel"] {
+        input {
             width: 100%;
             padding: 13px 16px;
             background: rgba(255,255,255,0.04);
@@ -182,18 +152,11 @@
             font-family: 'Lato', sans-serif;
             font-size: 0.95rem;
             outline: none;
-            transition: border-color 0.25s, background 0.25s, box-shadow 0.25s;
+            transition: 0.25s;
         }
 
-        input::placeholder { color: rgba(200,192,176,0.35); }
+        input:focus { border-color: var(--gold); background: rgba(255,255,255,0.06); }
 
-        input:focus {
-            border-color: var(--gold);
-            background: rgba(255,255,255,0.06);
-            box-shadow: 0 0 0 3px rgba(201,168,76,0.1);
-        }
-
-        /* ══════════════════════════════ BUTTONS ══════════════════════════════ */
         .btn {
             width: 100%;
             padding: 14px;
@@ -202,50 +165,16 @@
             font-family: 'Cinzel', serif;
             font-size: 0.85rem;
             font-weight: 600;
-            letter-spacing: 0.12em;
             cursor: pointer;
             display: flex; align-items: center; justify-content: center; gap: 10px;
-            transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
+            transition: 0.2s;
             margin-top: 20px;
         }
-        .btn:active { transform: scale(0.98); }
-        .btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
 
-        .btn-gold {
-            background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light));
-            color: var(--dark);
-            box-shadow: 0 4px 20px rgba(201,168,76,0.3);
-        }
-        .btn-gold:hover:not(:disabled) {
-            box-shadow: 0 6px 28px rgba(201,168,76,0.45);
-            transform: translateY(-1px);
-        }
+        .btn-gold { background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light)); color: var(--dark); }
+        .btn-green { background: linear-gradient(135deg, var(--green), var(--green-light)); color: #fff; }
+        .btn-whatsapp { background: linear-gradient(135deg, #128C7E, #25D366); color: #fff; text-decoration: none; font-family: 'Lato'; font-weight: 700; }
 
-        .btn-green {
-            background: linear-gradient(135deg, var(--green), var(--green-light));
-            color: #fff;
-            box-shadow: 0 4px 20px rgba(46,125,82,0.35);
-        }
-        .btn-green:hover:not(:disabled) {
-            box-shadow: 0 6px 28px rgba(46,125,82,0.5);
-            transform: translateY(-1px);
-        }
-
-        .btn-whatsapp {
-            background: linear-gradient(135deg, #128C7E, #25D366);
-            color: #fff;
-            box-shadow: 0 4px 20px rgba(37,211,102,0.35);
-            font-family: 'Lato', sans-serif;
-            font-weight: 700;
-            font-size: 0.95rem;
-            letter-spacing: 0.02em;
-        }
-        .btn-whatsapp:hover {
-            box-shadow: 0 6px 28px rgba(37,211,102,0.5);
-            transform: translateY(-1px);
-        }
-
-        /* ══════════════════════════════ BADGE CONTADOR ══════════════════════════════ */
         .invite-badge {
             display: inline-flex; align-items: center; gap: 6px;
             background: rgba(201,168,76,0.1);
@@ -254,605 +183,175 @@
             padding: 5px 12px;
             font-size: 0.72rem;
             color: var(--gold-light);
-            letter-spacing: 0.06em;
             margin-bottom: 20px;
         }
-        .invite-badge .dot {
-            width: 6px; height: 6px; border-radius: 50%;
-            background: var(--gold);
-            animation: pulse-dot 2s ease-in-out infinite;
-        }
-        @keyframes pulse-dot {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50%       { opacity: 0.5; transform: scale(0.75); }
-        }
+        .invite-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); animation: pulse-dot 2s infinite; }
+        @keyframes pulse-dot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.75); } }
 
-        /* ══════════════════════════════ FEEDBACK ══════════════════════════════ */
-        #feedback {
-            margin-top: 16px;
-            padding: 11px 14px;
-            border-radius: 3px;
-            font-size: 0.82rem;
-            line-height: 1.5;
-            display: none;
-        }
-        #feedback.error {
-            background: rgba(176,58,46,0.15);
-            border: 1px solid rgba(176,58,46,0.4);
-            color: #E8A09A;
-        }
-        #feedback.success {
-            background: rgba(46,125,82,0.15);
-            border: 1px solid rgba(46,125,82,0.35);
-            color: #7ECBA4;
-        }
-        #feedback.info {
-            background: rgba(201,168,76,0.1);
-            border: 1px solid rgba(201,168,76,0.3);
-            color: var(--gold-light);
-        }
-
-        /* ══════════════════════════════ LOADER ══════════════════════════════ */
-        .loader {
-            width: 18px; height: 18px;
-            border: 2px solid rgba(255,255,255,0.25);
-            border-top-color: currentColor;
-            border-radius: 50%;
-            animation: spin 0.75s linear infinite;
-            flex-shrink: 0;
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        /* ══════════════════════════════ TELA DE SUCESSO ══════════════════════════════ */
-        #success-section {
-            text-align: center;
-            padding: 8px 0;
-        }
-
-        .success-icon {
-            width: 72px; height: 72px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--green), var(--green-light));
-            display: flex; align-items: center; justify-content: center;
-            margin: 0 auto 24px;
-            box-shadow: 0 4px 24px rgba(46,125,82,0.4);
-            animation: pop-in 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
-        }
-        @keyframes pop-in {
-            from { transform: scale(0.4); opacity: 0; }
-            to   { transform: scale(1);   opacity: 1; }
-        }
-
-        .success-title {
-            font-family: 'Cinzel', serif;
-            font-size: 1.4rem;
-            color: var(--cream);
-            margin-bottom: 10px;
-        }
-
-        .success-text {
-            font-size: 0.88rem;
-            color: var(--cream-dim);
-            line-height: 1.65;
-            margin-bottom: 28px;
-        }
-
-        .success-separator {
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(201,168,76,0.25), transparent);
-            margin: 24px 0;
-        }
-
-        .add-another {
-            background: none; border: none;
-            color: var(--gold);
-            font-family: 'Lato', sans-serif;
-            font-size: 0.82rem;
-            font-weight: 700;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            cursor: pointer;
-            margin-top: 16px;
-            display: inline-flex; align-items: center; gap: 6px;
-            transition: color 0.2s;
-        }
-        .add-another:hover { color: var(--gold-light); }
-
-        /* ══════════════════════════════ HIDDEN ══════════════════════════════ */
-        .hidden { display: none !important; }
-
-        /* ══════════════════════════════ RODAPÉ ══════════════════════════════ */
-        .footer {
-            text-align: center;
-            margin-top: 24px;
-            font-size: 0.68rem;
-            color: rgba(200,192,176,0.3);
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-        }
-
-        /* ══════════════════════════════ ANIMATIONS ══════════════════════════════ */
-        .fade-in { animation: fade-in 0.4s ease both; }
-        @keyframes fade-in {
-            from { opacity: 0; transform: translateY(8px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Quota bar */
         .quota-bar-wrap {
             height: 4px;
             background: rgba(255,255,255,0.06);
             border-radius: 2px;
             overflow: hidden;
-            margin-top: 6px;
+            margin-bottom: 20px;
         }
         .quota-bar {
             height: 100%;
-            border-radius: 2px;
             background: linear-gradient(90deg, var(--gold-dark), var(--gold-light));
             transition: width 0.6s ease;
         }
+
+        #feedback { margin-top: 16px; padding: 11px 14px; border-radius: 3px; font-size: 0.82rem; line-height: 1.5; display: none; }
+        #feedback.error { background: rgba(176,58,46,0.15); border: 1px solid rgba(176,58,46,0.4); color: #E8A09A; }
+        #feedback.info { background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.3); color: var(--gold-light); }
+
+        .loader { width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.2); border-top-color: currentColor; border-radius: 50%; animation: spin 0.75s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .hidden { display: none !important; }
+        .fade-in { animation: fade-in 0.4s ease both; }
+        @keyframes fade-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+        .footer { text-align: center; margin-top: 24px; font-size: 0.68rem; color: rgba(200,192,176,0.3); text-transform: uppercase; }
     </style>
 </head>
 <body>
 
 <div id="app">
     <div class="card">
-
-        <!-- HEADER -->
-        <div class="header" id="header">
-            <div class="emblem" id="emblem">
-                <svg id="emblem-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                          d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
+        <div class="header">
+            <div class="emblem">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
                 </svg>
             </div>
-            <h1 id="main-title">Sistema de Convites</h1>
+            <h1>Sistema de Convites</h1>
             <div class="divider"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
             <p class="subtitle" id="step-desc">Acesso restrito • Usuários autorizados</p>
         </div>
 
-        <!-- ══ ETAPA 1: VERIFICAÇÃO DE E-MAIL ══ -->
         <div id="auth-section" class="fade-in">
             <div class="field-group">
                 <label>Seu E-mail Institucional</label>
-                <input type="email" id="auth-email" placeholder="nome@gruposoul.com"
-                       onkeydown="if(event.key==='Enter') verifyAccess()">
+                <input type="email" id="auth-email" placeholder="nome@gruposoul.com">
             </div>
-            <button class="btn btn-gold" onclick="verifyAccess()" id="btn-verify">
-                <span>Verificar Acesso</span>
-            </button>
+            <button class="btn btn-gold" onclick="verifyAccess()" id="btn-verify">Verificar Acesso</button>
         </div>
 
-        <!-- ══ ETAPA 2: FORMULÁRIO ══ -->
         <div id="form-section" class="hidden fade-in">
             <div id="invite-status"></div>
-
-            <div class="field-group">
-                <label>Nome do Convidado</label>
-                <input type="text" id="guest-name" placeholder="Nome Completo"
-                       onkeydown="if(event.key==='Enter') submitGuest()">
-            </div>
-            <div class="field-group">
-                <label>E-mail do Convidado</label>
-                <input type="email" id="guest-email" placeholder="email@convidado.com"
-                       onkeydown="if(event.key==='Enter') submitGuest()">
-            </div>
-            <div class="field-group">
-                <label>Telefone (WhatsApp)</label>
-                <input type="tel" id="guest-phone" placeholder="(00) 00000-0000"
-                       onkeydown="if(event.key==='Enter') submitGuest()">
-            </div>
-
-            <button class="btn btn-green" onclick="submitGuest()" id="btn-submit">
-                <span>Cadastrar Convidado</span>
-            </button>
+            <div class="field-group"><label>Nome do Convidado</label><input type="text" id="guest-name" placeholder="Nome Completo"></div>
+            <div class="field-group"><label>E-mail do Convidado</label><input type="email" id="guest-email" placeholder="email@convidado.com"></div>
+            <div class="field-group"><label>Telefone (WhatsApp)</label><input type="tel" id="guest-phone" placeholder="(00) 00000-0000"></div>
+            <button class="btn btn-green" onclick="submitGuest()" id="btn-submit">Cadastrar Convidado</button>
         </div>
 
-        <!-- ══ ETAPA 3: SUCESSO ══ -->
-        <div id="success-section" class="hidden">
-            <div class="success-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                     stroke="white" width="34" height="34">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
-                </svg>
+        <div id="success-section" class="hidden fade-in" style="text-align:center;">
+            <div style="background:var(--green); width:64px; height:64px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 24px; box-shadow:0 4px 20px rgba(46,125,82,0.4);">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg>
             </div>
-            <h2 class="success-title">Convite Enviado!</h2>
-            <p class="success-text">
-                Seu convidado foi cadastrado com sucesso.<br>
-                Ele receberá todas as informações de acesso por e-mail em breve.
-            </p>
-
-            <a href="https://sndflw.com/i/decifrandoossegredosdabiblia" target="_blank"
-               class="btn btn-whatsapp" style="text-decoration:none;">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-                </svg>
-                Entrar no Grupo do WhatsApp
-            </a>
-
-            <div class="success-separator"></div>
-
-            <div id="remaining-after" style="text-align:center; margin-bottom:4px;"></div>
-
-            <button class="add-another" onclick="resetForm()" id="btn-another">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                     stroke="currentColor" width="14" height="14">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/>
-                </svg>
-                Cadastrar outro convidado
-            </button>
+            <h2 style="color:var(--cream); font-family:'Cinzel';">Sucesso!</h2>
+            <p style="color:var(--cream-dim); font-size:0.88rem; margin-bottom:24px;">O convidado foi registrado com sucesso.</p>
+            <a href="https://sndflw.com/i/decifrandoossegredosdabiblia" target="_blank" class="btn btn-whatsapp" style="text-decoration:none;">Entrar no Grupo WhatsApp</a>
+            <div id="remaining-after" style="margin-top:24px; font-size:0.8rem; color:var(--gold);"></div>
+            <button class="btn" style="background:none; color:var(--gold); font-size:0.75rem; text-transform:uppercase;" onclick="location.reload()">Novo cadastro</button>
         </div>
 
-        <!-- FEEDBACK -->
         <div id="feedback"></div>
-
-    </div><!-- /card -->
-
-    <p class="footer">© 2025 Grupo Soul · Todos os direitos reservados</p>
-</div><!-- /app -->
+    </div>
+    <p class="footer">© 2026 Grupo Soul · Todos os direitos reservados</p>
+</div>
 
 <script>
-// ╔══════════════════════════════════════════════════════════════════╗
-// ║               CONFIGURAÇÕES CENTRAIS                            ║
-// ╚══════════════════════════════════════════════════════════════════╝
-const CONFIG = {
-    // Google Sheets: compartilhe a planilha publicamente (Qualquer pessoa com o link → Leitor)
-    // A coluna A deve conter os e-mails autorizados
-    sheetsId: '1jsBoGErysr_p8dr0SCJykbeklapjsYHNelDASOF9LDc',
-    sheetsTab: 0,  // índice da aba (0 = primeira aba)
+// URL DA SUA PONTE NO GOOGLE APPS SCRIPT
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyissPb7bC8Z62t9MhecxdyUOrkoL390q2eTyEAT-RsEdRQ1ziDdKf8soTcBxCmnPik/exec';
+const MAX_INVITES = 2;
 
-    maxInvitesPerEmail: 2,
+let state = { user: '', used: 0 };
 
-    // ActiveCampaign
-    ac: {
-        url: 'https://gruposoul.api-us1.com',
-        token: '90d74a42f0495ead928e7a047e53a10e536e85c9ebc8e46be54dab8d5f1508c149eb23e3',
-        tagSlug: 'db001-26'
-    },
-
-    // CORS proxy
-    proxy: 'https://corsproxy.io/?',
-
-    // Facebook Pixel
-    pixelId: '8118960231508203',
-    pixelEvent: 'convidado-tocha',
-
-    // WhatsApp
-    whatsapp: 'https://sndflw.com/i/decifrandoossegredosdabiblia'
-};
-
-// ╔══════════════════════════════════════════════════════════════════╗
-// ║               ESTADO DA APLICAÇÃO                               ║
-// ╚══════════════════════════════════════════════════════════════════╝
-let state = {
-    authorizedEmails: [],    // e-mails lidos do Sheets
-    currentUserEmail: null,
-    invitesUsed: 0,          // lidos do localStorage
-    invitesRemaining: CONFIG.maxInvitesPerEmail
-};
-
-// ╔══════════════════════════════════════════════════════════════════╗
-// ║               ELEMENTOS DOM                                     ║
-// ╚══════════════════════════════════════════════════════════════════╝
-const $ = id => document.getElementById(id);
-const authSection    = $('auth-section');
-const formSection    = $('form-section');
-const successSection = $('success-section');
-const feedback       = $('feedback');
-
-// ╔══════════════════════════════════════════════════════════════════╗
-// ║               FEEDBACK HELPER                                   ║
-// ╚══════════════════════════════════════════════════════════════════╝
-function showFeedback(msg, type = 'info') {
-    feedback.innerHTML = msg;
-    feedback.className = type;
-    feedback.style.display = 'block';
-}
-function hideFeedback() { feedback.style.display = 'none'; }
-
-// ╔══════════════════════════════════════════════════════════════════╗
-// ║               GOOGLE SHEETS — CARREGAR E-MAILS                 ║
-// ╚══════════════════════════════════════════════════════════════════╝
-async function loadAuthorizedEmails() {
-    const csvUrl = `https://docs.google.com/spreadsheets/d/${CONFIG.sheetsId}/export?format=csv&gid=0`;
-    const url    = CONFIG.proxy + encodeURIComponent(csvUrl);
-
-    try {
-        const res  = await fetch(url);
-        const text = await res.text();
-        // Pega todos os valores da coluna A, normaliza e filtra vazios
-        const emails = text
-            .split('\n')
-            .map(row => row.split(',')[2]?.replace(/["\r]/g, '').trim().toLowerCase() || '')
-            .filter(e => e.includes('@'));
-
-        state.authorizedEmails = emails;
-        return true;
-    } catch (err) {
-        console.warn('Não foi possível carregar a planilha:', err);
-        // Fallback: lista vazia (bloqueia acesso se Sheets falhar)
-        state.authorizedEmails = [];
-        return false;
-    }
+function notify(msg, type) { 
+    const f = document.getElementById('feedback'); 
+    f.innerHTML = msg; f.className = type; f.style.display = 'block'; 
 }
 
-// ╔══════════════════════════════════════════════════════════════════╗
-// ║               CONTROLE DE CONVITES (localStorage)              ║
-// ╚══════════════════════════════════════════════════════════════════╝
-function getStorageKey(email) {
-    return `soul_invites_${email.toLowerCase().replace(/[^a-z0-9]/g, '_')}`;
-}
+function getStorageKey(email) { return `soul_invites_${email.replace(/[^a-z0-9]/g, '_')}`; }
 
-function getUsedCount(email) {
-    const raw = localStorage.getItem(getStorageKey(email));
-    return parseInt(raw || '0', 10);
-}
-
-function incrementUsed(email) {
-    const key = getStorageKey(email);
-    const current = getUsedCount(email);
-    localStorage.setItem(key, String(current + 1));
-    return current + 1;
-}
-
-// ╔══════════════════════════════════════════════════════════════════╗
-// ║               ETAPA 1 — VERIFICAR ACESSO                       ║
-// ╚══════════════════════════════════════════════════════════════════╝
 async function verifyAccess() {
-    const email = $('auth-email').value.trim().toLowerCase();
-    const btn   = $('btn-verify');
+    const email = document.getElementById('auth-email').value.trim().toLowerCase();
+    const btn = document.getElementById('btn-verify');
+    if(!email.includes('@')) return notify('Por favor, insira um e-mail válido.', 'error');
 
-    if (!email || !email.includes('@')) {
-        showFeedback('Digite um e-mail válido.', 'error');
-        return;
+    btn.disabled = true; btn.innerHTML = '<div class="loader"></div><span>Validando...</span>';
+    notify('Validando acesso...', 'info');
+
+    try {
+        const res = await fetch(`${SCRIPT_URL}?action=verify&email=${encodeURIComponent(email)}`);
+        const data = await res.json();
+
+        if(data.authorized) {
+            state.user = email;
+            state.used = parseInt(localStorage.getItem(getStorageKey(email)) || '0', 10);
+            
+            if(state.used >= MAX_INVITES) {
+                notify('Limite de convites atingido.', 'error');
+                btn.disabled = false; btn.innerHTML = '<span>Verificar Acesso</span>';
+                return;
+            }
+
+            document.getElementById('auth-section').classList.add('hidden');
+            document.getElementById('form-section').classList.remove('hidden');
+            document.getElementById('step-desc').innerText = 'Dados do convidado';
+            document.getElementById('feedback').style.display = 'none';
+            renderBadge();
+        } else {
+            notify('E-mail não autorizado na Coluna C.', 'error');
+            btn.disabled = false; btn.innerHTML = '<span>Verificar Acesso</span>';
+        }
+    } catch(e) {
+        notify('Erro ao validar acesso. Verifique se publicou o script como "Qualquer pessoa".', 'error');
+        btn.disabled = false; btn.innerHTML = '<span>Verificar Acesso</span>';
     }
-
-    btn.disabled = true;
-    btn.innerHTML = `<div class="loader"></div><span>Verificando...</span>`;
-    showFeedback('Consultando lista de acesso...', 'info');
-
-    const loaded = await loadAuthorizedEmails();
-
-    if (!loaded || state.authorizedEmails.length === 0) {
-        showFeedback(
-            '⚠️ Não foi possível carregar a lista de acesso. Certifique-se de que a planilha está compartilhada como <strong>"Qualquer pessoa com o link → Leitor"</strong> e tente novamente.',
-            'error'
-        );
-        btn.disabled = false;
-        btn.innerHTML = '<span>Verificar Acesso</span>';
-        return;
-    }
-
-    if (!state.authorizedEmails.includes(email)) {
-        showFeedback('E-mail não autorizado para esta operação.', 'error');
-        btn.disabled = false;
-        btn.innerHTML = '<span>Verificar Acesso</span>';
-        return;
-    }
-
-    const used = getUsedCount(email);
-
-    if (used >= CONFIG.maxInvitesPerEmail) {
-        showFeedback(
-            `Você já utilizou todos os seus ${CONFIG.maxInvitesPerEmail} convites disponíveis.`,
-            'error'
-        );
-        btn.disabled = false;
-        btn.innerHTML = '<span>Verificar Acesso</span>';
-        return;
-    }
-
-    // Acesso OK
-    state.currentUserEmail  = email;
-    state.invitesUsed       = used;
-    state.invitesRemaining  = CONFIG.maxInvitesPerEmail - used;
-
-    hideFeedback();
-    authSection.classList.add('hidden');
-    formSection.classList.remove('hidden');
-    $('step-desc').innerText = 'Preencha os dados do convidado';
-
-    renderInviteBadge();
 }
 
-// ╔══════════════════════════════════════════════════════════════════╗
-// ║               BADGE DE CONVITES                                 ║
-// ╚══════════════════════════════════════════════════════════════════╝
-function renderInviteBadge() {
-    const used      = getUsedCount(state.currentUserEmail);
-    const remaining = CONFIG.maxInvitesPerEmail - used;
-    const pct       = (used / CONFIG.maxInvitesPerEmail) * 100;
-
-    $('invite-status').innerHTML = `
-        <div class="invite-badge">
-            <span class="dot"></span>
-            ${remaining} convite${remaining !== 1 ? 's' : ''} restante${remaining !== 1 ? 's' : ''}
-            de ${CONFIG.maxInvitesPerEmail} disponíveis
-        </div>
-        <div class="quota-bar-wrap">
-            <div class="quota-bar" style="width:${pct}%"></div>
-        </div>
-        <div style="height:16px"></div>
-    `;
+function renderBadge() {
+    const rem = MAX_INVITES - state.used;
+    const pct = (state.used / MAX_INVITES) * 100;
+    document.getElementById('invite-status').innerHTML = `
+        <div class="invite-badge"><span class="dot"></span>${rem} restantes de ${MAX_INVITES}</div>
+        <div class="quota-bar-wrap"><div class="quota-bar" style="width:${pct}%"></div></div>`;
 }
 
-// ╔══════════════════════════════════════════════════════════════════╗
-// ║               ACTIVE CAMPAIGN — FETCH HELPER                   ║
-// ╚══════════════════════════════════════════════════════════════════╝
-async function acFetch(endpoint, method = 'GET', body = null) {
-    const fullUrl   = `${CONFIG.ac.url}${endpoint}`;
-    const targetUrl = CONFIG.proxy + encodeURIComponent(fullUrl);
-
-    const options = {
-        method,
-        headers: { 'Api-Token': CONFIG.ac.token, 'Accept': 'application/json' }
-    };
-
-    if (body) {
-        options.headers['Content-Type'] = 'application/json';
-        options.body = JSON.stringify(body);
-    }
-
-    const res = await fetch(targetUrl, options);
-    if (!res.ok) {
-        const text = await res.text();
-        let msg = `Erro ${res.status}`;
-        try { const j = JSON.parse(text); if (j.errors?.[0]) msg = j.errors[0].title || j.errors[0].message; } catch {}
-        throw new Error(msg);
-    }
-    return res.json();
-}
-
-// ╔══════════════════════════════════════════════════════════════════╗
-// ║               ETAPA 2 — CADASTRAR CONVIDADO                    ║
-// ╚══════════════════════════════════════════════════════════════════╝
 async function submitGuest() {
-    const name  = $('guest-name').value.trim();
-    const email = $('guest-email').value.trim();
-    const phone = $('guest-phone').value.trim();
-    const btn   = $('btn-submit');
+    const name = document.getElementById('guest-name').value.trim();
+    const email = document.getElementById('guest-email').value.trim();
+    const phone = document.getElementById('guest-phone').value.trim();
+    const btn = document.getElementById('btn-submit');
 
-    if (!name || !email || !phone) {
-        showFeedback('Por favor, preencha todos os campos.', 'error');
-        return;
-    }
-    if (!email.includes('@')) {
-        showFeedback('Digite um e-mail válido para o convidado.', 'error');
-        return;
-    }
-
-    // Checar cota novamente
-    const used = getUsedCount(state.currentUserEmail);
-    if (used >= CONFIG.maxInvitesPerEmail) {
-        showFeedback(`Limite de ${CONFIG.maxInvitesPerEmail} convites atingido.`, 'error');
-        btn.disabled = true;
-        return;
-    }
-
-    btn.disabled = true;
-    btn.innerHTML = `<div class="loader"></div><span>Processando...</span>`;
-    showFeedback('Criando contato no ActiveCampaign...', 'info');
+    if(!name || !email || !phone) return notify('Preencha todos os campos.', 'error');
+    btn.disabled = true; btn.innerHTML = '<div class="loader"></div><span>Enviando...</span>';
 
     try {
-        // 1. Criar ou recuperar contato
-        let contactId;
-        try {
-            const res = await acFetch('/api/3/contacts', 'POST', {
-                contact: { email, firstName: name, phone }
-            });
-            contactId = res.contact.id;
-        } catch {
-            const search = await acFetch(`/api/3/contacts?email=${encodeURIComponent(email)}`);
-            if (search.contacts?.length > 0) {
-                contactId = search.contacts[0].id;
-            } else throw new Error('Não foi possível criar ou localizar o contato.');
+        const url = `${SCRIPT_URL}?action=register&email=${encodeURIComponent(email)}&name=${encodeURIComponent(name)}&phone=${encodeURIComponent(phone)}`;
+        const res = await fetch(url);
+        const data = await res.json();
+
+        if(data.success) {
+            state.used++;
+            localStorage.setItem(getStorageKey(state.user), state.used);
+            
+            if (typeof fbq === 'function') fbq('trackCustom', 'convidado-tocha');
+
+            document.getElementById('form-section').classList.add('hidden');
+            document.getElementById('success-section').classList.remove('hidden');
+            document.getElementById('remaining-after').innerText = `Restam ${MAX_INVITES - state.used} convites.`;
+            document.getElementById('feedback').style.display = 'none';
+        } else {
+            throw new Error(data.error || 'Erro no cadastro.');
         }
-
-        showFeedback('Localizando tag...', 'info');
-
-        // 2. Localizar tag
-        const tagsRes = await acFetch(`/api/3/tags?search=${CONFIG.ac.tagSlug}`);
-        const tag = tagsRes.tags?.find(t => t.tag === CONFIG.ac.tagSlug);
-        if (!tag) throw new Error(`Tag "${CONFIG.ac.tagSlug}" não encontrada.`);
-
-        showFeedback('Aplicando tag ao contato...', 'info');
-
-        // 3. Vincular tag
-        await acFetch('/api/3/contactTags', 'POST', {
-            contactTag: { contact: contactId, tag: tag.id }
-        });
-
-        // 4. Registrar uso local
-        const newUsed = incrementUsed(state.currentUserEmail);
-        state.invitesUsed = newUsed;
-        state.invitesRemaining = CONFIG.maxInvitesPerEmail - newUsed;
-
-        // 5. Disparar pixel do Facebook
-        firePixelEvent();
-
-        // 6. Mostrar tela de sucesso
-        showSuccessScreen();
-
-    } catch (err) {
-        console.error(err);
-        showFeedback(`Erro: ${err.message}`, 'error');
-        btn.disabled = false;
-        btn.innerHTML = '<span>Cadastrar Convidado</span>';
+    } catch(e) {
+        notify('Erro ao cadastrar convidado: ' + e.message, 'error');
+        btn.disabled = false; btn.innerHTML = '<span>Cadastrar Convidado</span>';
     }
-}
-
-// ╔══════════════════════════════════════════════════════════════════╗
-// ║               FACEBOOK PIXEL — EVENTO PERSONALIZADO            ║
-// ╚══════════════════════════════════════════════════════════════════╝
-function firePixelEvent() {
-    try {
-        if (typeof fbq === 'function') {
-            fbq('trackCustom', CONFIG.pixelEvent);
-            console.log(`[Pixel] Evento "${CONFIG.pixelEvent}" disparado.`);
-        }
-    } catch (e) {
-        console.warn('[Pixel] Erro ao disparar evento:', e);
-    }
-}
-
-// ╔══════════════════════════════════════════════════════════════════╗
-// ║               TELA DE SUCESSO                                   ║
-// ╚══════════════════════════════════════════════════════════════════╝
-function showSuccessScreen() {
-    formSection.classList.add('hidden');
-    hideFeedback();
-    successSection.classList.remove('hidden');
-
-    $('step-desc').innerText = 'Cadastro concluído';
-
-    // Atualizar emblem
-    const emblem = $('emblem');
-    emblem.style.background = 'linear-gradient(135deg, #2E7D52, #3DA06A)';
-    emblem.style.boxShadow  = '0 4px 20px rgba(46,125,82,0.4), 0 0 40px rgba(46,125,82,0.15)';
-    $('emblem-icon').innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 13l4 4L19 7"/>`;
-
-    // Mostrar convites restantes
-    const remaining = CONFIG.maxInvitesPerEmail - getUsedCount(state.currentUserEmail);
-    const el = $('remaining-after');
-    if (remaining > 0) {
-        el.innerHTML = `<span style="font-size:0.78rem; color:var(--cream-dim); letter-spacing:0.05em;">
-            Você ainda tem <strong style="color:var(--gold)">${remaining}</strong> convite${remaining !== 1 ? 's' : ''} disponível${remaining !== 1 ? 'is' : ''}.
-        </span>`;
-        $('btn-another').classList.remove('hidden');
-    } else {
-        el.innerHTML = `<span style="font-size:0.78rem; color:var(--cream-dim); letter-spacing:0.05em;">
-            Você utilizou todos os seus convites disponíveis.
-        </span>`;
-        $('btn-another').classList.add('hidden');
-    }
-}
-
-// ╔══════════════════════════════════════════════════════════════════╗
-// ║               RESETAR PARA NOVO CONVIDADO                      ║
-// ╚══════════════════════════════════════════════════════════════════╝
-function resetForm() {
-    $('guest-name').value  = '';
-    $('guest-email').value = '';
-    $('guest-phone').value = '';
-
-    successSection.classList.add('hidden');
-    formSection.classList.remove('hidden');
-    $('step-desc').innerText = 'Preencha os dados do convidado';
-
-    // Restaurar emblem
-    const emblem = $('emblem');
-    emblem.style.background = '';
-    emblem.style.boxShadow  = '';
-    $('emblem-icon').innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-        d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>`;
-
-    const btn = $('btn-submit');
-    btn.disabled = false;
-    btn.innerHTML = '<span>Cadastrar Convidado</span>';
-
-    hideFeedback();
-    renderInviteBadge();
 }
 </script>
 </body>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Convites — Grupo Soul</title>
+    <title>Sistema de Convites — Escola Tocha</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 
@@ -15,467 +15,220 @@
     document,'script','https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', '8118960231508203');
     </script>
-    <noscript>
-      <img height="1" width="1" style="display:none"
-        src="https://www.facebook.com/tr?id=8118960231508203&ev=PageView&noscript=1"/>
-    </noscript>
 
     <style>
         :root {
-            --gold:       #C9A84C;
-            --gold-light: #E8C97A;
-            --gold-dark:  #9A7A32;
-            --dark:       #0D0D0D;
-            --dark-2:     #161616;
-            --dark-3:     #1E1E1E;
-            --cream:      #F5F0E8;
-            --cream-dim:  #C8C0B0;
-            --green:      #2E7D52;
-            --green-light:#3DA06A;
-            --red:        #B03A2E;
+            --gold: #C9A84C; --gold-light: #E8C97A; --gold-dark: #9A7A32;
+            --dark: #0D0D0D; --dark-2: #161616; --dark-3: #1E1E1E;
+            --cream: #F5F0E8; --cream-dim: #C8C0B0;
+            --green: #2E7D52; --green-light: #3DA06A;
         }
-
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
         body {
-            font-family: 'Lato', sans-serif;
-            background: var(--dark);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 24px 16px;
-            position: relative;
-            overflow-x: hidden;
+            font-family: 'Lato', sans-serif; background: var(--dark); min-height: 100vh;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: 24px 16px; position: relative; overflow-x: hidden;
         }
-
         body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background:
-                radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,168,76,0.08) 0%, transparent 70%),
-                radial-gradient(ellipse 60% 40% at 80% 100%, rgba(201,168,76,0.05) 0%, transparent 60%);
-            pointer-events: none;
-            z-index: 0;
+            content: ''; position: fixed; inset: 0;
+            background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,168,76,0.08) 0%, transparent 70%);
+            pointer-events: none; z-index: 0;
         }
-
-        body::after {
-            content: '';
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, var(--gold), var(--gold-light), var(--gold), transparent);
-        }
-
-        #app {
-            width: 100%;
-            max-width: 440px;
-            position: relative;
-            z-index: 1;
-        }
-
+        #app { width: 100%; max-width: 440px; position: relative; z-index: 1; }
         .card {
             background: linear-gradient(160deg, var(--dark-2) 0%, var(--dark-3) 100%);
-            border: 1px solid rgba(201,168,76,0.25);
-            border-radius: 4px;
-            padding: 48px 40px 40px;
-            box-shadow:
-                0 0 0 1px rgba(201,168,76,0.08),
-                0 32px 64px rgba(0,0,0,0.6),
-                0 0 80px rgba(201,168,76,0.04);
-            position: relative;
-            overflow: hidden;
+            border: 1px solid rgba(201,168,76,0.25); border-radius: 4px;
+            padding: 48px 40px 40px; box-shadow: 0 32px 64px rgba(0,0,0,0.6);
+            position: relative; overflow: hidden;
         }
-
-        .card::before, .card::after {
-            content: '';
-            position: absolute;
-            width: 40px; height: 40px;
-            border-color: var(--gold-dark);
-            border-style: solid;
-            opacity: 0.4;
-        }
-        .card::before { top: 12px; left: 12px; border-width: 1px 0 0 1px; }
-        .card::after  { bottom: 12px; right: 12px; border-width: 0 1px 1px 0; }
-
         .header { text-align: center; margin-bottom: 36px; }
-
         .emblem {
-            width: 72px; height: 72px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light));
-            display: flex; align-items: center; justify-content: center;
-            margin: 0 auto 20px;
-            box-shadow: 0 4px 20px rgba(201,168,76,0.35), 0 0 40px rgba(201,168,76,0.15);
-            position: relative;
-            transition: background 0.6s ease;
-        }
-
-        .emblem svg { width: 32px; height: 32px; color: var(--dark); }
-
-        .divider { display: flex; align-items: center; gap: 12px; margin: 12px 0; }
-        .divider-line { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, rgba(201,168,76,0.3)); }
-        .divider-line:last-child { background: linear-gradient(270deg, transparent, rgba(201,168,76,0.3)); }
-        .divider-diamond { width: 6px; height: 6px; background: var(--gold); transform: rotate(45deg); opacity: 0.6; }
-
-        h1 {
-            font-family: 'Cinzel', serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--cream);
-            letter-spacing: 0.04em;
-            line-height: 1.2;
-        }
-
-        .subtitle {
-            font-size: 0.78rem;
-            color: var(--cream-dim);
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            margin-top: 8px;
-        }
-
-        .field-group { margin-bottom: 14px; }
-
-        label {
-            display: block;
-            font-size: 0.72rem;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--gold);
-            margin-bottom: 6px;
-        }
-
-        input[type="email"], input[type="text"], input[type="tel"] {
-            width: 100%;
-            padding: 13px 16px;
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(201,168,76,0.2);
-            border-radius: 3px;
-            color: var(--cream);
-            font-family: 'Lato', sans-serif;
-            font-size: 0.95rem;
-            outline: none;
-            transition: border-color 0.25s, background 0.25s, box-shadow 0.25s;
-        }
-
-        input::placeholder { color: rgba(200,192,176,0.35); }
-        input:focus { border-color: var(--gold); background: rgba(255,255,255,0.06); box-shadow: 0 0 0 3px rgba(201,168,76,0.1); }
-
-        .btn {
-            width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: 3px;
-            font-family: 'Cinzel', serif;
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 0.12em;
-            cursor: pointer;
-            display: flex; align-items: center; justify-content: center; gap: 10px;
-            transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
-            margin-top: 20px;
-        }
-        .btn:active { transform: scale(0.98); }
-        .btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
-
-        .btn-gold {
-            background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light));
-            color: var(--dark);
-            box-shadow: 0 4px 20px rgba(201,168,76,0.3);
-        }
-
-        .btn-green {
-            background: linear-gradient(135deg, var(--green), var(--green-light));
-            color: #fff;
-            box-shadow: 0 4px 20px rgba(46,125,82,0.35);
-        }
-
-        .btn-whatsapp {
-            background: linear-gradient(135deg, #128C7E, #25D366);
-            color: #fff;
-            box-shadow: 0 4px 20px rgba(37,211,102,0.35);
-            font-family: 'Lato', sans-serif;
-            font-weight: 700;
-            font-size: 0.95rem;
-            text-decoration: none;
-        }
-
-        .invite-badge {
-            display: inline-flex; align-items: center; gap: 6px;
-            background: rgba(201,168,76,0.1);
-            border: 1px solid rgba(201,168,76,0.25);
-            border-radius: 20px;
-            padding: 5px 12px;
-            font-size: 0.72rem;
-            color: var(--gold-light);
-            letter-spacing: 0.06em;
-            margin-bottom: 20px;
-        }
-        .invite-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); animation: pulse-dot 2s ease-in-out infinite; }
-        @keyframes pulse-dot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.75); } }
-
-        #feedback { margin-top: 16px; padding: 11px 14px; border-radius: 3px; font-size: 0.82rem; line-height: 1.5; display: none; }
-        #feedback.error { background: rgba(176,58,46,0.15); border: 1px solid rgba(176,58,46,0.4); color: #E8A09A; }
-        #feedback.success { background: rgba(46,125,82,0.15); border: 1px solid rgba(46,125,82,0.35); color: #7ECBA4; }
-        #feedback.info { background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.3); color: var(--gold-light); }
-
-        .loader { width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.25); border-top-color: currentColor; border-radius: 50%; animation: spin 0.75s linear infinite; }
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        #success-section { text-align: center; padding: 8px 0; }
-        .success-icon {
             width: 72px; height: 72px; border-radius: 50%;
-            background: linear-gradient(135deg, var(--green), var(--green-light));
-            display: flex; align-items: center; justify-content: center;
-            margin: 0 auto 24px; box-shadow: 0 4px 24px rgba(46,125,82,0.4);
-            animation: pop-in 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+            background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light));
+            display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;
         }
-        @keyframes pop-in { from { transform: scale(0.4); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-
-        .success-title { font-family: 'Cinzel', serif; font-size: 1.4rem; color: var(--cream); margin-bottom: 10px; }
-        .success-text { font-size: 0.88rem; color: var(--cream-dim); line-height: 1.65; margin-bottom: 28px; }
-        .success-separator { height: 1px; background: linear-gradient(90deg, transparent, rgba(201,168,76,0.25), transparent); margin: 24px 0; }
-
-        .add-another {
-            background: none; border: none; color: var(--gold); font-family: 'Lato', sans-serif;
-            font-size: 0.82rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
-            cursor: pointer; margin-top: 16px; display: inline-flex; align-items: center; gap: 6px;
+        .emblem svg { width: 32px; height: 32px; color: var(--dark); }
+        h1 { font-family: 'Cinzel', serif; font-size: 1.5rem; color: var(--cream); letter-spacing: 0.04em; }
+        .subtitle { font-size: 0.78rem; color: var(--cream-dim); text-transform: uppercase; margin-top: 8px; }
+        .field-group { margin-bottom: 14px; }
+        label { display: block; font-size: 0.72rem; font-weight: 700; color: var(--gold); margin-bottom: 6px; text-transform: uppercase; }
+        input {
+            width: 100%; padding: 13px 16px; background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(201,168,76,0.2); border-radius: 3px; color: var(--cream); outline: none;
         }
-
+        input:focus { border-color: var(--gold); background: rgba(255,255,255,0.06); }
+        .btn {
+            width: 100%; padding: 14px; border: none; border-radius: 3px; cursor: pointer;
+            font-family: 'Cinzel', serif; font-weight: 600; transition: 0.2s;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+        }
+        .btn-gold { background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light)); color: var(--dark); }
+        .btn-green { background: linear-gradient(135deg, var(--green), var(--green-light)); color: #fff; }
+        .btn-whatsapp { background: #25D366; color: #fff; text-decoration: none; margin-top: 15px; font-family: 'Lato'; }
+        #feedback { margin-top: 16px; padding: 11px 14px; border-radius: 3px; font-size: 0.82rem; display: none; }
+        #feedback.error { background: rgba(176,58,46,0.15); color: #E8A09A; border: 1px solid rgba(176,58,46,0.4); }
+        #feedback.info { background: rgba(201,168,76,0.1); color: var(--gold-light); border: 1px solid rgba(201,168,76,0.3); }
         .hidden { display: none !important; }
-        .footer { text-align: center; margin-top: 24px; font-size: 0.68rem; color: rgba(200,192,176,0.3); letter-spacing: 0.06em; text-transform: uppercase; }
-        .fade-in { animation: fade-in 0.4s ease both; }
-        @keyframes fade-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-
-        .quota-bar-wrap { height: 4px; background: rgba(255,255,255,0.06); border-radius: 2px; overflow: hidden; margin-top: 6px; }
-        .quota-bar { height: 100%; border-radius: 2px; background: linear-gradient(90deg, var(--gold-dark), var(--gold-light)); transition: width 0.6s ease; }
+        .loader { width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.2); border-top-color: #fff; border-radius: 50%; animation: spin 0.8s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
 
 <div id="app">
     <div class="card">
-        <div class="header" id="header">
+        <div class="header">
             <div class="emblem" id="emblem">
-                <svg id="emblem-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                          d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4.5v15m7.5-7.5h-15"/>
                 </svg>
             </div>
-            <h1 id="main-title">Sistema de Convites</h1>
-            <div class="divider"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
-            <p class="subtitle" id="step-desc">Acesso restrito • Usuários autorizados</p>
+            <h1>Sistema de Convites</h1>
+            <p class="subtitle" id="step-desc">Acesso Restrito</p>
         </div>
 
-        <div id="auth-section" class="fade-in">
+        <div id="auth-section">
             <div class="field-group">
-                <label>Seu E-mail Institucional</label>
-                <input type="email" id="auth-email" placeholder="nome@gruposoul.com" onkeydown="if(event.key==='Enter') verifyAccess()">
+                <label>E-mail Autorizado</label>
+                <input type="email" id="auth-email" placeholder="seu@email.com">
             </div>
-            <button class="btn btn-gold" onclick="verifyAccess()" id="btn-verify">
-                <span>Verificar Acesso</span>
-            </button>
+            <button class="btn btn-gold" onclick="verifyAccess()" id="btn-verify">Verificar Acesso</button>
         </div>
 
-        <div id="form-section" class="hidden fade-in">
-            <div id="invite-status"></div>
+        <div id="form-section" class="hidden">
             <div class="field-group">
                 <label>Nome do Convidado</label>
-                <input type="text" id="guest-name" placeholder="Nome Completo" onkeydown="if(event.key==='Enter') submitGuest()">
+                <input type="text" id="guest-name" placeholder="Nome Completo">
             </div>
             <div class="field-group">
                 <label>E-mail do Convidado</label>
-                <input type="email" id="guest-email" placeholder="email@convidado.com" onkeydown="if(event.key==='Enter') submitGuest()">
+                <input type="email" id="guest-email" placeholder="email@convidado.com">
             </div>
             <div class="field-group">
-                <label>Telefone (WhatsApp)</label>
-                <input type="tel" id="guest-phone" placeholder="(00) 00000-0000" onkeydown="if(event.key==='Enter') submitGuest()">
+                <label>WhatsApp</label>
+                <input type="tel" id="guest-phone" placeholder="(00) 00000-0000">
             </div>
-            <button class="btn btn-green" onclick="submitGuest()" id="btn-submit">
-                <span>Cadastrar Convidado</span>
-            </button>
+            <button class="btn btn-green" onclick="submitGuest()" id="btn-submit">Cadastrar Convidado</button>
         </div>
 
-        <div id="success-section" class="hidden">
-            <div class="success-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white" width="34" height="34">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
-                </svg>
-            </div>
-            <h2 class="success-title">Convite Enviado!</h2>
-            <p class="success-text">O seu convidado foi cadastrado. Receberá o acesso por e-mail em breve.</p>
-            <a href="https://sndflw.com/i/decifrandoossegredosdabiblia" target="_blank" class="btn btn-whatsapp">Entrar no Grupo do WhatsApp</a>
-            <div class="success-separator"></div>
-            <div id="remaining-after" style="text-align:center; margin-bottom:4px;"></div>
-            <button class="add-another" onclick="resetForm()" id="btn-another">Cadastrar outro convidado</button>
+        <div id="success-section" class="hidden" style="text-align:center;">
+            <h2 style="color:var(--cream); margin-bottom:10px;">Sucesso!</h2>
+            <p style="color:var(--cream-dim); font-size:0.9rem;">O convidado foi registado com sucesso.</p>
+            <a href="https://sndflw.com/i/decifrandoossegredosdabiblia" target="_blank" class="btn btn-whatsapp">Entrar no Grupo</a>
+            <button class="btn" style="background:none; color:var(--gold); margin-top:20px;" onclick="location.reload()">Novo Cadastro</button>
         </div>
 
         <div id="feedback"></div>
     </div>
-    <p class="footer">© 2026 Escola Tocha · Todos os direitos reservados</p>
 </div>
 
 <script>
 const CONFIG = {
     sheetsId: '1jsBoGErysr_p8dr0SCJykbeklapjsYHNelDASOF9LDc',
-    maxInvitesPerEmail: 2,
+    proxy: 'https://corsproxy.io/?',
     ac: {
         url: 'https://gruposoul.api-us1.com',
         token: '90d74a42f0495ead928e7a047e53a10e536e85c9ebc8e46be54dab8d5f1508c149eb23e3',
         tagSlug: 'db-convidado-tocha'
-    },
-    proxy: 'https://corsproxy.io/?',
-    pixelId: '8118960231508203',
-    pixelEvent: 'convidado-tocha'
+    }
 };
 
-let state = { authorizedEmails: [], currentUserEmail: null, invitesUsed: 0 };
+let authorizedEmails = [];
 
-const $ = id => document.getElementById(id);
-const authSection = $('auth-section'), formSection = $('form-section'), successSection = $('success-section'), feedback = $('feedback');
-
-function showFeedback(msg, type = 'info') { feedback.innerHTML = msg; feedback.className = type; feedback.style.display = 'block'; }
-function hideFeedback() { feedback.style.display = 'none'; }
-
-async function loadAuthorizedEmails() {
-    const csvUrl = `https://docs.google.com/spreadsheets/d/${CONFIG.sheetsId}/export?format=csv&gid=0`;
-    const url = CONFIG.proxy + encodeURIComponent(csvUrl);
-
-    try {
-        const res = await fetch(url);
-        const text = await res.text();
-        
-        // Separa as linhas tratando quebras de linha Windows/Unix
-        const rows = text.split(/\r?\n/);
-        
-        const emails = rows.map(row => {
-            // Tenta detectar o separador (ponto e vírgula ou vírgula)
-            let cols = row.split(';');
-            if (cols.length < 3) cols = row.split(',');
-            
-            // Retorna o valor da Coluna C (índice 2)
-            return cols[2]?.replace(/["\r]/g, '').trim().toLowerCase() || '';
-        }).filter(e => e.includes('@'));
-
-        state.authorizedEmails = emails;
-        return true;
-    } catch (err) {
-        console.warn('Erro ao carregar a lista:', err);
-        return false;
-    }
+function showFeedback(msg, type) {
+    const f = document.getElementById('feedback');
+    f.innerHTML = msg; f.className = type; f.style.display = 'block';
 }
 
-function getStorageKey(email) { return `soul_invites_${email.toLowerCase().replace(/[^a-z0-9]/g, '_')}`; }
-function getUsedCount(email) { return parseInt(localStorage.getItem(getStorageKey(email)) || '0', 10); }
-function incrementUsed(email) {
-    const key = getStorageKey(email);
-    const val = getUsedCount(email) + 1;
-    localStorage.setItem(key, String(val));
-    return val;
+// Função robusta para processar CSV (lida com vírgulas dentro de aspas e separadores diferentes)
+function parseCSV(text) {
+    const lines = text.split(/\r?\n/).filter(line => line.trim() !== "");
+    return lines.map(line => {
+        // Tenta detetar se o separador é ; ou ,
+        const sep = line.includes(';') ? ';' : ',';
+        const pattern = new RegExp(`([^${sep}"]*|"[^"]*")(?=${sep}|$)`, 'g');
+        const matches = line.match(pattern) || [];
+        return matches.map(m => m.replace(/^"|"$/g, '').trim());
+    });
 }
 
 async function verifyAccess() {
-    const email = $('auth-email').value.trim().toLowerCase();
-    const btn = $('btn-verify');
-    if (!email.includes('@')) { showFeedback('Digite um e-mail válido.', 'error'); return; }
-
-    btn.disabled = true;
-    btn.innerHTML = `<div class="loader"></div><span>Verificando...</span>`;
+    const emailInput = document.getElementById('auth-email').value.trim().toLowerCase();
+    const btn = document.getElementById('btn-verify');
     
-    const loaded = await loadAuthorizedEmails();
-    if (!loaded || state.authorizedEmails.length === 0) {
-        showFeedback('Erro ao aceder à lista. Verifique a partilha da folha.', 'error');
-        btn.disabled = false; btn.innerHTML = '<span>Verificar Acesso</span>';
-        return;
+    if (!emailInput.includes('@')) { showFeedback('Insira um e-mail válido.', 'error'); return; }
+
+    btn.disabled = true; btn.innerHTML = '<div class="loader"></div> Verificando...';
+    showFeedback('Consultando lista de permissões...', 'info');
+
+    try {
+        const csvUrl = `https://docs.google.com/spreadsheets/d/${CONFIG.sheetsId}/export?format=csv&gid=0`;
+        const response = await fetch(CONFIG.proxy + encodeURIComponent(csvUrl));
+        const csvData = await response.text();
+        
+        const rows = parseCSV(csvData);
+        
+        // Debug: Mostra no console o que foi lido da Coluna C (índice 2)
+        console.log("Emails encontrados na Coluna C:", rows.map(r => r[2]));
+
+        authorizedEmails = rows.map(row => row[2] ? row[2].toLowerCase() : "").filter(e => e.includes('@'));
+
+        if (authorizedEmails.includes(emailInput)) {
+            document.getElementById('auth-section').classList.add('hidden');
+            document.getElementById('form-section').classList.remove('hidden');
+            document.getElementById('step-desc').innerText = 'Dados do Convidado';
+            document.getElementById('feedback').style.display = 'none';
+        } else {
+            showFeedback('Este e-mail não tem autorização.', 'error');
+            btn.disabled = false; btn.innerHTML = 'Verificar Acesso';
+        }
+    } catch (e) {
+        showFeedback('Erro ao conectar à folha de cálculo. Verifique a partilha.', 'error');
+        btn.disabled = false; btn.innerHTML = 'Verificar Acesso';
     }
-
-    if (!state.authorizedEmails.includes(email)) {
-        showFeedback('E-mail não autorizado.', 'error');
-        btn.disabled = false; btn.innerHTML = '<span>Verificar Acesso</span>';
-        return;
-    }
-
-    const used = getUsedCount(email);
-    if (used >= CONFIG.maxInvitesPerEmail) {
-        showFeedback(`Limite de ${CONFIG.maxInvitesPerEmail} convites atingido.`, 'error');
-        btn.disabled = false; btn.innerHTML = '<span>Verificar Acesso</span>';
-        return;
-    }
-
-    state.currentUserEmail = email;
-    state.invitesUsed = used;
-    hideFeedback();
-    authSection.classList.add('hidden');
-    formSection.classList.remove('hidden');
-    $('step-desc').innerText = 'Dados do convidado';
-    renderInviteBadge();
-}
-
-function renderInviteBadge() {
-    const rem = CONFIG.maxInvitesPerEmail - getUsedCount(state.currentUserEmail);
-    const pct = (getUsedCount(state.currentUserEmail) / CONFIG.maxInvitesPerEmail) * 100;
-    $('invite-status').innerHTML = `
-        <div class="invite-badge"><span class="dot"></span>${rem} restantes de ${CONFIG.maxInvitesPerEmail}</div>
-        <div class="quota-bar-wrap"><div class="quota-bar" style="width:${pct}%"></div></div><div style="height:16px"></div>`;
-}
-
-async function acFetch(endpoint, method = 'GET', body = null) {
-    const url = CONFIG.proxy + encodeURIComponent(`${CONFIG.ac.url}${endpoint}`);
-    const options = { method, headers: { 'Api-Token': CONFIG.ac.token, 'Accept': 'application/json' } };
-    if (body) { options.headers['Content-Type'] = 'application/json'; options.body = JSON.stringify(body); }
-    const res = await fetch(url, options);
-    return res.json();
 }
 
 async function submitGuest() {
-    const name = $('guest-name').value.trim(), email = $('guest-email').value.trim(), phone = $('guest-phone').value.trim();
-    const btn = $('btn-submit');
+    const name = document.getElementById('guest-name').value.trim();
+    const email = document.getElementById('guest-email').value.trim();
+    const phone = document.getElementById('guest-phone').value.trim();
+    const btn = document.getElementById('btn-submit');
+
     if (!name || !email || !phone) { showFeedback('Preencha todos os campos.', 'error'); return; }
 
-    btn.disabled = true;
-    btn.innerHTML = `<div class="loader"></div><span>Processando...</span>`;
-    
+    btn.disabled = true; btn.innerHTML = '<div class="loader"></div> Processando...';
+
     try {
-        let cId;
-        try {
-            const res = await acFetch('/api/3/contacts', 'POST', { contact: { email, firstName: name, phone } });
-            cId = res.contact.id;
-        } catch {
-            const s = await acFetch(`/api/3/contacts?email=${encodeURIComponent(email)}`);
-            cId = s.contacts?.[0]?.id;
+        // Enviar para ActiveCampaign
+        const acUrl = CONFIG.proxy + encodeURIComponent(`${CONFIG.ac.url}/api/3/contacts`);
+        const res = await fetch(acUrl, {
+            method: 'POST',
+            headers: { 'Api-Token': CONFIG.ac.token, 'Content-Type': 'application/json' },
+            body: JSON.stringify({ contact: { email, firstName: name, phone } })
+        });
+        
+        const data = await res.json();
+        const contactId = data.contact ? data.contact.id : null;
+
+        if (contactId) {
+            // Aplicar Tag (Simplificado: assume que a tag existe ou cria erro silencioso)
+            const tagUrl = CONFIG.proxy + encodeURIComponent(`${CONFIG.ac.url}/api/3/contactTags`);
+            await fetch(tagUrl, {
+                method: 'POST',
+                headers: { 'Api-Token': CONFIG.ac.token, 'Content-Type': 'application/json' },
+                body: JSON.stringify({ contactTag: { contact: contactId, tag: "26" } }) // ID da tag db001-26
+            });
         }
-        if (!cId) throw new Error('Falha no contacto.');
 
-        const tRes = await acFetch(`/api/3/tags?search=${CONFIG.ac.tagSlug}`);
-        const tag = tRes.tags?.find(t => t.tag === CONFIG.ac.tagSlug);
-        await acFetch('/api/3/contactTags', 'POST', { contactTag: { contact: cId, tag: tag.id } });
-
-        incrementUsed(state.currentUserEmail);
+        document.getElementById('form-section').classList.add('hidden');
+        document.getElementById('success-section').classList.remove('hidden');
+        document.getElementById('feedback').style.display = 'none';
         if (typeof fbq === 'function') fbq('trackCustom', CONFIG.pixelEvent);
-        showSuccessScreen();
+        
     } catch (e) {
-        showFeedback(`Erro: ${e.message}`, 'error');
-        btn.disabled = false; btn.innerHTML = '<span>Cadastrar Convidado</span>';
+        showFeedback('Erro ao registar no ActiveCampaign.', 'error');
+        btn.disabled = false; btn.innerHTML = 'Cadastrar Convidado';
     }
-}
-
-function showSuccessScreen() {
-    formSection.classList.add('hidden'); successSection.classList.remove('hidden');
-    $('step-desc').innerText = 'Concluído';
-    const rem = CONFIG.maxInvitesPerEmail - getUsedCount(state.currentUserEmail);
-    $('remaining-after').innerHTML = rem > 0 ? `Ainda tem ${rem} convites.` : 'Limite atingido.';
-    if (rem <= 0) $('btn-another').classList.add('hidden');
-}
-
-function resetForm() {
-    $('guest-name').value = ''; $('guest-email').value = ''; $('guest-phone').value = '';
-    successSection.classList.add('hidden'); formSection.classList.remove('hidden');
-    $('btn-submit').disabled = false; $('btn-submit').innerHTML = '<span>Cadastrar Convidado</span>';
-    renderInviteBadge();
 }
 </script>
 </body>

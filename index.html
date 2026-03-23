@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Convites — Grupo Soul</title>
-
+    <title>Sistema de Convites — Escola Tocha</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 
@@ -14,36 +13,25 @@
     n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
     t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
     document,'script','https://connect.facebook.net/en_US/fbevents.js');
-
     fbq('init', '8118960231508203');
-    fbq('track', 'PageView');
     </script>
-
-    <noscript>
-      <img height="1" width="1" style="display:none"
-        src="https://www.facebook.com/tr?id=8118960231508203&ev=PageView&noscript=1"/>
-    </noscript>
 
     <style>
         :root {
-            --gold: #C9A84C;
+            --gold:       #C9A84C;
             --gold-light: #E8C97A;
-            --gold-dark: #9A7A32;
-            --dark: #0D0D0D;
-            --dark-2: #161616;
-            --dark-3: #1E1E1E;
-            --cream: #F5F0E8;
-            --cream-dim: #C8C0B0;
-            --green: #2E7D52;
-            --green-light: #3DA06A;
-            --red: #B03A2E;
+            --gold-dark:  #9A7A32;
+            --dark:       #0D0D0D;
+            --dark-2:     #161616;
+            --dark-3:     #1E1E1E;
+            --cream:      #F5F0E8;
+            --cream-dim:  #C8C0B0;
+            --green:      #2E7D52;
+            --green-light:#3DA06A;
+            --red:        #B03A2E;
         }
 
-        *, *::before, *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             font-family: 'Lato', sans-serif;
@@ -62,9 +50,7 @@
             content: '';
             position: fixed;
             inset: 0;
-            background:
-                radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,168,76,0.08) 0%, transparent 70%),
-                radial-gradient(ellipse 60% 40% at 80% 100%, rgba(201,168,76,0.05) 0%, transparent 60%);
+            background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,168,76,0.08) 0%, transparent 70%);
             pointer-events: none;
             z-index: 0;
         }
@@ -72,9 +58,7 @@
         body::after {
             content: '';
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0;
             height: 3px;
             background: linear-gradient(90deg, transparent, var(--gold), var(--gold-light), var(--gold), transparent);
         }
@@ -99,72 +83,30 @@
         .card::before, .card::after {
             content: '';
             position: absolute;
-            width: 40px;
-            height: 40px;
+            width: 40px; height: 40px;
             border-color: var(--gold-dark);
             border-style: solid;
             opacity: 0.4;
         }
+        .card::before { top: 12px; left: 12px; border-width: 1px 0 0 1px; }
+        .card::after  { bottom: 12px; right: 12px; border-width: 0 1px 1px 0; }
 
-        .card::before {
-            top: 12px;
-            left: 12px;
-            border-width: 1px 0 0 1px;
-        }
-
-        .card::after {
-            bottom: 12px;
-            right: 12px;
-            border-width: 0 1px 1px 0;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 36px;
-        }
+        .header { text-align: center; margin-bottom: 36px; }
 
         .emblem {
-            width: 72px;
-            height: 72px;
+            width: 72px; height: 72px;
             border-radius: 50%;
             background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light));
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
             margin: 0 auto 20px;
             box-shadow: 0 4px 20px rgba(201,168,76,0.35);
         }
 
-        .emblem svg {
-            width: 32px;
-            height: 32px;
-            color: var(--dark);
-        }
+        .emblem svg { width: 32px; height: 32px; color: var(--dark); }
 
-        .divider {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin: 12px 0;
-        }
-
-        .divider-line {
-            flex: 1;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(201,168,76,0.3));
-        }
-
-        .divider-line:last-child {
-            background: linear-gradient(270deg, transparent, rgba(201,168,76,0.3));
-        }
-
-        .divider-diamond {
-            width: 6px;
-            height: 6px;
-            background: var(--gold);
-            transform: rotate(45deg);
-            opacity: 0.6;
-        }
+        .divider { display: flex; align-items: center; gap: 12px; margin: 12px 0; }
+        .divider-line { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, rgba(201,168,76,0.3)); }
+        .divider-diamond { width: 6px; height: 6px; background: var(--gold); transform: rotate(45deg); opacity: 0.6; }
 
         h1 {
             font-family: 'Cinzel', serif;
@@ -182,17 +124,15 @@
             margin-top: 8px;
         }
 
-        .field-group {
-            margin-bottom: 14px;
-        }
+        .field-group { margin-bottom: 14px; }
 
         label {
             display: block;
             font-size: 0.72rem;
             font-weight: 700;
-            text-transform: uppercase;
             color: var(--gold);
             margin-bottom: 6px;
+            text-transform: uppercase;
         }
 
         input {
@@ -208,10 +148,7 @@
             transition: 0.25s;
         }
 
-        input:focus {
-            border-color: var(--gold);
-            background: rgba(255,255,255,0.06);
-        }
+        input:focus { border-color: var(--gold); background: rgba(255,255,255,0.06); }
 
         .btn {
             width: 100%;
@@ -222,41 +159,16 @@
             font-size: 0.85rem;
             font-weight: 600;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
             transition: 0.2s;
             margin-top: 20px;
         }
 
-        .btn:disabled {
-            opacity: 0.8;
-            cursor: not-allowed;
-        }
-
-        .btn-gold {
-            background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light));
-            color: var(--dark);
-        }
-
-        .btn-green {
-            background: linear-gradient(135deg, var(--green), var(--green-light));
-            color: #fff;
-        }
-
-        .btn-whatsapp {
-            background: linear-gradient(135deg, #128C7E, #25D366);
-            color: #fff;
-            text-decoration: none;
-            font-family: 'Lato', sans-serif;
-            font-weight: 700;
-        }
+        .btn-gold { background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light)); color: var(--dark); }
+        .btn-green { background: linear-gradient(135deg, var(--green), var(--green-light)); color: #fff; }
 
         .invite-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
+            display: inline-flex; align-items: center; gap: 6px;
             background: rgba(201,168,76,0.1);
             border: 1px solid rgba(201,168,76,0.25);
             border-radius: 20px;
@@ -265,88 +177,23 @@
             color: var(--gold-light);
             margin-bottom: 20px;
         }
+        .invite-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); animation: pulse-dot 2s infinite; }
+        @keyframes pulse-dot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.75); } }
 
-        .invite-badge .dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: var(--gold);
-            animation: pulse-dot 2s infinite;
-        }
+        .quota-bar-wrap { height: 4px; background: rgba(255,255,255,0.06); border-radius: 2px; overflow: hidden; margin-bottom: 20px; }
+        .quota-bar { height: 100%; background: linear-gradient(90deg, var(--gold-dark), var(--gold-light)); transition: width 0.6s ease; }
 
-        @keyframes pulse-dot {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(0.75); }
-        }
+        #feedback { margin-top: 16px; padding: 11px 14px; border-radius: 3px; font-size: 0.82rem; line-height: 1.5; display: none; }
+        #feedback.error { background: rgba(176,58,46,0.15); border: 1px solid rgba(176,58,46,0.4); color: #E8A09A; }
+        
+        .loader { width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.2); border-top: 2px solid currentColor; border-radius: 50%; animation: spin 0.75s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
-        .quota-bar-wrap {
-            height: 4px;
-            background: rgba(255,255,255,0.06);
-            border-radius: 2px;
-            overflow: hidden;
-            margin-bottom: 20px;
-        }
+        .hidden { display: none !important; }
+        .fade-in { animation: fade-in 0.4s ease both; }
+        @keyframes fade-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
-        .quota-bar {
-            height: 100%;
-            background: linear-gradient(90deg, var(--gold-dark), var(--gold-light));
-            transition: width 0.6s ease;
-        }
-
-        #feedback {
-            margin-top: 16px;
-            padding: 11px 14px;
-            border-radius: 3px;
-            font-size: 0.82rem;
-            line-height: 1.5;
-            display: none;
-        }
-
-        #feedback.error {
-            background: rgba(176,58,46,0.15);
-            border: 1px solid rgba(176,58,46,0.4);
-            color: #E8A09A;
-        }
-
-        #feedback.info {
-            background: rgba(201,168,76,0.1);
-            border: 1px solid rgba(201,168,76,0.3);
-            color: var(--gold-light);
-        }
-
-        .loader {
-            width: 18px;
-            height: 18px;
-            border: 2px solid rgba(255,255,255,0.2);
-            border-top-color: currentColor;
-            border-radius: 50%;
-            animation: spin 0.75s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        .fade-in {
-            animation: fade-in 0.4s ease both;
-        }
-
-        @keyframes fade-in {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .footer {
-            text-align: center;
-            margin-top: 24px;
-            font-size: 0.68rem;
-            color: rgba(200,192,176,0.3);
-            text-transform: uppercase;
-        }
+        .footer { text-align: center; margin-top: 24px; font-size: 0.68rem; color: rgba(200,192,176,0.3); text-transform: uppercase; }
     </style>
 </head>
 <body>
@@ -355,223 +202,134 @@
     <div class="card">
         <div class="header">
             <div class="emblem">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
                 </svg>
             </div>
-
             <h1>Sistema de Convites</h1>
-
-            <div class="divider">
-                <div class="divider-line"></div>
-                <div class="divider-diamond"></div>
-                <div class="divider-line"></div>
-            </div>
-
+            <div class="divider"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
             <p class="subtitle" id="step-desc">Acesso restrito • Usuários autorizados</p>
         </div>
 
         <div id="auth-section" class="fade-in">
             <div class="field-group">
-                <label>Seu E-mail Institucional</label>
-                <input type="email" id="auth-email" placeholder="nome@gruposoul.com">
+                <label>Seu E-mail </label>
+                <input type="email" id="auth-email" placeholder="nome@gmail.com">
             </div>
             <button class="btn btn-gold" onclick="verifyAccess()" id="btn-verify">Verificar Acesso</button>
         </div>
 
         <div id="form-section" class="hidden fade-in">
             <div id="invite-status"></div>
-
-            <div class="field-group">
-                <label>Nome do Convidado</label>
-                <input type="text" id="guest-name" placeholder="Nome Completo">
-            </div>
-
-            <div class="field-group">
-                <label>E-mail do Convidado</label>
-                <input type="email" id="guest-email" placeholder="email@convidado.com">
-            </div>
-
-            <div class="field-group">
-                <label>Telefone (WhatsApp)</label>
-                <input type="tel" id="guest-phone" placeholder="(00) 00000-0000">
-            </div>
-
+            <div class="field-group"><label>Nome do Convidado</label><input type="text" id="guest-name" placeholder="Nome Completo"></div>
+            <div class="field-group"><label>E-mail do Convidado</label><input type="email" id="guest-email" placeholder="email@convidado.com"></div>
+            <div class="field-group"><label>WhatsApp</label><input type="tel" id="guest-phone" placeholder="(00) 00000-0000"></div>
             <button class="btn btn-green" onclick="submitGuest()" id="btn-submit">Cadastrar Convidado</button>
         </div>
 
         <div id="success-section" class="hidden fade-in" style="text-align:center;">
             <div style="background:var(--green); width:64px; height:64px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 24px; box-shadow:0 4px 20px rgba(46,125,82,0.4);">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
-                    <path d="M5 13l4 4L19 7"/>
-                </svg>
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg>
             </div>
-
-            <h2 style="color:var(--cream); font-family:'Cinzel', serif;">Sucesso!</h2>
-            <p style="color:var(--cream-dim); font-size:0.88rem; margin-bottom:24px;">O convidado foi registrado com sucesso.</p>
-
-            <a href="https://sndflw.com/i/decifrandoossegredosdabiblia" target="_blank" class="btn btn-whatsapp">
-                Entrar no Grupo WhatsApp
-            </a>
-
-            <div id="remaining-after" style="margin-top:24px; font-size:0.8rem; color:var(--gold);"></div>
-
-            <button class="btn" style="background:none; color:var(--gold); font-size:0.75rem; text-transform:uppercase;" onclick="location.reload()">
-                Novo cadastro
-            </button>
+            <h2 style="color:var(--cream); font-family:'Cinzel';">Sucesso!</h2>
+            <p style="color:var(--cream-dim);">O convidado foi registado com sucesso.</p>
+            <button class="btn" style="background:none; color:var(--gold); font-size:0.75rem; text-transform:uppercase;" onclick="location.reload()">Novo cadastro</button>
         </div>
 
         <div id="feedback"></div>
     </div>
-
-    <p class="footer">© 2026 Grupo Soul · Todos os direitos reservados</p>
+    <p class="footer">© 2026 Escola Tocha · Todos os direitos reservados</p>
 </div>
 
 <script>
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyissPb7bC8Z62t9MhecxdyUOrkoL390q2eTyEAT-RsEdRQ1ziDdKf8soTcBxCmnPik/exec';
+// NOVA URL DE IMPLANTAÇÃO
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxw-KIA02UqaGhHZ2pFl6Km71_RWiXwXiRqRJaUNaFdUSftIsl3sFNG7OLGCLBSZeGi/exec';
 const MAX_INVITES = 2;
 
-let state = {
-    user: '',
-    used: 0
-};
+let state = { user: '', used: 0 };
 
-function notify(msg, type) {
-    const feedback = document.getElementById('feedback');
-    feedback.innerHTML = msg;
-    feedback.className = type;
-    feedback.style.display = 'block';
+function notify(msg, type) { 
+    const f = document.getElementById('feedback'); 
+    f.innerHTML = msg; f.className = type; f.style.display = 'block'; 
 }
 
-function hideNotify() {
-    const feedback = document.getElementById('feedback');
-    feedback.style.display = 'none';
-    feedback.innerHTML = '';
-    feedback.className = '';
-}
-
-function getStorageKey(email) {
-    return `soul_invites_${email.toLowerCase().replace(/[^a-z0-9]/g, '_')}`;
-}
-
-function validateEmail(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
+function getStorageKey(email) { return `soul_invites_${email.replace(/[^a-z0-9]/g, '_')}`; }
 
 async function verifyAccess() {
     const email = document.getElementById('auth-email').value.trim().toLowerCase();
     const btn = document.getElementById('btn-verify');
+    if(!email.includes('@')) return notify('E-mail inválido.', 'error');
 
-    if (!validateEmail(email)) {
-        notify('Por favor, insira um e-mail válido.', 'error');
-        return;
-    }
-
-    btn.disabled = true;
-    btn.innerHTML = '<div class="loader"></div><span>Validando...</span>';
-    notify('Validando acesso...', 'info');
-
+    btn.disabled = true; btn.innerHTML = '<div class="loader"></div>';
+    
     try {
         const res = await fetch(`${SCRIPT_URL}?action=verify&email=${encodeURIComponent(email)}`);
         const data = await res.json();
 
-        if (!data.authorized) {
-            notify('E-mail não autorizado na coluna C.', 'error');
-            btn.disabled = false;
-            btn.innerHTML = 'Verificar Acesso';
-            return;
+        if(data.authorized) {
+            state.user = email;
+            state.used = parseInt(localStorage.getItem(getStorageKey(email)) || '0', 10);
+            
+            if(state.used >= MAX_INVITES) {
+                notify('Limite de convites atingido.', 'error');
+                btn.disabled = false; btn.innerHTML = 'Verificar Acesso';
+                return;
+            }
+
+            document.getElementById('auth-section').classList.add('hidden');
+            document.getElementById('form-section').classList.remove('hidden');
+            document.getElementById('step-desc').innerText = 'Dados do convidado';
+            document.getElementById('feedback').style.display = 'none';
+            renderBadge();
+        } else {
+            notify('E-mail não autorizado na Coluna C.', 'error');
+            btn.disabled = false; btn.innerHTML = 'Verificar Acesso';
         }
-
-        state.user = email;
-        state.used = parseInt(localStorage.getItem(getStorageKey(email)) || '0', 10);
-
-        if (state.used >= MAX_INVITES) {
-            notify('Limite de convites atingido.', 'error');
-            btn.disabled = false;
-            btn.innerHTML = 'Verificar Acesso';
-            return;
-        }
-
-        document.getElementById('auth-section').classList.add('hidden');
-        document.getElementById('form-section').classList.remove('hidden');
-        document.getElementById('step-desc').innerText = 'Dados do convidado';
-        hideNotify();
-        renderBadge();
-
-    } catch (error) {
-        notify('Erro ao validar acesso. Verifique se o Apps Script está publicado corretamente.', 'error');
-        btn.disabled = false;
-        btn.innerHTML = 'Verificar Acesso';
+    } catch(e) {
+        notify('Erro de conexão. Verifique a permissão do script.', 'error');
+        btn.disabled = false; btn.innerHTML = 'Verificar Acesso';
     }
 }
 
 function renderBadge() {
-    const remaining = MAX_INVITES - state.used;
+    const rem = MAX_INVITES - state.used;
     const pct = (state.used / MAX_INVITES) * 100;
-
     document.getElementById('invite-status').innerHTML = `
-        <div class="invite-badge">
-            <span class="dot"></span>${remaining} restantes de ${MAX_INVITES}
-        </div>
-        <div class="quota-bar-wrap">
-            <div class="quota-bar" style="width:${pct}%"></div>
-        </div>
-    `;
+        <div class="invite-badge"><span class="dot"></span>${rem} restantes</div>
+        <div class="quota-bar-wrap"><div class="quota-bar" style="width:${pct}%"></div></div>`;
 }
 
 async function submitGuest() {
-    const guestName = document.getElementById('guest-name').value.trim();
-    const guestEmail = document.getElementById('guest-email').value.trim().toLowerCase();
-    const guestPhone = document.getElementById('guest-phone').value.trim();
+    const name = document.getElementById('guest-name').value.trim();
+    const email = document.getElementById('guest-email').value.trim();
+    const phone = document.getElementById('guest-phone').value.trim();
     const btn = document.getElementById('btn-submit');
 
-    if (!guestName || !guestEmail || !guestPhone) {
-        notify('Preencha todos os campos.', 'error');
-        return;
-    }
-
-    if (!validateEmail(guestEmail)) {
-        notify('Informe um e-mail de convidado válido.', 'error');
-        return;
-    }
-
-    if (state.used >= MAX_INVITES) {
-        notify('Limite de convites atingido.', 'error');
-        return;
-    }
-
-    btn.disabled = true;
-    btn.innerHTML = '<div class="loader"></div><span>Enviando...</span>';
-    notify('Cadastrando convidado...', 'info');
+    if(!name || !email || !phone) return notify('Preencha tudo.', 'error');
+    btn.disabled = true; btn.innerHTML = '<div class="loader"></div>';
 
     try {
-        const url = `${SCRIPT_URL}?action=register&email=${encodeURIComponent(guestEmail)}&name=${encodeURIComponent(guestName)}&phone=${encodeURIComponent(guestPhone)}`;
+        const url = `${SCRIPT_URL}?action=register&email=${encodeURIComponent(email)}&name=${encodeURIComponent(name)}&phone=${encodeURIComponent(phone)}`;
         const res = await fetch(url);
         const data = await res.json();
 
-        if (!data.success) {
-            throw new Error(data.error || 'Erro no cadastro.');
+        if(data.success) {
+            state.used++;
+            localStorage.setItem(getStorageKey(state.user), state.used);
+            
+            if (typeof fbq === 'function') fbq('trackCustom', 'convidado-tocha');
+
+            document.getElementById('form-section').classList.add('hidden');
+            document.getElementById('success-section').classList.remove('hidden');
+            document.getElementById('feedback').style.display = 'none';
+        } else {
+            throw new Error(data.error);
         }
-
-        state.used++;
-        localStorage.setItem(getStorageKey(state.user), String(state.used));
-
-        if (typeof fbq === 'function') {
-            fbq('trackCustom', 'convidado-tocha');
-        }
-
-        document.getElementById('form-section').classList.add('hidden');
-        document.getElementById('success-section').classList.remove('hidden');
-        document.getElementById('remaining-after').innerText = `Restam ${MAX_INVITES - state.used} convites.`;
-        hideNotify();
-
-    } catch (error) {
-        notify('Erro ao cadastrar convidado: ' + error.message, 'error');
-        btn.disabled = false;
-        btn.innerHTML = 'Cadastrar Convidado';
+    } catch(e) {
+        notify('Erro no cadastro do ActiveCampaign.', 'error');
+        btn.disabled = false; btn.innerHTML = 'Cadastrar Convidado';
     }
 }
 </script>
-
 </body>
 </html>

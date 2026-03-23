@@ -6,7 +6,6 @@
     <title>Sistema de Convites — Grupo Soul</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-
     <script>
     !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
     n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
@@ -15,246 +14,125 @@
     document,'script','https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', '8118960231508203');
     </script>
-
     <style>
-        :root {
-            --gold:       #C9A84C; --gold-light: #E8C97A; --gold-dark:  #9A7A32;
-            --dark:       #0D0D0D; --dark-2:     #161616; --dark-3:     #1E1E1E;
-            --cream:      #F5F0E8; --cream-dim:  #C8C0B0; --green:      #2E7D52;
-            --green-light:#3DA06A; --red:        #B03A2E;
-        }
-
+        :root { --gold: #C9A84C; --gold-light: #E8C97A; --gold-dark: #9A7A32; --dark: #0D0D0D; --dark-2: #161616; --dark-3: #1E1E1E; --cream: #F5F0E8; --cream-dim: #C8C0B0; --green: #2E7D52; --green-light: #3DA06A; --red: #B03A2E; }
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-        body {
-            font-family: 'Lato', sans-serif; background: var(--dark); min-height: 100vh;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            padding: 24px 16px; position: relative; overflow-x: hidden;
-        }
-
-        body::before {
-            content: ''; position: fixed; inset: 0;
-            background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,168,76,0.08) 0%, transparent 70%);
-            pointer-events: none; z-index: 0;
-        }
-
-        body::after {
-            content: ''; position: fixed; top: 0; left: 0; right: 0; height: 3px;
-            background: linear-gradient(90deg, transparent, var(--gold), var(--gold-light), var(--gold), transparent);
-        }
-
+        body { font-family: 'Lato', sans-serif; background: var(--dark); min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px 16px; position: relative; overflow-x: hidden; }
+        body::before { content: ''; position: fixed; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,168,76,0.08) 0%, transparent 70%); pointer-events: none; z-index: 0; }
+        body::after { content: ''; position: fixed; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, transparent, var(--gold), var(--gold-light), var(--gold), transparent); }
         #app { width: 100%; max-width: 440px; position: relative; z-index: 1; }
-
-        .card {
-            background: linear-gradient(160deg, var(--dark-2) 0%, var(--dark-3) 100%);
-            border: 1px solid rgba(201,168,76,0.25); border-radius: 4px; padding: 48px 40px 40px;
-            box-shadow: 0 32px 64px rgba(0,0,0,0.6); position: relative; overflow: hidden;
-        }
-
-        .card::before, .card::after {
-            content: ''; position: absolute; width: 40px; height: 40px;
-            border-color: var(--gold-dark); border-style: solid; opacity: 0.4;
-        }
-        .card::before { top: 12px; left: 12px; border-width: 1px 0 0 1px; }
-        .card::after  { bottom: 12px; right: 12px; border-width: 0 1px 1px 0; }
-
+        .card { background: linear-gradient(160deg, var(--dark-2) 0%, var(--dark-3) 100%); border: 1px solid rgba(201,168,76,0.25); border-radius: 4px; padding: 48px 40px 40px; box-shadow: 0 32px 64px rgba(0,0,0,0.6); position: relative; overflow: hidden; }
         .header { text-align: center; margin-bottom: 36px; }
-
-        .emblem {
-            width: 72px; height: 72px; border-radius: 50%;
-            background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light));
-            display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;
-            box-shadow: 0 4px 20px rgba(201,168,76,0.35);
-        }
+        .emblem { width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light)); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; box-shadow: 0 4px 20px rgba(201,168,76,0.35); }
         .emblem svg { width: 32px; height: 32px; color: var(--dark); }
-
         .divider { display: flex; align-items: center; gap: 12px; margin: 12px 0; }
         .divider-line { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, rgba(201,168,76,0.3)); }
         .divider-line:last-child { background: linear-gradient(270deg, transparent, rgba(201,168,76,0.3)); }
         .divider-diamond { width: 6px; height: 6px; background: var(--gold); transform: rotate(45deg); opacity: 0.6; }
-
         h1 { font-family: 'Cinzel', serif; font-size: 1.5rem; font-weight: 700; color: var(--cream); letter-spacing: 0.04em; }
         .subtitle { font-size: 0.78rem; color: var(--cream-dim); text-transform: uppercase; margin-top: 8px; letter-spacing: 0.08em; }
-
         .field-group { margin-bottom: 14px; }
         label { display: block; font-size: 0.72rem; font-weight: 700; color: var(--gold); margin-bottom: 6px; text-transform: uppercase; }
-
-        input {
-            width: 100%; padding: 13px 16px; background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(201,168,76,0.2); border-radius: 3px; color: var(--cream);
-            font-family: 'Lato', sans-serif; font-size: 0.95rem; outline: none; transition: 0.25s;
-        }
+        input { width: 100%; padding: 13px 16px; background: rgba(255,255,255,0.04); border: 1px solid rgba(201,168,76,0.2); border-radius: 3px; color: var(--cream); font-family: 'Lato', sans-serif; font-size: 0.95rem; outline: none; transition: 0.25s; }
         input:focus { border-color: var(--gold); background: rgba(255,255,255,0.06); }
-
-        .btn {
-            width: 100%; padding: 14px; border: none; border-radius: 3px; cursor: pointer;
-            font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: 600;
-            display: flex; align-items: center; justify-content: center; gap: 10px; transition: 0.2s; margin-top: 20px;
-        }
-        .btn-gold { background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light)); color: var(--dark); }
-        .btn-green { background: linear-gradient(135deg, var(--green), var(--green-light)); color: #fff; }
-        .btn-whatsapp { background: linear-gradient(135deg, #128C7E, #25D366); color: #fff; text-decoration: none; font-family: 'Lato'; font-weight: 700; }
-
-        .invite-badge {
-            display: inline-flex; align-items: center; gap: 6px; background: rgba(201,168,76,0.1);
-            border: 1px solid rgba(201,168,76,0.25); border-radius: 20px; padding: 5px 12px;
-            font-size: 0.72rem; color: var(--gold-light); margin-bottom: 20px;
-        }
-        .invite-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); animation: pulse-dot 2s infinite; }
-        @keyframes pulse-dot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.75); } }
-
+        .btn { width: 100%; padding: 14px; border: none; border-radius: 3px; font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: 0.2s; margin-top: 20px; }
+        .btn-gold { background: var(--gold); color: var(--dark); }
+        .btn-green { background: var(--green); color: #fff; }
+        .invite-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.25); border-radius: 20px; padding: 5px 12px; font-size: 0.72rem; color: var(--gold-light); margin-bottom: 20px; }
         .quota-bar-wrap { height: 4px; background: rgba(255,255,255,0.06); border-radius: 2px; overflow: hidden; margin-bottom: 20px; }
         .quota-bar { height: 100%; background: linear-gradient(90deg, var(--gold-dark), var(--gold-light)); transition: width 0.6s ease; }
-
         #feedback { margin-top: 16px; padding: 11px 14px; border-radius: 3px; font-size: 0.82rem; line-height: 1.5; display: none; }
         #feedback.error { background: rgba(176,58,46,0.15); border: 1px solid rgba(176,58,46,0.4); color: #E8A09A; }
         #feedback.info { background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.3); color: var(--gold-light); }
-
-        .loader { border: 2px solid rgba(255,255,255,0.2); border-top: 2px solid #fff; border-radius: 50%; width: 16px; height: 16px; animation: spin 0.8s linear infinite; display: inline-block; vertical-align: middle; }
+        .loader { width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.2); border-top-color: currentColor; border-radius: 50%; animation: spin 0.75s linear infinite; display: inline-block; vertical-align: middle; }
         @keyframes spin { to { transform: rotate(360deg); } }
         .hidden { display: none !important; }
         .fade-in { animation: fade-in 0.4s ease both; }
-        @keyframes fade-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
         .footer { text-align: center; margin-top: 24px; font-size: 0.68rem; color: rgba(200,192,176,0.3); text-transform: uppercase; }
     </style>
 </head>
 <body>
-
 <div id="app">
     <div class="card">
         <div class="header">
-            <div class="emblem">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
-                </svg>
-            </div>
+            <div class="emblem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg></div>
             <h1>Sistema de Convites</h1>
             <div class="divider"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
-            <p class="subtitle" id="step-desc">Acesso restrito • Usuários autorizados</p>
+            <p class="subtitle" id="step-desc">Acesso restrito</p>
         </div>
-
         <div id="auth-section" class="fade-in">
-            <div class="field-group">
-                <label>Seu E-mail Institucional</label>
-                <input type="email" id="auth-email" placeholder="nome@gruposoul.com">
-            </div>
+            <div class="field-group"><label>Seu E-mail Institucional</label><input type="email" id="auth-email" placeholder="nome@gruposoul.com"></div>
             <button class="btn btn-gold" onclick="verifyAccess()" id="btn-verify">Verificar Acesso</button>
         </div>
-
         <div id="form-section" class="hidden fade-in">
             <div id="invite-status"></div>
             <div class="field-group"><label>Nome do Convidado</label><input type="text" id="guest-name" placeholder="Nome Completo"></div>
             <div class="field-group"><label>E-mail do Convidado</label><input type="email" id="guest-email" placeholder="email@convidado.com"></div>
             <div class="field-group"><label>WhatsApp</label><input type="tel" id="guest-phone" placeholder="(00) 00000-0000"></div>
-            <button class="btn btn-green" onclick="submitToActiveCampaign()" id="btn-submit">Cadastrar Convidado</button>
+            <button class="btn btn-green" onclick="submitToAC()" id="btn-submit">Cadastrar Convidado</button>
         </div>
-
         <div id="success-section" class="hidden fade-in" style="text-align:center;">
-            <div style="background:var(--green); width:64px; height:64px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 24px;">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg>
-            </div>
+            <div style="background:var(--green); width:64px; height:64px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 24px;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
             <h2 style="color:var(--cream); font-family:'Cinzel';">Sucesso!</h2>
-            <p style="color:var(--cream-dim);">O convidado foi registado com sucesso.</p>
-            <a href="https://sndflw.com/i/decifrandoossegredosdabiblia" target="_blank" class="btn btn-whatsapp" style="text-decoration:none; margin-top:20px;">Entrar no Grupo WhatsApp</a>
-            <div id="remaining-after" style="margin-top:20px; font-size:0.8rem; color:var(--gold);"></div>
-            <button class="btn" style="background:none; color:var(--gold);" onclick="location.reload()">Novo cadastro</button>
+            <p style="color:var(--cream-dim);">Convidado cadastrado no ActiveCampaign.</p>
+            <button class="btn" style="background:none; color:var(--gold); font-size:0.75rem;" onclick="location.reload()">Novo cadastro</button>
         </div>
-
         <div id="feedback"></div>
     </div>
-    <p class="footer">© 2026 Grupo Soul · Todos os direitos reservados</p>
+    <p class="footer">© 2026 Grupo Soul</p>
 </div>
-
 <script>
-// URL DA PONTE DO GOOGLE APPS SCRIPT
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyissPb7bC8Z62t9MhecxdyUOrkoL390q2eTyEAT-RsEdRQ1ziDdKf8soTcBxCmnPik/exec';
 const MAX_INVITES = 2;
-
 let state = { user: '', used: 0 };
 
-function notify(msg, type) { 
-    const f = document.getElementById('feedback'); 
-    f.innerHTML = msg; f.className = type; f.style.display = 'block'; 
-}
-
+function notify(msg, type) { const f = document.getElementById('feedback'); f.innerHTML = msg; f.className = type; f.style.display = 'block'; }
 function getStorageKey(email) { return `soul_invites_${email.replace(/[^a-z0-9]/g, '_')}`; }
 
 async function verifyAccess() {
     const email = document.getElementById('auth-email').value.trim().toLowerCase();
     const btn = document.getElementById('btn-verify');
-    if(!email || !email.includes('@')) return notify('E-mail inválido.', 'error');
-
+    if(!email.includes('@')) return notify('E-mail inválido.', 'error');
     btn.disabled = true; btn.innerHTML = '<div class="loader"></div>';
-    notify('Validando acesso...', 'info');
-
     try {
         const res = await fetch(`${SCRIPT_URL}?action=verify&email=${encodeURIComponent(email)}`);
         const data = await res.json();
-
         if(data.authorized) {
             state.user = email;
             state.used = parseInt(localStorage.getItem(getStorageKey(email)) || '0', 10);
-            
-            if(state.used >= MAX_INVITES) {
-                notify('Limite de convites atingido.', 'error');
-                btn.disabled = false; btn.innerHTML = 'Verificar Acesso';
-                return;
-            }
-
+            if(state.used >= MAX_INVITES) { notify('Limite atingido.', 'error'); btn.disabled = false; btn.innerHTML = 'Verificar'; return; }
             document.getElementById('auth-section').classList.add('hidden');
             document.getElementById('form-section').classList.remove('hidden');
             document.getElementById('feedback').style.display = 'none';
             renderBadge();
-        } else {
-            notify('E-mail não autorizado na Coluna C.', 'error');
-            btn.disabled = false; btn.innerHTML = 'Verificar Acesso';
-        }
-    } catch(e) {
-        notify('Erro de conexão. Limpe o cache (CTRL+F5).', 'error');
-        btn.disabled = false; btn.innerHTML = 'Verificar Acesso';
-    }
+        } else { notify('E-mail não autorizado.', 'error'); btn.disabled = false; btn.innerHTML = 'Verificar'; }
+    } catch(e) { notify('Erro ao validar acesso.', 'error'); btn.disabled = false; btn.innerHTML = 'Verificar'; }
 }
 
 function renderBadge() {
     const rem = MAX_INVITES - state.used;
     const pct = (state.used / MAX_INVITES) * 100;
-    document.getElementById('invite-status').innerHTML = `
-        <div class="invite-badge"><span class="dot"></span>${rem} restantes</div>
-        <div class="quota-bar-wrap"><div class="quota-bar" style="width:${pct}%"></div></div>`;
+    document.getElementById('invite-status').innerHTML = `<div class="invite-badge"><span></span>${rem} restantes de ${MAX_INVITES}</div><div class="quota-bar-wrap"><div class="quota-bar" style="width:${pct}%"></div></div>`;
 }
 
-async function submitToActiveCampaign() {
+async function submitToAC() {
     const name = document.getElementById('guest-name').value.trim();
     const email = document.getElementById('guest-email').value.trim();
     const phone = document.getElementById('guest-phone').value.trim();
     const btn = document.getElementById('btn-submit');
-
-    if(!name || !email || !phone) return notify('Preencha todos os campos.', 'error');
+    if(!name || !email || !phone) return notify('Preencha tudo.', 'error');
     btn.disabled = true; btn.innerHTML = '<div class="loader"></div>';
-
     try {
-        // Envia para a ponte do Google, que fará o POST real para o ActiveCampaign
         const url = `${SCRIPT_URL}?action=register&email=${encodeURIComponent(email)}&name=${encodeURIComponent(name)}&phone=${encodeURIComponent(phone)}`;
         const res = await fetch(url);
         const data = await res.json();
-
         if(data.success) {
-            state.used++;
-            localStorage.setItem(getStorageKey(state.user), state.used);
-            
-            if (typeof fbq === 'function') fbq('trackCustom', 'convidado-tocha');
-
+            state.used++; localStorage.setItem(getStorageKey(state.user), state.used);
+            if(typeof fbq === 'function') fbq('trackCustom', 'convidado-tocha');
             document.getElementById('form-section').classList.add('hidden');
             document.getElementById('success-section').classList.remove('hidden');
-            document.getElementById('remaining-after').innerText = `Restam ${MAX_INVITES - state.used} convites.`;
-            document.getElementById('feedback').style.display = 'none';
-        } else {
-            throw new Error(data.error);
-        }
-    } catch(e) {
-        notify('Erro no cadastro do ActiveCampaign.', 'error');
-        btn.disabled = false; btn.innerHTML = 'Cadastrar Convidado';
-    }
+        } else { throw new Error(data.error); }
+    } catch(e) { notify('Falha no cadastro: ' + e.message, 'error'); btn.disabled = false; btn.innerHTML = 'Cadastrar'; }
 }
 </script>
 </body>

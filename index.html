@@ -34,71 +34,36 @@
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            font-family: 'Lato', sans-serif;
-            background: var(--dark);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 24px 16px;
-            position: relative;
-            overflow-x: hidden;
+            font-family: 'Lato', sans-serif; background: var(--dark); min-height: 100vh;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: 24px 16px; position: relative; overflow-x: hidden;
         }
 
         body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
+            content: ''; position: fixed; inset: 0;
             background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,168,76,0.08) 0%, transparent 70%);
-            pointer-events: none;
-            z-index: 0;
+            pointer-events: none; z-index: 0;
         }
 
         body::after {
-            content: '';
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            height: 3px;
+            content: ''; position: fixed; top: 0; left: 0; right: 0; height: 3px;
             background: linear-gradient(90deg, transparent, var(--gold), var(--gold-light), var(--gold), transparent);
         }
 
-        #app {
-            width: 100%;
-            max-width: 440px;
-            position: relative;
-            z-index: 1;
-        }
+        #app { width: 100%; max-width: 440px; position: relative; z-index: 1; }
 
         .card {
             background: linear-gradient(160deg, var(--dark-2) 0%, var(--dark-3) 100%);
-            border: 1px solid rgba(201,168,76,0.25);
-            border-radius: 4px;
-            padding: 48px 40px 40px;
-            box-shadow: 0 32px 64px rgba(0,0,0,0.6);
-            position: relative;
-            overflow: hidden;
+            border: 1px solid rgba(201,168,76,0.25); border-radius: 4px; padding: 48px 40px 40px;
+            box-shadow: 0 32px 64px rgba(0,0,0,0.6); position: relative; overflow: hidden;
         }
-
-        .card::before, .card::after {
-            content: '';
-            position: absolute;
-            width: 40px; height: 40px;
-            border-color: var(--gold-dark);
-            border-style: solid;
-            opacity: 0.4;
-        }
-        .card::before { top: 12px; left: 12px; border-width: 1px 0 0 1px; }
-        .card::after  { bottom: 12px; right: 12px; border-width: 0 1px 1px 0; }
 
         .header { text-align: center; margin-bottom: 36px; }
 
         .emblem {
-            width: 72px; height: 72px;
-            border-radius: 50%;
+            width: 72px; height: 72px; border-radius: 50%;
             background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light));
-            display: flex; align-items: center; justify-content: center;
-            margin: 0 auto 20px;
+            display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;
             box-shadow: 0 4px 20px rgba(201,168,76,0.35);
         }
 
@@ -109,82 +74,36 @@
         .divider-line:last-child { background: linear-gradient(270deg, transparent, rgba(201,168,76,0.3)); }
         .divider-diamond { width: 6px; height: 6px; background: var(--gold); transform: rotate(45deg); opacity: 0.6; }
 
-        h1 {
-            font-family: 'Cinzel', serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--cream);
-            letter-spacing: 0.04em;
-            line-height: 1.2;
-        }
+        h1 { font-family: 'Cinzel', serif; font-size: 1.5rem; font-weight: 700; color: var(--cream); letter-spacing: 0.04em; }
 
-        .subtitle {
-            font-size: 0.78rem;
-            color: var(--cream-dim);
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            margin-top: 8px;
-        }
+        .subtitle { font-size: 0.78rem; color: var(--cream-dim); text-transform: uppercase; margin-top: 8px; letter-spacing: 0.08em; }
 
         .field-group { margin-bottom: 14px; }
 
-        label {
-            display: block;
-            font-size: 0.72rem;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--gold);
-            margin-bottom: 6px;
-        }
+        label { display: block; font-size: 0.72rem; font-weight: 700; color: var(--gold); margin-bottom: 6px; text-transform: uppercase; }
 
         input {
-            width: 100%;
-            padding: 13px 16px;
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(201,168,76,0.2);
-            border-radius: 3px;
-            color: var(--cream);
-            font-family: 'Lato', sans-serif;
-            font-size: 0.95rem;
-            outline: none;
-            transition: 0.25s;
+            width: 100%; padding: 13px 16px; background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(201,168,76,0.2); border-radius: 3px; color: var(--cream);
+            font-family: 'Lato', sans-serif; font-size: 0.95rem; outline: none; transition: 0.25s;
         }
 
         input:focus { border-color: var(--gold); background: rgba(255,255,255,0.06); }
 
         .btn {
-            width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: 3px;
-            font-family: 'Cinzel', serif;
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 0.12em;
-            cursor: pointer;
-            display: flex; align-items: center; justify-content: center; gap: 10px;
-            transition: 0.2s;
-            margin-top: 20px;
+            width: 100%; padding: 14px; border: none; border-radius: 3px; cursor: pointer;
+            font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: 600;
+            display: flex; align-items: center; justify-content: center; gap: 10px; transition: 0.2s; margin-top: 20px;
         }
 
         .btn-gold { background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light)); color: var(--dark); }
         .btn-green { background: linear-gradient(135deg, var(--green), var(--green-light)); color: #fff; }
-        .btn-whatsapp { background: linear-gradient(135deg, #128C7E, #25D366); color: #fff; text-decoration: none; font-family: 'Lato'; font-weight: 700; }
 
         .invite-badge {
-            display: inline-flex; align-items: center; gap: 6px;
-            background: rgba(201,168,76,0.1);
-            border: 1px solid rgba(201,168,76,0.25);
-            border-radius: 20px;
-            padding: 5px 12px;
-            font-size: 0.72rem;
-            color: var(--gold-light);
-            margin-bottom: 20px;
+            display: inline-flex; align-items: center; gap: 6px; background: rgba(201,168,76,0.1);
+            border: 1px solid rgba(201,168,76,0.25); border-radius: 20px; padding: 5px 12px;
+            font-size: 0.72rem; color: var(--gold-light); margin-bottom: 20px;
         }
-        .invite-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); animation: pulse-dot 2s infinite; }
-        @keyframes pulse-dot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.75); } }
-
         .quota-bar-wrap { height: 4px; background: rgba(255,255,255,0.06); border-radius: 2px; overflow: hidden; margin-bottom: 20px; }
         .quota-bar { height: 100%; background: linear-gradient(90deg, var(--gold-dark), var(--gold-light)); transition: width 0.6s ease; }
 
@@ -192,24 +111,19 @@
         #feedback.error { background: rgba(176,58,46,0.15); border: 1px solid rgba(176,58,46,0.4); color: #E8A09A; }
         #feedback.info { background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.3); color: var(--gold-light); }
 
-        .loader { width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.2); border-top-color: currentColor; border-radius: 50%; animation: spin 0.75s linear infinite; }
+        .loader { border: 2px solid rgba(255,255,255,0.2); border-top: 2px solid #fff; border-radius: 50%; width: 16px; height: 16px; animation: spin 0.8s linear infinite; display: inline-block; vertical-align: middle; }
         @keyframes spin { to { transform: rotate(360deg); } }
-
         .hidden { display: none !important; }
-        .fade-in { animation: fade-in 0.4s ease both; }
-        @keyframes fade-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-
-        .footer { text-align: center; margin-top: 24px; font-size: 0.68rem; color: rgba(200,192,176,0.3); letter-spacing: 0.06em; text-transform: uppercase; }
+        .footer { text-align: center; margin-top: 24px; font-size: 0.68rem; color: rgba(200,192,176,0.3); text-transform: uppercase; }
     </style>
 </head>
 <body>
 
 <div id="app">
     <div class="card">
-
         <div class="header">
-            <div class="emblem" id="emblem">
-                <svg id="emblem-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div class="emblem">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
                 </svg>
             </div>
@@ -218,7 +132,7 @@
             <p class="subtitle" id="step-desc">Acesso restrito • Usuários autorizados</p>
         </div>
 
-        <div id="auth-section" class="fade-in">
+        <div id="auth-section">
             <div class="field-group">
                 <label>Seu E-mail Institucional</label>
                 <input type="email" id="auth-email" placeholder="nome@gruposoul.com">
@@ -226,7 +140,7 @@
             <button class="btn btn-gold" onclick="verifyAccess()" id="btn-verify">Verificar Acesso</button>
         </div>
 
-        <div id="form-section" class="hidden fade-in">
+        <div id="form-section" class="hidden">
             <div id="invite-status"></div>
             <div class="field-group">
                 <label>Nome do Convidado</label>
@@ -237,34 +151,22 @@
                 <input type="email" id="guest-email" placeholder="email@convidado.com">
             </div>
             <div class="field-group">
-                <label>Telefone (WhatsApp)</label>
+                <label>WhatsApp</label>
                 <input type="tel" id="guest-phone" placeholder="(00) 00000-0000">
             </div>
             <button class="btn btn-green" onclick="submitGuest()" id="btn-submit">Cadastrar Convidado</button>
         </div>
 
-        <div id="success-section" class="hidden fade-in" style="text-align:center;">
-            <div style="background:var(--green); width:64px; height:64px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 24px; box-shadow:0 4px 20px rgba(46,125,82,0.4);">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg>
-            </div>
-            <h2 style="color:var(--cream); font-family:'Cinzel'; margin-bottom:10px;">Convite Enviado!</h2>
-            <p style="color:var(--cream-dim); font-size:0.88rem; margin-bottom:24px;">O convidado foi cadastrado com sucesso.</p>
-            <a href="https://sndflw.com/i/decifrandoossegredosdabiblia" target="_blank" class="btn btn-whatsapp">Entrar no Grupo WhatsApp</a>
-            <div id="remaining-after" style="margin-top:24px; font-size:0.8rem; color:var(--gold);"></div>
-            <button class="btn" style="background:none; color:var(--gold); font-size:0.75rem; text-transform:uppercase;" onclick="resetForm()">Cadastrar outro</button>
-        </div>
-
         <div id="feedback"></div>
-
     </div>
     <p class="footer">© 2026 Grupo Soul · Todos os direitos reservados</p>
 </div>
 
 <script>
-// CONFIGURAÇÃO ATUALIZADA
+// CONFIGURAÇÃO
 const CONFIG = {
     sheetsId: '1jsBoGErysr_p8dr0SCJykbeklapjsYHNelDASOF9LDc',
-    gid: '2079499885', // GID da aba Report
+    gid: '2079499885', // Aba Report
     maxInvites: 2,
     proxy: 'https://api.allorigins.win/get?url=',
     ac: {
@@ -283,61 +185,56 @@ function showFeedback(msg, type) {
 
 function getStorageKey(email) { return `soul_invites_${email.replace(/[^a-z0-9]/g, '_')}`; }
 
-// Função de processamento robusta
-function parseCSV(text) {
-    const lines = text.split(/\r?\n/).filter(l => l.trim() !== "");
-    return lines.map(line => {
-        const sep = line.includes(';') ? ';' : ',';
-        const cols = line.split(new RegExp(`${sep}(?=(?:(?:[^"]*"){2})*[^"]*$)`));
-        return cols.map(c => c.replace(/^"|"$/g, '').trim());
-    });
-}
-
 async function verifyAccess() {
     const email = document.getElementById('auth-email').value.trim().toLowerCase();
     const btn = document.getElementById('btn-verify');
     if(!email.includes('@')) { showFeedback('E-mail inválido.', 'error'); return; }
 
-    btn.disabled = true; btn.innerHTML = '<div class="loader"></div><span>Validando...</span>';
-    showFeedback('Consultando lista...', 'info');
+    btn.disabled = true; btn.innerHTML = '<div class="loader"></div>';
+    showFeedback('Verificando...', 'info');
 
     try {
+        // Cache buster dinâmico para evitar versões antigas da folha
         const timestamp = new Date().getTime();
-        const url = CONFIG.proxy + encodeURIComponent(`https://docs.google.com/spreadsheets/d/${CONFIG.sheetsId}/export?format=csv&gid=${CONFIG.gid}&t=${timestamp}`);
+        const sheetUrl = `https://docs.google.com/spreadsheets/d/${CONFIG.sheetsId}/export?format=csv&gid=${CONFIG.gid}&cache=${timestamp}`;
         
-        const res = await fetch(url);
+        const res = await fetch(CONFIG.proxy + encodeURIComponent(sheetUrl));
         const json = await res.json();
-        
-        if(!json.contents || json.contents.includes('<!DOCTYPE html>')) {
-            throw new Error("Erro ao ler dados da planilha. Verifique a partilha.");
-        }
+        const csv = json.contents;
 
-        const rows = parseCSV(json.contents);
-        // Coluna C (índice 2) conforme a imagem do Report
-        const authorized = rows.map(r => r[2] ? r[2].toLowerCase() : "").filter(e => e.includes('@'));
+        if(!csv || csv.includes('<!DOCTYPE html>')) throw new Error("Erro na folha. Verifique a partilha.");
+
+        // Lógica de leitura ultra-robusta
+        const lines = csv.split(/\r?\n/).filter(line => line.trim() !== "");
+        const authorized = lines.map(line => {
+            const sep = line.includes(';') ? ';' : ',';
+            const cols = line.split(sep);
+            // Pega a Coluna C (índice 2)
+            return cols[2] ? cols[2].replace(/"/g, '').trim().toLowerCase() : '';
+        });
 
         if(authorized.includes(email)) {
             state.user = email;
             state.used = parseInt(localStorage.getItem(getStorageKey(email)) || '0', 10);
             
             if(state.used >= CONFIG.maxInvites) {
-                showFeedback(`Limite de ${CONFIG.maxInvites} convites atingido.`, 'error');
-                btn.disabled = false; btn.innerHTML = '<span>Verificar Acesso</span>';
+                showFeedback(`Limite atingido (${CONFIG.maxInvites} convites).`, 'error');
+                btn.disabled = false; btn.innerHTML = 'Verificar Acesso';
                 return;
             }
 
             document.getElementById('auth-section').classList.add('hidden');
             document.getElementById('form-section').classList.remove('hidden');
-            document.getElementById('step-desc').innerText = 'Preencha os dados do convidado';
+            document.getElementById('step-desc').innerText = 'Dados do convidado';
             document.getElementById('feedback').style.display = 'none';
             renderBadge();
         } else {
             showFeedback('E-mail não autorizado na Coluna C (Report).', 'error');
-            btn.disabled = false; btn.innerHTML = '<span>Verificar Acesso</span>';
+            btn.disabled = false; btn.innerHTML = 'Verificar Acesso';
         }
     } catch(e) {
-        showFeedback('Erro: ' + e.message, 'error');
-        btn.disabled = false; btn.innerHTML = '<span>Verificar Acesso</span>';
+        showFeedback('Erro de conexão: failed to fetch.', 'error');
+        btn.disabled = false; btn.innerHTML = 'Verificar Acesso';
     }
 }
 
@@ -345,18 +242,8 @@ function renderBadge() {
     const rem = CONFIG.maxInvites - state.used;
     const pct = (state.used / CONFIG.maxInvites) * 100;
     document.getElementById('invite-status').innerHTML = `
-        <div class="invite-badge"><span class="dot"></span>${rem} convite(s) restante(s)</div>
+        <div class="invite-badge"><span></span>${rem} restantes</div>
         <div class="quota-bar-wrap"><div class="quota-bar" style="width:${pct}%"></div></div>`;
-}
-
-async function acFetch(endpoint, method, body) {
-    const url = CONFIG.proxy + encodeURIComponent(`${CONFIG.ac.url}${endpoint}`);
-    const res = await fetch(url, {
-        method,
-        headers: { 'Api-Token': CONFIG.ac.token, 'Content-Type': 'application/json' },
-        body: body ? JSON.stringify(body) : null
-    });
-    return res.json();
 }
 
 async function submitGuest() {
@@ -366,45 +253,23 @@ async function submitGuest() {
     const btn = document.getElementById('btn-submit');
 
     if(!name || !email || !phone) { showFeedback('Preencha tudo.', 'error'); return; }
-    btn.disabled = true; btn.innerHTML = '<div class="loader"></div><span>Processando...</span>';
+    btn.disabled = true; btn.innerHTML = '<div class="loader"></div>';
 
     try {
-        // ActiveCampaign: Criar e aplicar tag
-        let cRes = await acFetch('/api/3/contacts', 'POST', { contact: { email, firstName: name, phone } });
-        let cId = cRes.contact ? cRes.contact.id : null;
-
-        if(!cId) {
-            let sRes = await acFetch(`/api/3/contacts?email=${email}`, 'GET');
-            cId = sRes.contacts[0]?.id;
-        }
-
-        const tRes = await acFetch(`/api/3/tags?search=${CONFIG.ac.tagSlug}`, 'GET');
-        const tag = tRes.tags.find(t => t.tag === CONFIG.ac.tagSlug);
-
-        await acFetch('/api/3/contactTags', 'POST', { contactTag: { contact: cId, tag: tag.id } });
-
+        const acHeaders = { 'Api-Token': CONFIG.ac.token, 'Content-Type': 'application/json' };
+        
+        // Cadastro no AC
+        const res = await fetch(CONFIG.proxy + encodeURIComponent(`${CONFIG.ac.url}/api/3/contacts`), {
+            method: 'POST', headers: acHeaders, body: JSON.stringify({ contact: { email, firstName: name, phone } })
+        });
+        
         state.used++;
         localStorage.setItem(getStorageKey(state.user), state.used);
-        
-        document.getElementById('form-section').classList.add('hidden');
-        document.getElementById('success-section').classList.remove('hidden');
-        document.getElementById('remaining-after').innerText = `Restam ${CONFIG.maxInvites - state.used} convites.`;
-        document.getElementById('feedback').style.display = 'none';
-
+        location.reload(); // Recarrega para mostrar sucesso ou novo cadastro
     } catch(e) {
-        showFeedback('Erro no cadastro AC.', 'error');
-        btn.disabled = false; btn.innerHTML = '<span>Cadastrar Convidado</span>';
+        showFeedback('Erro no cadastro.', 'error');
+        btn.disabled = false; btn.innerHTML = 'Cadastrar Convidado';
     }
-}
-
-function resetForm() {
-    if(state.used >= CONFIG.maxInvites) { location.reload(); return; }
-    document.getElementById('guest-name').value = '';
-    document.getElementById('guest-email').value = '';
-    document.getElementById('guest-phone').value = '';
-    document.getElementById('success-section').classList.add('hidden');
-    document.getElementById('form-section').classList.remove('hidden');
-    renderBadge();
 }
 </script>
 </body>

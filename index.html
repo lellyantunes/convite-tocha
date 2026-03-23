@@ -188,8 +188,18 @@
         .invite-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); animation: pulse-dot 2s infinite; }
         @keyframes pulse-dot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.75); } }
 
-        .quota-bar-wrap { height: 4px; background: rgba(255,255,255,0.06); border-radius: 2px; overflow: hidden; margin-bottom: 20px; }
-        .quota-bar { height: 100%; background: linear-gradient(90deg, var(--gold-dark), var(--gold-light)); transition: width 0.6s ease; }
+        .quota-bar-wrap {
+            height: 4px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        .quota-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--gold-dark), var(--gold-light));
+            transition: width 0.6s ease;
+        }
 
         #feedback { margin-top: 16px; padding: 11px 14px; border-radius: 3px; font-size: 0.82rem; line-height: 1.5; display: none; }
         #feedback.error { background: rgba(176,58,46,0.15); border: 1px solid rgba(176,58,46,0.4); color: #E8A09A; }
@@ -210,7 +220,7 @@
 <div id="app">
     <div class="card">
         <div class="header">
-            <div class="emblem" id="emblem">
+            <div class="emblem">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
                 </svg>
@@ -240,11 +250,11 @@
             <div style="background:var(--green); width:64px; height:64px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 24px; box-shadow:0 4px 20px rgba(46,125,82,0.4);">
                 <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg>
             </div>
-            <h2 style="color:var(--cream); font-family:'Cinzel';">Convite Enviado!</h2>
-            <p style="color:var(--cream-dim); font-size:0.88rem;">O convidado foi registado com sucesso.</p>
-            <a href="https://sndflw.com/i/decifrandoossegredosdabiblia" target="_blank" class="btn btn-whatsapp">Entrar no Grupo WhatsApp</a>
+            <h2 style="color:var(--cream); font-family:'Cinzel';">Sucesso!</h2>
+            <p style="color:var(--cream-dim); font-size:0.88rem; margin-bottom:24px;">O convidado foi registrado com sucesso.</p>
+            <a href="https://sndflw.com/i/decifrandoossegredosdabiblia" target="_blank" class="btn btn-whatsapp" style="text-decoration:none;">Entrar no Grupo WhatsApp</a>
             <div id="remaining-after" style="margin-top:24px; font-size:0.8rem; color:var(--gold);"></div>
-            <button class="btn" style="background:none; color:var(--gold); font-size:0.75rem; text-transform:uppercase;" onclick="location.reload()">Cadastrar outro</button>
+            <button class="btn" style="background:none; color:var(--gold); font-size:0.75rem; text-transform:uppercase;" onclick="location.reload()">Novo cadastro</button>
         </div>
 
         <div id="feedback"></div>
@@ -253,15 +263,15 @@
 </div>
 
 <script>
-// URL DA SUA IMPLANTAÇÃO GOOGLE APPS SCRIPT
+// URL DA SUA PONTE NO GOOGLE APPS SCRIPT
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyissPb7bC8Z62t9MhecxdyUOrkoL390q2eTyEAT-RsEdRQ1ziDdKf8soTcBxCmnPik/exec';
 const MAX_INVITES = 2;
 
 let state = { user: '', used: 0 };
 
-function notify(msg, type) {
-    const f = document.getElementById('feedback');
-    f.innerHTML = msg; f.className = type; f.style.display = 'block';
+function notify(msg, type) { 
+    const f = document.getElementById('feedback'); 
+    f.innerHTML = msg; f.className = type; f.style.display = 'block'; 
 }
 
 function getStorageKey(email) { return `soul_invites_${email.replace(/[^a-z0-9]/g, '_')}`; }
@@ -269,9 +279,9 @@ function getStorageKey(email) { return `soul_invites_${email.replace(/[^a-z0-9]/
 async function verifyAccess() {
     const email = document.getElementById('auth-email').value.trim().toLowerCase();
     const btn = document.getElementById('btn-verify');
-    if(!email.includes('@')) return notify('E-mail inválido.', 'error');
+    if(!email.includes('@')) return notify('Por favor, insira um e-mail válido.', 'error');
 
-    btn.disabled = true; btn.innerHTML = '<div class="loader"></div>';
+    btn.disabled = true; btn.innerHTML = '<div class="loader"></div><span>Validando...</span>';
     notify('Validando acesso...', 'info');
 
     try {
@@ -284,7 +294,7 @@ async function verifyAccess() {
             
             if(state.used >= MAX_INVITES) {
                 notify('Limite de convites atingido.', 'error');
-                btn.disabled = false; btn.innerHTML = 'Verificar Acesso';
+                btn.disabled = false; btn.innerHTML = '<span>Verificar Acesso</span>';
                 return;
             }
 
@@ -294,12 +304,12 @@ async function verifyAccess() {
             document.getElementById('feedback').style.display = 'none';
             renderBadge();
         } else {
-            notify('E-mail não autorizado.', 'error');
-            btn.disabled = false; btn.innerHTML = 'Verificar Acesso';
+            notify('E-mail não autorizado na Coluna C.', 'error');
+            btn.disabled = false; btn.innerHTML = '<span>Verificar Acesso</span>';
         }
     } catch(e) {
-        notify('Erro ao conectar ao servidor.', 'error');
-        btn.disabled = false; btn.innerHTML = 'Verificar Acesso';
+        notify('Erro ao validar acesso. Verifique se publicou o script como "Qualquer pessoa".', 'error');
+        btn.disabled = false; btn.innerHTML = '<span>Verificar Acesso</span>';
     }
 }
 
@@ -307,7 +317,7 @@ function renderBadge() {
     const rem = MAX_INVITES - state.used;
     const pct = (state.used / MAX_INVITES) * 100;
     document.getElementById('invite-status').innerHTML = `
-        <div class="invite-badge"><span class="dot"></span>${rem} restantes</div>
+        <div class="invite-badge"><span class="dot"></span>${rem} restantes de ${MAX_INVITES}</div>
         <div class="quota-bar-wrap"><div class="quota-bar" style="width:${pct}%"></div></div>`;
 }
 
@@ -318,10 +328,10 @@ async function submitGuest() {
     const btn = document.getElementById('btn-submit');
 
     if(!name || !email || !phone) return notify('Preencha todos os campos.', 'error');
-    btn.disabled = true; btn.innerHTML = '<div class="loader"></div>';
+    btn.disabled = true; btn.innerHTML = '<div class="loader"></div><span>Enviando...</span>';
 
     try {
-        const url = `${SCRIPT_URL}?action=register&email=${encodeURIComponent(email)}&name=${encodeURIComponent(name)}&phone=${encodeURIComponent(phone)}&parent=${encodeURIComponent(state.user)}`;
+        const url = `${SCRIPT_URL}?action=register&email=${encodeURIComponent(email)}&name=${encodeURIComponent(name)}&phone=${encodeURIComponent(phone)}`;
         const res = await fetch(url);
         const data = await res.json();
 
@@ -339,8 +349,8 @@ async function submitGuest() {
             throw new Error(data.error || 'Erro no cadastro.');
         }
     } catch(e) {
-        notify('Erro ao cadastrar convidado.', 'error');
-        btn.disabled = false; btn.innerHTML = 'Cadastrar Convidado';
+        notify('Erro ao cadastrar convidado: ' + e.message, 'error');
+        btn.disabled = false; btn.innerHTML = '<span>Cadastrar Convidado</span>';
     }
 }
 </script>

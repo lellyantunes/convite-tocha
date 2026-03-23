@@ -1,239 +1,141 @@
 <!DOCTYPE html>
-<html lang="pt-pt">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Convites - Grupo Soul</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Sistema de Convites — Grupo Soul</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
-        .glass { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border: 1px solid rgba(226, 232, 240, 0.8); }
-        .loader { border: 3px solid #f3f3f3; border-radius: 50%; border-top: 3px solid #3b82f6; width: 24px; height: 24px; animation: spin 1s linear infinite; }
+        :root { --gold: #C9A84C; --gold-light: #E8C97A; --dark: #0D0D0D; --dark-2: #161616; --cream: #F5F0E8; --green: #2E7D52; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Lato', sans-serif; background: var(--dark); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; color: var(--cream); }
+        .card { background: linear-gradient(160deg, var(--dark-2) 0%, #1a1a1a 100%); border: 1px solid rgba(201,168,76,0.3); border-radius: 8px; padding: 40px; width: 100%; max-width: 400px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); position: relative; }
+        .header { text-align: center; margin-bottom: 30px; }
+        .emblem { width: 60px; height: 60px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; color: var(--dark); }
+        h1 { font-family: 'Cinzel', serif; font-size: 1.4rem; letter-spacing: 2px; margin-bottom: 5px; }
+        .subtitle { font-size: 0.75rem; color: var(--gold); text-transform: uppercase; letter-spacing: 1px; }
+        .field { margin-bottom: 20px; }
+        label { display: block; font-size: 0.7rem; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; font-weight: 700; }
+        input { width: 100%; padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid rgba(201,168,76,0.2); border-radius: 4px; color: #fff; outline: none; transition: 0.3s; }
+        input:focus { border-color: var(--gold); }
+        .btn { width: 100%; padding: 14px; border: none; border-radius: 4px; font-family: 'Cinzel', serif; font-weight: 700; cursor: pointer; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; }
+        .btn-gold { background: var(--gold); color: var(--dark); }
+        .btn-green { background: var(--green); color: #fff; }
+        .counter { background: rgba(201,168,76,0.1); border: 1px solid var(--gold); color: var(--gold-light); padding: 8px; border-radius: 4px; font-size: 0.75rem; text-align: center; margin-bottom: 20px; font-weight: 700; }
+        #feedback { margin-top: 15px; font-size: 0.8rem; padding: 10px; border-radius: 4px; display: none; text-align: center; }
+        .error { background: rgba(255,0,0,0.1); color: #ff6b6b; border: 1px solid #ff6b6b; }
+        .hidden { display: none; }
+        .loader { border: 2px solid rgba(255,255,255,0.2); border-top: 2px solid var(--gold); border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite; display: inline-block; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-4">
+<body>
 
-    <div id="app" class="w-full max-w-md">
-        <div class="glass p-8 rounded-3xl shadow-xl transition-all">
-            
-            <!-- Cabeçalho -->
-            <div class="text-center mb-8">
-                <div id="status-icon" class="bg-blue-600 w-16 h-16 rounded-2xl mx-auto flex items-center justify-center mb-4 shadow-lg transition-colors">
-                    <svg id="main-svg" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
-                    </svg>
-                </div>
-                <h1 id="title" class="text-2xl font-bold text-slate-800">Convite Soul</h1>
-                <p id="subtitle" class="text-slate-500 text-sm mt-1">Valide o seu e-mail para começar</p>
-            </div>
-
-            <!-- Etapa 1: Login -->
-            <div id="step-login" class="space-y-4">
-                <input type="email" id="auth-email" placeholder="O seu e-mail institucional" 
-                    class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none transition">
-                <button onclick="handleLogin()" id="btn-login" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl shadow-md transition active:scale-95">
-                    Entrar
-                </button>
-            </div>
-
-            <!-- Etapa 2: Formulário de Convidado -->
-            <div id="step-form" class="hidden space-y-4">
-                <div class="bg-blue-50 p-3 rounded-xl text-center mb-2">
-                    <span id="counter-text" class="text-blue-700 text-xs font-bold uppercase tracking-wider">A verificar convites...</span>
-                </div>
-                <div class="space-y-3">
-                    <input type="text" id="guest-name" placeholder="Nome do Convidado" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none transition">
-                    <input type="email" id="guest-email" placeholder="E-mail do Convidado" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none transition">
-                    <input type="tel" id="guest-phone" placeholder="WhatsApp (ex: 351912345678)" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none transition">
-                </div>
-                <button onclick="handleRegister()" id="btn-register" class="w-full bg-slate-800 hover:bg-black text-white font-semibold py-3 rounded-xl shadow-md transition active:scale-95">
-                    Cadastrar Convidado
-                </button>
-            </div>
-
-            <!-- Etapa 3: Sucesso -->
-            <div id="step-success" class="hidden text-center space-y-6 py-4">
-                <div class="text-slate-600 leading-relaxed">
-                    Parabéns, o seu convidado foi cadastrado com sucesso. Ele receberá as informações de acesso por e-mail.
-                </div>
-                <button onclick="resetFlow()" class="text-blue-600 font-semibold hover:underline flex items-center justify-center w-full">
-                    Cadastrar outro convidado
-                </button>
-            </div>
-
-            <!-- Feedback -->
-            <div id="msg" class="mt-4 p-3 rounded-xl text-sm hidden text-center"></div>
+<div class="card">
+    <div class="header">
+        <div class="emblem">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
         </div>
+        <h1>Sistema de Convites</h1>
+        <p class="subtitle" id="step-name">Acesso Aluno</p>
     </div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc, setDoc, increment } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+    <div id="auth-section">
+        <div class="field">
+            <label>Seu E-mail de Aluno</label>
+            <input type="email" id="user-email" placeholder="email@exemplo.com">
+        </div>
+        <button class="btn btn-gold" onclick="verify()" id="btn-verify">Validar Acesso</button>
+    </div>
 
-        // --- CONFIGURAÇÃO ---
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyissPb7bC8Z62t9MhecxdyUOrkoL390q2eTyEAT-RsEdRQ1ziDdKf8soTcBxCmnPik/exec"; 
-        const PROXY_URL = "https://corsproxy.io/?";
+    <div id="form-section" class="hidden">
+        <div class="counter" id="invite-msg">Verificando convites...</div>
+        <div class="field"><label>Nome do Convidado</label><input type="text" id="g-name"></div>
+        <div class="field"><label>E-mail do Convidado</label><input type="email" id="g-email"></div>
+        <div class="field"><label>WhatsApp</label><input type="tel" id="g-phone" placeholder="11999999999"></div>
+        <button class="btn btn-green" onclick="register()" id="btn-reg">Enviar Convite</button>
+    </div>
 
-        const firebaseConfig = JSON.parse(__firebase_config);
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'soul-invites';
+    <div id="success-section" class="hidden" style="text-align:center;">
+        <h2 style="color:var(--gold); font-family:Cinzel; margin-bottom:10px;">Sucesso!</h2>
+        <p style="font-size:0.9rem; margin-bottom:20px;">O cadastro foi enviado ao ActiveCampaign.</p>
+        <button class="btn btn-gold" onclick="location.reload()">Novo Cadastro</button>
+    </div>
 
-        let userEmail = "";
-        const INVITE_LIMIT = 2;
+    <div id="feedback"></div>
+</div>
 
-        const ui = {
-            login: document.getElementById('step-login'),
-            form: document.getElementById('step-form'),
-            success: document.getElementById('step-success'),
-            msg: document.getElementById('msg'),
-            btnLog: document.getElementById('btn-login'),
-            btnReg: document.getElementById('btn-register'),
-            counter: document.getElementById('counter-text'),
-            title: document.getElementById('title'),
-            subtitle: document.getElementById('subtitle'),
-            icon: document.getElementById('status-icon'),
-            svg: document.getElementById('main-svg')
-        };
+<script>
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyissPb7bC8Z62t9MhecxdyUOrkoL390q2eTyEAT-RsEdRQ1ziDdKf8soTcBxCmnPik/exec';
+let currentUser = "";
 
-        function showMsg(text, isError = false) {
-            ui.msg.innerText = text;
-            ui.msg.className = `mt-4 p-3 rounded-xl text-sm text-center ${isError ? 'bg-red-50 text-red-600' : 'bg-green-50 text-green-600'}`;
-            ui.msg.classList.remove('hidden');
-        }
+function showMsg(m, type) {
+    const f = document.getElementById('feedback');
+    f.innerHTML = m; f.className = type === 'error' ? 'error' : '';
+    f.style.display = 'block';
+}
 
-        async function getInviteCount(email) {
-            // Document ID baseado no email (base64) para evitar caracteres inválidos
-            const id = btoa(email.toLowerCase());
-            const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'invite_counters', id);
-            const snap = await getDoc(docRef);
-            return snap.exists() ? snap.data().count : 0;
-        }
+async function verify() {
+    const email = document.getElementById('user-email').value.trim().toLowerCase();
+    const btn = document.getElementById('btn-verify');
+    if(!email) return showMsg("Insira seu e-mail.", "error");
 
-        // --- LÓGICA DE LOGIN ---
-        window.handleLogin = async () => {
-            const email = document.getElementById('auth-email').value.trim().toLowerCase();
-            if (!email) return showMsg("Por favor, introduza o seu e-mail.", true);
+    btn.disabled = true; btn.innerHTML = '<div class="loader"></div>';
 
-            ui.btnLog.disabled = true;
-            ui.btnLog.innerHTML = `<div class="loader mx-auto"></div>`;
+    try {
+        const res = await fetch(`${SCRIPT_URL}?action=verify&userEmail=${encodeURIComponent(email)}`);
+        const data = await res.json();
 
-            try {
-                // 1. Auth Firebase primeiro
-                await signInAnonymously(auth);
-                
-                // 2. Validar na Planilha via Apps Script (usando proxy para evitar CORS)
-                const target = `${SCRIPT_URL}?action=verify&email=${encodeURIComponent(email)}`;
-                const response = await fetch(PROXY_URL + encodeURIComponent(target));
-                const data = await response.json();
-
-                if (!data.authorized) {
-                    throw new Error("E-mail não autorizado ou não encontrado na lista.");
-                }
-
-                userEmail = email;
-                
-                // 3. Verificar limite de convites
-                const count = await getInviteCount(email);
-                if (count >= INVITE_LIMIT) {
-                    throw new Error("Já atingiu o seu limite de 2 convites.");
-                }
-
-                // Transição de tela
-                ui.login.classList.add('hidden');
-                ui.form.classList.remove('hidden');
-                ui.msg.classList.add('hidden');
-                ui.subtitle.innerText = "Preencha os dados do seu convidado";
-                updateCounterUI(count);
-
-            } catch (err) {
-                showMsg(err.message, true);
-                ui.btnLog.disabled = false;
-                ui.btnLog.innerText = "Entrar";
+        if(data.authorized) {
+            if(data.remaining <= 0) {
+                showMsg("Você já usou seus 2 convites.", "error");
+                btn.disabled = false; btn.innerText = "Validar Acesso";
+            } else {
+                currentUser = email;
+                document.getElementById('auth-section').classList.add('hidden');
+                document.getElementById('form-section').classList.remove('hidden');
+                document.getElementById('invite-msg').innerText = `Você possui ${data.remaining} convite(s) restante(s)`;
+                document.getElementById('step-name').innerText = "Dados do Convidado";
+                document.getElementById('feedback').style.display = 'none';
             }
-        };
-
-        function updateCounterUI(count) {
-            const remaining = INVITE_LIMIT - count;
-            ui.counter.innerText = `Tem ${remaining} ${remaining === 1 ? 'convite restante' : 'convites restantes'}`;
+        } else {
+            showMsg("E-mail não autorizado.", "error");
+            btn.disabled = false; btn.innerText = "Validar Acesso";
         }
+    } catch(e) {
+        showMsg("Erro de conexão.", "error");
+        btn.disabled = false; btn.innerText = "Validar Acesso";
+    }
+}
 
-        // --- LÓGICA DE REGISTO ---
-        window.handleRegister = async () => {
-            const name = document.getElementById('guest-name').value.trim();
-            const email = document.getElementById('guest-email').value.trim();
-            const phone = document.getElementById('guest-phone').value.trim();
+async function register() {
+    const name = document.getElementById('g-name').value.trim();
+    const email = document.getElementById('g-email').value.trim();
+    const phone = document.getElementById('g-phone').value.trim();
+    const btn = document.getElementById('btn-reg');
 
-            if (!name || !email || !phone) return showMsg("Preencha todos os campos.", true);
+    if(!name || !email || !phone) return showMsg("Preencha tudo.", "error");
 
-            ui.btnReg.disabled = true;
-            ui.btnReg.innerHTML = `<div class="loader mx-auto"></div>`;
+    btn.disabled = true; btn.innerHTML = '<div class="loader"></div>';
 
-            try {
-                // Checagem final de segurança do limite
-                const currentCount = await getInviteCount(userEmail);
-                if (currentCount >= INVITE_LIMIT) throw new Error("Limite de convites excedido.");
+    try {
+        const url = `${SCRIPT_URL}?action=register&userEmail=${encodeURIComponent(currentUser)}&name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}`;
+        const res = await fetch(url);
+        const data = await res.json();
 
-                // 1. Chamar Apps Script para registar no ActiveCampaign
-                const target = `${SCRIPT_URL}?action=register&name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}`;
-                const response = await fetch(PROXY_URL + encodeURIComponent(target));
-                const data = await response.json();
-
-                if (!data.success) throw new Error(data.error || "Erro ao processar o registo.");
-
-                // 2. Incrementar contador no Firestore
-                const id = btoa(userEmail);
-                await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'invite_counters', id), {
-                    count: increment(1),
-                    email: userEmail,
-                    last_invite_at: new Date().toISOString()
-                }, { merge: true });
-
-                showSuccessScreen();
-
-            } catch (err) {
-                showMsg(err.message, true);
-                ui.btnReg.disabled = false;
-                ui.btnReg.innerText = "Cadastrar Convidado";
-            }
-        };
-
-        function showSuccessScreen() {
-            ui.form.classList.add('hidden');
-            ui.msg.classList.add('hidden');
-            ui.success.classList.remove('hidden');
-            ui.title.innerText = "Sucesso!";
-            ui.subtitle.innerText = "Cadastro finalizado";
-            ui.icon.classList.replace('bg-blue-600', 'bg-green-500');
-            ui.svg.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />`;
+        if(data.success) {
+            document.getElementById('form-section').classList.add('hidden');
+            document.getElementById('success-section').classList.remove('hidden');
+            document.getElementById('step-name').innerText = "Finalizado";
+        } else {
+            showMsg("Erro no ActiveCampaign: " + data.error, "error");
+            btn.disabled = false; btn.innerText = "Enviar Convite";
         }
-
-        window.resetFlow = async () => {
-            const count = await getInviteCount(userEmail);
-            if (count >= INVITE_LIMIT) {
-                showMsg("Já utilizou todos os seus convites disponíveis.", true);
-                ui.success.classList.add('hidden');
-                return;
-            }
-            
-            ui.success.classList.add('hidden');
-            ui.form.classList.remove('hidden');
-            ui.title.innerText = "Convite Soul";
-            ui.subtitle.innerText = "Preencha os dados do seu convidado";
-            ui.icon.classList.replace('bg-green-500', 'bg-blue-600');
-            ui.svg.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />`;
-            
-            document.getElementById('guest-name').value = "";
-            document.getElementById('guest-email').value = "";
-            document.getElementById('guest-phone').value = "";
-            ui.btnReg.disabled = false;
-            ui.btnReg.innerText = "Cadastrar Convidado";
-            updateCounterUI(count);
-        };
-    </script>
+    } catch(e) {
+        showMsg("Erro ao processar.", "error");
+        btn.disabled = false; btn.innerText = "Enviar Convite";
+    }
+}
+</script>
 </body>
 </html>

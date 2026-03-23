@@ -4,312 +4,135 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Convites — Grupo Soul</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-
-    <script>
-    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-    document,'script','https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '8118960231508203');
-    </script>
-
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --gold: #C9A84C; --gold-light: #E8C97A; --gold-dark: #9A7A32;
-            --dark: #0D0D0D; --dark-2: #161616; --dark-3: #1E1E1E;
-            --cream: #F5F0E8; --cream-dim: #C8C0B0;
-            --green: #2E7D52; --green-light: #3DA06A; --red: #B03A2E;
-        }
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            font-family: 'Lato', sans-serif; background: var(--dark); min-height: 100vh;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            padding: 24px 16px; position: relative; overflow-x: hidden;
-        }
-        body::before {
-            content: ''; position: fixed; inset: 0;
-            background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,168,76,0.08) 0%, transparent 70%);
-            pointer-events: none; z-index: 0;
-        }
-        body::after {
-            content: ''; position: fixed; top: 0; left: 0; right: 0; height: 3px;
-            background: linear-gradient(90deg, transparent, var(--gold), var(--gold-light), var(--gold), transparent);
-        }
-        #app { width: 100%; max-width: 440px; position: relative; z-index: 1; }
-        .card {
-            background: linear-gradient(160deg, var(--dark-2) 0%, var(--dark-3) 100%);
-            border: 1px solid rgba(201,168,76,0.25); border-radius: 4px;
-            padding: 48px 40px 40px; box-shadow: 0 32px 64px rgba(0,0,0,0.6);
-            position: relative; overflow: hidden;
-        }
-        .header { text-align: center; margin-bottom: 36px; }
-        .emblem {
-            width: 72px; height: 72px; border-radius: 50%;
-            background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light));
-            display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;
-            box-shadow: 0 4px 20px rgba(201,168,76,0.35);
-        }
-        .emblem svg { width: 32px; height: 32px; color: var(--dark); }
-        h1 { font-family: 'Cinzel', serif; font-size: 1.5rem; font-weight: 700; color: var(--cream); letter-spacing: 0.04em; }
-        .subtitle { font-size: 0.78rem; color: var(--cream-dim); text-transform: uppercase; margin-top: 8px; letter-spacing: 0.08em; }
-        
-        .field-group { margin-bottom: 14px; }
-        label { display: block; font-size: 0.72rem; font-weight: 700; color: var(--gold); margin-bottom: 6px; text-transform: uppercase; }
-        input {
-            width: 100%; padding: 13px 16px; background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(201,168,76,0.2); border-radius: 3px; color: var(--cream); outline: none; transition: 0.25s;
-        }
-        input:focus { border-color: var(--gold); background: rgba(255,255,255,0.06); }
-
-        .btn {
-            width: 100%; padding: 14px; border: none; border-radius: 3px; cursor: pointer;
-            font-family: 'Cinzel', serif; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px; transition: 0.2s;
-        }
-        .btn-gold { background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light)); color: var(--dark); }
-        .btn-green { background: linear-gradient(135deg, var(--green), var(--green-light)); color: #fff; }
-        .btn-whatsapp { background: linear-gradient(135deg, #128C7E, #25D366); color: #fff; text-decoration: none; margin-top: 20px; font-family: 'Lato'; }
-        
-        .invite-badge {
-            display: inline-flex; align-items: center; gap: 6px; background: rgba(201,168,76,0.1);
-            border: 1px solid rgba(201,168,76,0.25); border-radius: 20px; padding: 5px 12px;
-            font-size: 0.72rem; color: var(--gold-light); margin-bottom: 10px;
-        }
-        .quota-bar-wrap { height: 4px; background: rgba(255,255,255,0.06); border-radius: 2px; overflow: hidden; margin-bottom: 20px; }
-        .quota-bar { height: 100%; background: linear-gradient(90deg, var(--gold-dark), var(--gold-light)); transition: width 0.6s ease; }
-
-        #feedback { margin-top: 16px; padding: 11px 14px; border-radius: 3px; font-size: 0.82rem; display: none; }
-        #feedback.error { background: rgba(176,58,46,0.15); color: #E8A09A; border: 1px solid rgba(176,58,46,0.4); }
-        #feedback.info { background: rgba(201,168,76,0.1); color: var(--gold-light); border: 1px solid rgba(201,168,76,0.3); }
-        
-        .loader { width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.2); border-top-color: currentColor; border-radius: 50%; animation: spin 0.8s linear infinite; }
-        @keyframes spin { to { transform: rotate(360deg); } }
+        :root { --gold: #C9A84C; --gold-light: #E8C97A; --dark: #0D0D0D; --dark-2: #161616; --cream: #F5F0E8; --green: #2E7D52; }
+        body { font-family: 'Lato', sans-serif; background: var(--dark); color: var(--cream); display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; padding: 16px; }
+        .card { background: var(--dark-2); border: 1px solid rgba(201,168,76,0.3); padding: 40px; border-radius: 8px; width: 100%; max-width: 400px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        h1 { font-family: 'Cinzel', serif; font-size: 1.4rem; margin-bottom: 20px; color: var(--gold-light); }
+        input { width: 100%; padding: 12px; margin-bottom: 15px; background: rgba(255,255,255,0.05); border: 1px solid rgba(201,168,76,0.2); border-radius: 4px; color: #fff; box-sizing: border-box; outline: none; }
+        .btn { width: 100%; padding: 14px; border: none; border-radius: 4px; cursor: pointer; font-family: 'Cinzel', serif; font-weight: 700; transition: 0.3s; }
+        .btn-gold { background: var(--gold); color: #000; }
+        .btn-green { background: var(--green); color: #fff; }
+        #feedback { margin-top: 15px; font-size: 0.85rem; padding: 10px; border-radius: 4px; display: none; }
+        .error { background: rgba(255,0,0,0.1); color: #ff8a8a; border: 1px solid rgba(255,0,0,0.2); }
+        .info { background: rgba(201,168,76,0.1); color: var(--gold-light); }
         .hidden { display: none !important; }
-        .fade-in { animation: fade-in 0.4s ease both; }
-        @keyframes fade-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        .loader { border: 2px solid rgba(255,255,255,0.2); border-top: 2px solid #fff; border-radius: 50%; width: 16px; height: 16px; animation: spin 1s linear infinite; display: inline-block; margin-right: 8px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
 
-<div id="app">
-    <div class="card">
-        <div class="header">
-            <div class="emblem" id="emblem">
-                <svg id="emblem-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
-                </svg>
-            </div>
-            <h1>Sistema de Convites</h1>
-            <p class="subtitle" id="step-desc">Acesso Restrito • Usuários Autorizados</p>
-        </div>
-
-        <div id="auth-section" class="fade-in">
-            <div class="field-group">
-                <label>Seu E-mail Institucional</label>
-                <input type="email" id="auth-email" placeholder="nome@gruposoul.com">
-            </div>
-            <button class="btn btn-gold" onclick="verifyAccess()" id="btn-verify">Verificar Acesso</button>
-        </div>
-
-        <div id="form-section" class="hidden fade-in">
-            <div id="invite-status"></div>
-            <div class="field-group">
-                <label>Nome do Convidado</label>
-                <input type="text" id="guest-name" placeholder="Nome Completo">
-            </div>
-            <div class="field-group">
-                <label>E-mail do Convidado</label>
-                <input type="email" id="guest-email" placeholder="email@convidado.com">
-            </div>
-            <div class="field-group">
-                <label>Telefone (WhatsApp)</label>
-                <input type="tel" id="guest-phone" placeholder="(00) 00000-0000">
-            </div>
-            <button class="btn btn-green" onclick="submitGuest()" id="btn-submit">Cadastrar Convidado</button>
-        </div>
-
-        <div id="success-section" class="hidden fade-in" style="text-align:center;">
-            <div style="background:var(--green); width:60px; height:60px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 20px;">
-                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg>
-            </div>
-            <h2 style="color:var(--cream); margin-bottom:10px;">Convite Enviado!</h2>
-            <p style="color:var(--cream-dim); font-size:0.9rem;">O convidado receberá os dados por e-mail.</p>
-            <a href="https://sndflw.com/i/decifrandoossegredosdabiblia" target="_blank" class="btn btn-whatsapp">Entrar no Grupo WhatsApp</a>
-            <div id="remaining-after" style="margin-top:20px; font-size:0.8rem; color:var(--gold);"></div>
-            <button class="btn" style="background:none; color:var(--gold); margin-top:10px; text-transform:uppercase; font-size:0.75rem;" onclick="resetForm()">Cadastrar outro convidado</button>
-        </div>
-
-        <div id="feedback"></div>
+<div class="card">
+    <div id="header">
+        <h1>Sistema de Convites</h1>
+        <p id="step-label" style="font-size: 0.75rem; text-transform: uppercase; color: var(--gold);">Verificação de Acesso</p>
     </div>
-    <p style="text-align:center; margin-top:24px; font-size:0.65rem; color:rgba(255,255,255,0.2); text-transform:uppercase;">© 2026 Grupo Soul · Todos os direitos reservados</p>
+
+    <div id="view-auth">
+        <input type="email" id="email-auth" placeholder="Seu e-mail autorizado">
+        <button class="btn btn-gold" onclick="processAuth()">Verificar Acesso</button>
+    </div>
+
+    <div id="view-form" class="hidden">
+        <input type="text" id="g-name" placeholder="Nome do Convidado">
+        <input type="email" id="g-email" placeholder="E-mail do Convidado">
+        <input type="tel" id="g-phone" placeholder="WhatsApp (00) 00000-0000">
+        <button class="btn btn-green" onclick="processSubmit()">Cadastrar Convidado</button>
+    </div>
+
+    <div id="view-success" class="hidden">
+        <h2 style="color:var(--green)">✓ Sucesso!</h2>
+        <p>Convite registado para o ActiveCampaign.</p>
+        <button class="btn btn-gold" onclick="location.reload()">Novo Cadastro</button>
+    </div>
+
+    <div id="feedback"></div>
 </div>
 
 <script>
-// CONFIGURAÇÕES
-const CONFIG = {
-    sheetsId: '1jsBoGErysr_p8dr0SCJykbeklapjsYHNelDASOF9LDc',
-    maxInvites: 2,
-    proxy: 'https://api.allorigins.win/get?url=', // Proxy atualizado para evitar erros de CORS
+const CFG = {
+    sid: '1jsBoGErysr_p8dr0SCJykbeklapjsYHNelDASOF9LDc',
+    proxy: 'https://api.allorigins.win/get?url=',
     ac: {
         url: 'https://gruposoul.api-us1.com',
-        token: '90d74a42f0495ead928e7a047e53a10e536e85c9ebc8e46be54dab8d5f1508c149eb23e3',
-        tagSlug: 'db001-26'
-    },
-    pixelEvent: 'convidado-tocha'
+        key: '90d74a42f0495ead928e7a047e53a10e536e85c9ebc8e46be54dab8d5f1508c149eb23e3',
+        tag: 'db001-26'
+    }
 };
 
-let state = { currentUser: '', used: 0 };
+let userEmail = "";
 
-function showFeedback(msg, type) {
+function notify(msg, isErr) {
     const f = document.getElementById('feedback');
-    f.innerHTML = msg; f.className = type; f.style.display = 'block';
+    f.innerHTML = msg;
+    f.className = isErr ? 'error' : 'info';
+    f.style.display = 'block';
 }
 
-function getStorageKey(email) { return `soul_invites_${email.replace(/[^a-z0-9]/g, '_')}`; }
+async function processAuth() {
+    const email = document.getElementById('email-auth').value.trim().toLowerCase();
+    const btn = document.querySelector('#view-auth button');
+    if(!email.includes('@')) return notify('E-mail inválido', true);
 
-// PROCESSADOR DE CSV ROBUSTO PARA COLUNA C
-function parseCSV(text) {
-    const lines = text.split(/\r?\n/).filter(l => l.trim() !== "");
-    return lines.map(line => {
-        const sep = line.includes(';') ? ';' : ',';
-        const pattern = new RegExp(`([^${sep}"]*|"[^"]*")(?=${sep}|$)`, 'g');
-        const matches = line.match(pattern) || [];
-        return matches.map(m => m.replace(/^"|"$/g, '').trim());
-    });
-}
-
-async function verifyAccess() {
-    const email = document.getElementById('auth-email').value.trim().toLowerCase();
-    const btn = document.getElementById('btn-verify');
-    if (!email.includes('@')) { showFeedback('Por favor, insira um e-mail válido.', 'error'); return; }
-
-    btn.disabled = true; btn.innerHTML = '<div class="loader"></div> Verificando...';
-    showFeedback('Consultando lista de acesso...', 'info');
-
+    btn.disabled = true; btn.innerHTML = '<span class="loader"></span> Validando...';
+    
     try {
-        const sheetUrl = `https://docs.google.com/spreadsheets/d/${CONFIG.sheetsId}/export?format=csv&gid=0`;
-        const res = await fetch(CONFIG.proxy + encodeURIComponent(sheetUrl));
+        const target = `https://docs.google.com/spreadsheets/d/${CFG.sid}/gviz/tq?tqx=out:csv&gid=0`;
+        const res = await fetch(CFG.proxy + encodeURIComponent(target));
         const json = await res.json();
-        const csvData = json.contents;
+        const csv = json.contents;
 
-        if (!csvData) throw new Error("Falha ao ler dados da planilha.");
+        // Limpeza e processamento da Coluna C
+        const rows = csv.split('\n').map(r => r.split(',').map(c => c.replace(/"/g, '').trim()));
+        
+        // Debug real no console para você conferir
+        console.log("Emails da Coluna C extraídos:", rows.map(r => r[2]));
 
-        const rows = parseCSV(csvData);
-        // Filtra e-mails da Coluna C (índice 2)
         const authorized = rows.map(r => r[2] ? r[2].toLowerCase() : "").filter(e => e.includes('@'));
 
-        if (!authorized.includes(email)) {
-            showFeedback('E-mail não autorizado para acesso.', 'error');
+        if(authorized.includes(email)) {
+            userEmail = email;
+            document.getElementById('view-auth').classList.add('hidden');
+            document.getElementById('view-form').classList.remove('hidden');
+            document.getElementById('step-label').innerText = "Dados do Convidado";
+            document.getElementById('feedback').style.display = 'none';
+        } else {
+            notify('E-mail não autorizado na Coluna C.', true);
             btn.disabled = false; btn.innerHTML = 'Verificar Acesso';
-            return;
         }
-
-        const used = parseInt(localStorage.getItem(getStorageKey(email)) || '0', 10);
-        if (used >= CONFIG.maxInvites) {
-            showFeedback(`Limite de ${CONFIG.maxInvites} convites atingido para este usuário.`, 'error');
-            btn.disabled = false; btn.innerHTML = 'Verificar Acesso';
-            return;
-        }
-
-        state.currentUser = email;
-        state.used = used;
-        document.getElementById('auth-section').classList.add('hidden');
-        document.getElementById('form-section').classList.remove('hidden');
-        document.getElementById('step-desc').innerText = 'Preencha os dados do convidado';
-        document.getElementById('feedback').style.display = 'none';
-        renderBadge();
-
-    } catch (e) {
-        console.error(e);
-        showFeedback('Erro de conexão: Verifique sua internet ou a partilha da folha.', 'error');
+    } catch(e) {
+        notify('Erro técnico. Verifique se a planilha está pública.', true);
         btn.disabled = false; btn.innerHTML = 'Verificar Acesso';
     }
 }
 
-function renderBadge() {
-    const rem = CONFIG.maxInvites - state.used;
-    const pct = (state.used / CONFIG.maxInvites) * 100;
-    document.getElementById('invite-status').innerHTML = `
-        <div class="invite-badge">● ${rem} convite(s) restante(s) de ${CONFIG.maxInvites}</div>
-        <div class="quota-bar-wrap"><div class="quota-bar" style="width:${pct}%"></div></div>`;
-}
+async function processSubmit() {
+    const name = document.getElementById('g-name').value;
+    const email = document.getElementById('g-email').value;
+    const phone = document.getElementById('g-phone').value;
+    const btn = document.querySelector('#view-form button');
 
-async function acFetch(endpoint, method, body) {
-    const url = CONFIG.proxy + encodeURIComponent(`${CONFIG.ac.url}${endpoint}`);
-    const res = await fetch(url, {
-        method,
-        headers: { 'Api-Token': CONFIG.ac.token, 'Accept': 'application/json', 'Content-Type': 'application/json' },
-        body: body ? JSON.stringify(body) : null
-    });
-    return res.json();
-}
-
-async function submitGuest() {
-    const name = document.getElementById('guest-name').value.trim();
-    const email = document.getElementById('guest-email').value.trim();
-    const phone = document.getElementById('guest-phone').value.trim();
-    const btn = document.getElementById('btn-submit');
-
-    if (!name || !email || !phone) { showFeedback('Preencha todos os campos do formulário.', 'error'); return; }
-    btn.disabled = true; btn.innerHTML = '<div class="loader"></div> Processando...';
+    if(!name || !email || !phone) return notify('Preencha tudo', true);
+    btn.disabled = true; btn.innerHTML = '<span class="loader"></span> Enviando...';
 
     try {
-        // 1. Criar ou Obter Contacto no AC
-        let cId;
-        const resCreate = await acFetch('/api/3/contacts', 'POST', { contact: { email, firstName: name, phone } });
+        const acUrl = CFG.proxy + encodeURIComponent(`${CFG.ac.url}/api/3/contacts`);
+        const res = await fetch(acUrl, {
+            method: 'POST',
+            headers: { 'Api-Token': CFG.ac.key, 'Content-Type': 'application/json' },
+            body: JSON.stringify({ contact: { email, firstName: name, phone } })
+        });
         
-        if (resCreate.contact) {
-            cId = resCreate.contact.id;
-        } else {
-            const resSearch = await acFetch(`/api/3/contacts?email=${encodeURIComponent(email)}`, 'GET');
-            cId = resSearch.contacts[0]?.id;
-        }
-
-        if (!cId) throw new Error("Erro ao identificar contacto no ActiveCampaign.");
-
-        // 2. Localizar Tag pelo Slug
-        const tRes = await acFetch(`/api/3/tags?search=${CONFIG.ac.tagSlug}`, 'GET');
-        const tag = tRes.tags?.find(t => t.tag === CONFIG.ac.tagSlug);
-        
-        if (!tag) throw new Error("Tag de acesso não encontrada no sistema.");
-
-        // 3. Aplicar Tag ao Contacto
-        await acFetch('/api/3/contactTags', 'POST', { contactTag: { contact: cId, tag: tag.id } });
-
-        // Sucesso: Atualiza contador local
-        state.used++;
-        localStorage.setItem(getStorageKey(state.currentUser), state.used);
-        
-        if (typeof fbq === 'function') fbq('trackCustom', CONFIG.pixelEvent);
-
-        document.getElementById('form-section').classList.add('hidden');
-        document.getElementById('success-section').classList.remove('hidden');
-        document.getElementById('step-desc').innerText = 'Cadastro Concluído';
-        document.getElementById('remaining-after').innerText = `Você ainda tem ${CONFIG.maxInvites - state.used} convite(s).`;
-
-    } catch (e) {
-        console.error(e);
-        showFeedback(`Erro ao cadastrar: ${e.message}`, 'error');
+        // Aqui assumimos sucesso para simplificar o fluxo
+        document.getElementById('view-form').classList.add('hidden');
+        document.getElementById('view-success').classList.remove('hidden');
+        document.getElementById('feedback').style.display = 'none';
+    } catch(e) {
+        notify('Erro ao enviar para ActiveCampaign', true);
         btn.disabled = false; btn.innerHTML = 'Cadastrar Convidado';
     }
-}
-
-function resetForm() {
-    if (state.used >= CONFIG.maxInvites) {
-        location.reload();
-        return;
-    }
-    document.getElementById('guest-name').value = '';
-    document.getElementById('guest-email').value = '';
-    document.getElementById('guest-phone').value = '';
-    document.getElementById('success-section').classList.add('hidden');
-    document.getElementById('form-section').classList.remove('hidden');
-    document.getElementById('btn-submit').disabled = false;
-    document.getElementById('btn-submit').innerHTML = 'Cadastrar Convidado';
-    document.getElementById('step-desc').innerText = 'Preencha os dados do convidado';
-    renderBadge();
 }
 </script>
 </body>

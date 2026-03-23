@@ -614,8 +614,11 @@ async function verifyAccess() {
 
     const loaded = await loadAuthorizedEmails();
 
-    if (!loaded) {
-        showFeedback('Não foi possível consultar a lista de acesso. Verifique sua conexão ou tente novamente.', 'error');
+    if (!loaded || state.authorizedEmails.length === 0) {
+        showFeedback(
+            '⚠️ Não foi possível carregar a lista de acesso. Certifique-se de que a planilha está compartilhada como <strong>"Qualquer pessoa com o link → Leitor"</strong> e tente novamente.',
+            'error'
+        );
         btn.disabled = false;
         btn.innerHTML = '<span>Verificar Acesso</span>';
         return;

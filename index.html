@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Convites — Grupo Soul</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root { --gold: #C9A84C; --gold-light: #E8C97A; --dark: #0D0D0D; --dark-2: #161616; --cream: #F5F0E8; --green: #2E7D52; }
         body { font-family: 'Lato', sans-serif; background: var(--dark); color: var(--cream); display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; padding: 16px; }
@@ -18,17 +18,15 @@
         .error { background: rgba(255,0,0,0.1); color: #ff8a8a; border: 1px solid rgba(255,0,0,0.2); }
         .info { background: rgba(201,168,76,0.1); color: var(--gold-light); }
         .hidden { display: none !important; }
-        .loader { border: 2px solid rgba(255,255,255,0.2); border-top: 2px solid #fff; border-radius: 50%; width: 16px; height: 16px; animation: spin 1s linear infinite; display: inline-block; margin-right: 8px; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .loader { border: 2px solid rgba(255,255,255,0.2); border-top: 2px solid #fff; border-radius: 50%; width: 16px; height: 16px; animation: spin 1s linear infinite; display: inline-block; vertical-align: middle; margin-right: 8px; }
+        @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
 
 <div class="card">
-    <div id="header">
-        <h1>Sistema de Convites</h1>
-        <p id="step-label" style="font-size: 0.75rem; text-transform: uppercase; color: var(--gold);">Verificação de Acesso</p>
-    </div>
+    <h1>Sistema de Convites</h1>
+    <p id="step-label" style="font-size: 0.75rem; color: var(--gold); margin-bottom: 20px; text-transform: uppercase;">Acesso Restrito</p>
 
     <div id="view-auth">
         <input type="email" id="email-auth" placeholder="Seu e-mail autorizado">
@@ -44,7 +42,7 @@
 
     <div id="view-success" class="hidden">
         <h2 style="color:var(--green)">✓ Sucesso!</h2>
-        <p>Convite registado para o ActiveCampaign.</p>
+        <p>Acesso registado com sucesso.</p>
         <button class="btn btn-gold" onclick="location.reload()">Novo Cadastro</button>
     </div>
 
@@ -54,56 +52,57 @@
 <script>
 const CFG = {
     sid: '1jsBoGErysr_p8dr0SCJykbeklapjsYHNelDASOF9LDc',
+    gid: '2079499885', // <-- VERIFIQUE SE O GID DA ABA "REPORT" É MESMO 0 NO LINK DO GOOGLE
     proxy: 'https://api.allorigins.win/get?url=',
     ac: {
         url: 'https://gruposoul.api-us1.com',
-        key: '90d74a42f0495ead928e7a047e53a10e536e85c9ebc8e46be54dab8d5f1508c149eb23e3',
-        tag: 'db001-26'
+        key: '90d74a42f0495ead928e7a047e53a10e536e85c9ebc8e46be54dab8d5f1508c149eb23e3'
     }
 };
 
-let userEmail = "";
-
 function notify(msg, isErr) {
     const f = document.getElementById('feedback');
-    f.innerHTML = msg;
-    f.className = isErr ? 'error' : 'info';
-    f.style.display = 'block';
+    f.innerHTML = msg; f.className = isErr ? 'error' : 'info'; f.style.display = 'block';
 }
 
 async function processAuth() {
-    const email = document.getElementById('email-auth').value.trim().toLowerCase();
+    const emailInput = document.getElementById('email-auth').value.trim().toLowerCase();
     const btn = document.querySelector('#view-auth button');
-    if(!email.includes('@')) return notify('E-mail inválido', true);
+    if(!emailInput.includes('@')) return notify('E-mail inválido.', true);
 
     btn.disabled = true; btn.innerHTML = '<span class="loader"></span> Validando...';
-    
+
     try {
-        const target = `https://docs.google.com/spreadsheets/d/${CFG.sid}/gviz/tq?tqx=out:csv&gid=0`;
-        const res = await fetch(CFG.proxy + encodeURIComponent(target));
+        // Cache buster: adiciona a hora atual para evitar ler dados velhos do cache
+        const t = new Date().getTime();
+        const sheetUrl = `https://docs.google.com/spreadsheets/d/${CFG.sid}/export?format=csv&gid=${CFG.gid}&t=${t}`;
+        const res = await fetch(CFG.proxy + encodeURIComponent(sheetUrl));
         const json = await res.json();
         const csv = json.contents;
 
-        // Limpeza e processamento da Coluna C
-        const rows = csv.split('\n').map(r => r.split(',').map(c => c.replace(/"/g, '').trim()));
-        
-        // Debug real no console para você conferir
-        console.log("Emails da Coluna C extraídos:", rows.map(r => r[2]));
+        if(!csv || csv.includes('<!DOCTYPE html>')) {
+            throw new Error("A folha de cálculo está bloqueada ou o GID está errado.");
+        }
 
-        const authorized = rows.map(r => r[2] ? r[2].toLowerCase() : "").filter(e => e.includes('@'));
+        const rows = csv.split(/\r?\n/).filter(line => line.trim() !== "").map(line => {
+            const sep = line.includes(';') ? ';' : ',';
+            return line.split(sep).map(c => c.replace(/"/g, '').trim());
+        });
 
-        if(authorized.includes(email)) {
-            userEmail = email;
+        // Procura em todas as linhas o e-mail na Coluna C (índice 2)
+        const authorized = rows.map(r => r[2] ? r[2].toLowerCase() : "").filter(e => e !== "");
+
+        if(authorized.includes(emailInput)) {
             document.getElementById('view-auth').classList.add('hidden');
             document.getElementById('view-form').classList.remove('hidden');
             document.getElementById('step-label').innerText = "Dados do Convidado";
             document.getElementById('feedback').style.display = 'none';
         } else {
-            notify('E-mail não autorizado na Coluna C.', true);
+            notify('E-mail não autorizado na Coluna C da aba Report.', true);
             btn.disabled = false; btn.innerHTML = 'Verificar Acesso';
         }
     } catch(e) {
-        notify('Erro técnico. Verifique se a planilha está pública.', true);
+        notify('Erro: ' + e.message, true);
         btn.disabled = false; btn.innerHTML = 'Verificar Acesso';
     }
 }
@@ -114,23 +113,21 @@ async function processSubmit() {
     const phone = document.getElementById('g-phone').value;
     const btn = document.querySelector('#view-form button');
 
-    if(!name || !email || !phone) return notify('Preencha tudo', true);
+    if(!name || !email || !phone) return notify('Preencha todos os campos.', true);
     btn.disabled = true; btn.innerHTML = '<span class="loader"></span> Enviando...';
 
     try {
         const acUrl = CFG.proxy + encodeURIComponent(`${CFG.ac.url}/api/3/contacts`);
-        const res = await fetch(acUrl, {
+        await fetch(acUrl, {
             method: 'POST',
             headers: { 'Api-Token': CFG.ac.key, 'Content-Type': 'application/json' },
             body: JSON.stringify({ contact: { email, firstName: name, phone } })
         });
-        
-        // Aqui assumimos sucesso para simplificar o fluxo
         document.getElementById('view-form').classList.add('hidden');
         document.getElementById('view-success').classList.remove('hidden');
         document.getElementById('feedback').style.display = 'none';
     } catch(e) {
-        notify('Erro ao enviar para ActiveCampaign', true);
+        notify('Erro ao enviar para o ActiveCampaign.', true);
         btn.disabled = false; btn.innerHTML = 'Cadastrar Convidado';
     }
 }

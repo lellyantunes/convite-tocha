@@ -6,170 +6,136 @@
     <title>Sistema de Convites — Grupo Soul</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-
-    <!-- Facebook Pixel -->
     <script>
     !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
     n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    n.push=n;n.loaded=!0;n.version="2.0";n.queue=[];t=b.createElement(e);t.async=!0;
     t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-    document,'script','https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '8118960231508203');
+    document,"script","https://connect.facebook.net/en_US/fbevents.js");
+    fbq("init","8118960231508203");
     </script>
     <noscript><img height="1" width="1" style="display:none"
         src="https://www.facebook.com/tr?id=8118960231508203&ev=PageView&noscript=1"/></noscript>
-
     <style>
         :root {
-            --gold:       #C9A84C;
-            --gold-light: #E8C97A;
-            --gold-dark:  #9A7A32;
-            --dark:       #0D0D0D;
-            --dark-2:     #161616;
-            --dark-3:     #1E1E1E;
-            --cream:      #F5F0E8;
-            --cream-dim:  #C8C0B0;
-            --green:      #2E7D52;
-            --green-light:#3DA06A;
+            --gold:#C9A84C; --gold-light:#E8C97A; --gold-dark:#9A7A32;
+            --dark:#0D0D0D; --dark-2:#161616; --dark-3:#1E1E1E;
+            --cream:#F5F0E8; --cream-dim:#C8C0B0;
+            --green:#2E7D52; --green-light:#3DA06A;
         }
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            font-family: 'Lato', sans-serif;
-            background: var(--dark);
-            min-height: 100vh;
-            display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
-            padding: 24px 16px;
-            position: relative; overflow-x: hidden;
+        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+        body{
+            font-family:"Lato",sans-serif;background:var(--dark);
+            min-height:100vh;display:flex;flex-direction:column;
+            align-items:center;justify-content:center;
+            padding:24px 16px;position:relative;overflow-x:hidden;
         }
-        body::before {
-            content: ''; position: fixed; inset: 0;
-            background:
-                radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,168,76,0.08) 0%, transparent 70%),
-                radial-gradient(ellipse 60% 40% at 80% 100%, rgba(201,168,76,0.05) 0%, transparent 60%);
-            pointer-events: none; z-index: 0;
+        body::before{
+            content:"";position:fixed;inset:0;
+            background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(201,168,76,.08) 0%,transparent 70%),
+                       radial-gradient(ellipse 60% 40% at 80% 100%,rgba(201,168,76,.05) 0%,transparent 60%);
+            pointer-events:none;z-index:0;
         }
-        body::after {
-            content: ''; position: fixed;
-            top: 0; left: 0; right: 0; height: 3px;
-            background: linear-gradient(90deg, transparent, var(--gold), var(--gold-light), var(--gold), transparent);
+        body::after{
+            content:"";position:fixed;top:0;left:0;right:0;height:3px;
+            background:linear-gradient(90deg,transparent,var(--gold),var(--gold-light),var(--gold),transparent);
         }
-        #app { width: 100%; max-width: 440px; position: relative; z-index: 1; }
-        .card {
-            background: linear-gradient(160deg, var(--dark-2) 0%, var(--dark-3) 100%);
-            border: 1px solid rgba(201,168,76,0.25); border-radius: 4px;
-            padding: 48px 40px 40px;
-            box-shadow: 0 0 0 1px rgba(201,168,76,0.08), 0 32px 64px rgba(0,0,0,0.6);
-            position: relative; overflow: hidden;
+        #app{width:100%;max-width:440px;position:relative;z-index:1}
+        .card{
+            background:linear-gradient(160deg,var(--dark-2) 0%,var(--dark-3) 100%);
+            border:1px solid rgba(201,168,76,.25);border-radius:4px;
+            padding:48px 40px 40px;
+            box-shadow:0 0 0 1px rgba(201,168,76,.08),0 32px 64px rgba(0,0,0,.6);
+            position:relative;overflow:hidden;
         }
-        .card::before, .card::after {
-            content: ''; position: absolute;
-            width: 40px; height: 40px;
-            border-color: var(--gold-dark); border-style: solid; opacity: 0.4;
+        .card::before,.card::after{content:"";position:absolute;width:40px;height:40px;border-color:var(--gold-dark);border-style:solid;opacity:.4}
+        .card::before{top:12px;left:12px;border-width:1px 0 0 1px}
+        .card::after{bottom:12px;right:12px;border-width:0 1px 1px 0}
+        .header{text-align:center;margin-bottom:36px}
+        .emblem{
+            width:72px;height:72px;border-radius:50%;
+            background:linear-gradient(135deg,var(--gold-dark),var(--gold),var(--gold-light));
+            display:flex;align-items:center;justify-content:center;
+            margin:0 auto 20px;
+            box-shadow:0 4px 20px rgba(201,168,76,.35),0 0 40px rgba(201,168,76,.15);
+            transition:background .6s ease;
         }
-        .card::before { top: 12px; left: 12px; border-width: 1px 0 0 1px; }
-        .card::after  { bottom: 12px; right: 12px; border-width: 0 1px 1px 0; }
-        .header { text-align: center; margin-bottom: 36px; }
-        .emblem {
-            width: 72px; height: 72px; border-radius: 50%;
-            background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light));
-            display: flex; align-items: center; justify-content: center;
-            margin: 0 auto 20px;
-            box-shadow: 0 4px 20px rgba(201,168,76,0.35), 0 0 40px rgba(201,168,76,0.15);
-            transition: background 0.6s ease;
+        .emblem svg{width:32px;height:32px;color:var(--dark)}
+        .divider{display:flex;align-items:center;gap:12px;margin:12px 0}
+        .divider-line{flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.3))}
+        .divider-line:last-child{background:linear-gradient(270deg,transparent,rgba(201,168,76,.3))}
+        .divider-diamond{width:6px;height:6px;background:var(--gold);transform:rotate(45deg);opacity:.6}
+        h1{font-family:"Cinzel",serif;font-size:1.5rem;font-weight:700;color:var(--cream);letter-spacing:.04em;line-height:1.2}
+        .subtitle{font-size:.78rem;color:var(--cream-dim);letter-spacing:.08em;text-transform:uppercase;margin-top:8px}
+        .field-group{margin-bottom:14px}
+        label{display:block;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+        input[type="email"],input[type="text"],input[type="tel"]{
+            width:100%;padding:13px 16px;
+            background:rgba(255,255,255,.04);
+            border:1px solid rgba(201,168,76,.2);border-radius:3px;
+            color:var(--cream);font-family:"Lato",sans-serif;font-size:.95rem;
+            outline:none;transition:border-color .25s,background .25s,box-shadow .25s;
         }
-        .emblem svg { width: 32px; height: 32px; color: var(--dark); }
-        .divider { display: flex; align-items: center; gap: 12px; margin: 12px 0; }
-        .divider-line { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, rgba(201,168,76,0.3)); }
-        .divider-line:last-child { background: linear-gradient(270deg, transparent, rgba(201,168,76,0.3)); }
-        .divider-diamond { width: 6px; height: 6px; background: var(--gold); transform: rotate(45deg); opacity: 0.6; }
-        h1 { font-family: 'Cinzel', serif; font-size: 1.5rem; font-weight: 700; color: var(--cream); letter-spacing: 0.04em; }
-        .subtitle { font-size: 0.78rem; color: var(--cream-dim); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 8px; }
-        .field-group { margin-bottom: 14px; }
-        label { display: block; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
-        input[type="email"], input[type="text"], input[type="tel"] {
-            width: 100%; padding: 13px 16px;
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(201,168,76,0.2); border-radius: 3px;
-            color: var(--cream); font-family: 'Lato', sans-serif; font-size: 0.95rem;
-            outline: none; transition: border-color 0.25s, background 0.25s, box-shadow 0.25s;
+        input::placeholder{color:rgba(200,192,176,.35)}
+        input:focus{border-color:var(--gold);background:rgba(255,255,255,.06);box-shadow:0 0 0 3px rgba(201,168,76,.1)}
+        .btn{
+            width:100%;padding:14px;border:none;border-radius:3px;
+            font-family:"Cinzel",serif;font-size:.85rem;font-weight:600;
+            letter-spacing:.12em;cursor:pointer;
+            display:flex;align-items:center;justify-content:center;gap:10px;
+            transition:transform .15s,box-shadow .15s;margin-top:20px;
         }
-        input::placeholder { color: rgba(200,192,176,0.35); }
-        input:focus { border-color: var(--gold); background: rgba(255,255,255,0.06); box-shadow: 0 0 0 3px rgba(201,168,76,0.1); }
-        .btn {
-            width: 100%; padding: 14px; border: none; border-radius: 3px;
-            font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: 600;
-            letter-spacing: 0.12em; cursor: pointer;
-            display: flex; align-items: center; justify-content: center; gap: 10px;
-            transition: transform 0.15s, box-shadow 0.15s; margin-top: 20px;
+        .btn:active{transform:scale(.98)}
+        .btn:disabled{opacity:.55;cursor:not-allowed;transform:none}
+        .btn-gold{background:linear-gradient(135deg,var(--gold-dark),var(--gold),var(--gold-light));color:var(--dark);box-shadow:0 4px 20px rgba(201,168,76,.3)}
+        .btn-gold:hover:not(:disabled){box-shadow:0 6px 28px rgba(201,168,76,.45);transform:translateY(-1px)}
+        .btn-green{background:linear-gradient(135deg,var(--green),var(--green-light));color:#fff;box-shadow:0 4px 20px rgba(46,125,82,.35)}
+        .btn-green:hover:not(:disabled){box-shadow:0 6px 28px rgba(46,125,82,.5);transform:translateY(-1px)}
+        .btn-whatsapp{
+            background:linear-gradient(135deg,#128C7E,#25D366);color:#fff;
+            box-shadow:0 4px 20px rgba(37,211,102,.35);
+            font-family:"Lato",sans-serif;font-weight:700;font-size:.95rem;letter-spacing:.02em;
         }
-        .btn:active { transform: scale(0.98); }
-        .btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
-        .btn-gold {
-            background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light));
-            color: var(--dark); box-shadow: 0 4px 20px rgba(201,168,76,0.3);
+        .btn-whatsapp:hover{box-shadow:0 6px 28px rgba(37,211,102,.5);transform:translateY(-1px)}
+        .invite-badge{
+            display:inline-flex;align-items:center;gap:6px;
+            background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);
+            border-radius:20px;padding:5px 12px;
+            font-size:.72rem;color:var(--gold-light);letter-spacing:.06em;margin-bottom:20px;
         }
-        .btn-gold:hover:not(:disabled) { box-shadow: 0 6px 28px rgba(201,168,76,0.45); transform: translateY(-1px); }
-        .btn-green {
-            background: linear-gradient(135deg, var(--green), var(--green-light));
-            color: #fff; box-shadow: 0 4px 20px rgba(46,125,82,0.35);
+        .invite-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulse-dot 2s ease-in-out infinite}
+        @keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.75)}}
+        #feedback{margin-top:16px;padding:11px 14px;border-radius:3px;font-size:.82rem;line-height:1.5;display:none}
+        #feedback.error{background:rgba(176,58,46,.15);border:1px solid rgba(176,58,46,.4);color:#E8A09A}
+        #feedback.success{background:rgba(46,125,82,.15);border:1px solid rgba(46,125,82,.35);color:#7ECBA4}
+        #feedback.info{background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.3);color:var(--gold-light)}
+        .loader{width:18px;height:18px;border:2px solid rgba(255,255,255,.25);border-top-color:currentColor;border-radius:50%;animation:spin .75s linear infinite;flex-shrink:0}
+        @keyframes spin{to{transform:rotate(360deg)}}
+        #success-section{text-align:center;padding:8px 0}
+        .success-icon{
+            width:72px;height:72px;border-radius:50%;
+            background:linear-gradient(135deg,var(--green),var(--green-light));
+            display:flex;align-items:center;justify-content:center;
+            margin:0 auto 24px;box-shadow:0 4px 24px rgba(46,125,82,.4);
+            animation:pop-in .4s cubic-bezier(.175,.885,.32,1.275) both;
         }
-        .btn-green:hover:not(:disabled) { box-shadow: 0 6px 28px rgba(46,125,82,0.5); transform: translateY(-1px); }
-        .btn-whatsapp {
-            background: linear-gradient(135deg, #128C7E, #25D366); color: #fff;
-            box-shadow: 0 4px 20px rgba(37,211,102,0.35);
-            font-family: 'Lato', sans-serif; font-weight: 700; font-size: 0.95rem; letter-spacing: 0.02em;
+        @keyframes pop-in{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
+        .success-title{font-family:"Cinzel",serif;font-size:1.4rem;color:var(--cream);margin-bottom:10px}
+        .success-text{font-size:.88rem;color:var(--cream-dim);line-height:1.65;margin-bottom:28px}
+        .success-separator{height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.25),transparent);margin:24px 0}
+        .add-another{
+            background:none;border:none;color:var(--gold);
+            font-family:"Lato",sans-serif;font-size:.82rem;font-weight:700;
+            letter-spacing:.06em;text-transform:uppercase;cursor:pointer;
+            margin-top:16px;display:inline-flex;align-items:center;gap:6px;transition:color .2s;
         }
-        .btn-whatsapp:hover { box-shadow: 0 6px 28px rgba(37,211,102,0.5); transform: translateY(-1px); }
-        .invite-badge {
-            display: inline-flex; align-items: center; gap: 6px;
-            background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.25);
-            border-radius: 20px; padding: 5px 12px;
-            font-size: 0.72rem; color: var(--gold-light); letter-spacing: 0.06em; margin-bottom: 20px;
-        }
-        .invite-badge .dot {
-            width: 6px; height: 6px; border-radius: 50%; background: var(--gold);
-            animation: pulse-dot 2s ease-in-out infinite;
-        }
-        @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.75)} }
-        #feedback {
-            margin-top: 16px; padding: 11px 14px; border-radius: 3px;
-            font-size: 0.82rem; line-height: 1.5; display: none;
-        }
-        #feedback.error  { background: rgba(176,58,46,0.15); border: 1px solid rgba(176,58,46,0.4); color: #E8A09A; }
-        #feedback.success{ background: rgba(46,125,82,0.15); border: 1px solid rgba(46,125,82,0.35); color: #7ECBA4; }
-        #feedback.info   { background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.3); color: var(--gold-light); }
-        .loader {
-            width: 18px; height: 18px;
-            border: 2px solid rgba(255,255,255,0.25); border-top-color: currentColor;
-            border-radius: 50%; animation: spin 0.75s linear infinite; flex-shrink: 0;
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        #success-section { text-align: center; padding: 8px 0; }
-        .success-icon {
-            width: 72px; height: 72px; border-radius: 50%;
-            background: linear-gradient(135deg, var(--green), var(--green-light));
-            display: flex; align-items: center; justify-content: center;
-            margin: 0 auto 24px; box-shadow: 0 4px 24px rgba(46,125,82,0.4);
-            animation: pop-in 0.4s cubic-bezier(0.175,.885,.32,1.275) both;
-        }
-        @keyframes pop-in { from{transform:scale(.4);opacity:0} to{transform:scale(1);opacity:1} }
-        .success-title { font-family: 'Cinzel', serif; font-size: 1.4rem; color: var(--cream); margin-bottom: 10px; }
-        .success-text  { font-size: 0.88rem; color: var(--cream-dim); line-height: 1.65; margin-bottom: 28px; }
-        .success-separator { height: 1px; background: linear-gradient(90deg, transparent, rgba(201,168,76,0.25), transparent); margin: 24px 0; }
-        .add-another {
-            background: none; border: none; color: var(--gold);
-            font-family: 'Lato', sans-serif; font-size: 0.82rem; font-weight: 700;
-            letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer;
-            margin-top: 16px; display: inline-flex; align-items: center; gap: 6px; transition: color 0.2s;
-        }
-        .add-another:hover { color: var(--gold-light); }
-        .hidden { display: none !important; }
-        .footer { text-align: center; margin-top: 24px; font-size: 0.68rem; color: rgba(200,192,176,0.3); letter-spacing: 0.06em; text-transform: uppercase; }
-        .fade-in { animation: fade-in 0.4s ease both; }
-        @keyframes fade-in { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
-        .quota-bar-wrap { height: 4px; background: rgba(255,255,255,0.06); border-radius: 2px; overflow: hidden; margin-top: 6px; }
-        .quota-bar { height: 100%; border-radius: 2px; background: linear-gradient(90deg, var(--gold-dark), var(--gold-light)); transition: width 0.6s ease; }
+        .add-another:hover{color:var(--gold-light)}
+        .hidden{display:none!important}
+        .footer{text-align:center;margin-top:24px;font-size:.68rem;color:rgba(200,192,176,.3);letter-spacing:.06em;text-transform:uppercase}
+        .fade-in{animation:fade-in .4s ease both}
+        @keyframes fade-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+        .quota-bar-wrap{height:4px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden;margin-top:6px}
+        .quota-bar{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--gold-dark),var(--gold-light));transition:width .6s ease}
     </style>
 </head>
 <body>
@@ -187,7 +153,6 @@
             <p class="subtitle" id="step-desc">Acesso restrito • Usuários autorizados</p>
         </div>
 
-        <!-- ETAPA 1: E-MAIL -->
         <div id="auth-section" class="fade-in">
             <div class="field-group">
                 <label>Seu E-mail de Aluno</label>
@@ -199,7 +164,6 @@
             </button>
         </div>
 
-        <!-- ETAPA 2: FORMULÁRIO -->
         <div id="form-section" class="hidden fade-in">
             <div id="invite-status"></div>
             <div class="field-group">
@@ -222,7 +186,6 @@
             </button>
         </div>
 
-        <!-- ETAPA 3: SUCESSO -->
         <div id="success-section" class="hidden">
             <div class="success-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white" width="34" height="34">
@@ -230,10 +193,7 @@
                 </svg>
             </div>
             <h2 class="success-title">Convite Enviado!</h2>
-            <p class="success-text">
-                Seu convidado foi cadastrado com sucesso.<br>
-                Ele receberá as informações de acesso por e-mail em breve.
-            </p>
+            <p class="success-text">Seu convidado foi cadastrado com sucesso.<br>Ele receberá as informações de acesso por e-mail em breve.</p>
             <a href="https://sndflw.com/i/decifrandoossegredosdabiblia" target="_blank"
                class="btn btn-whatsapp" style="text-decoration:none;">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
@@ -242,7 +202,7 @@
                 Entrar no Grupo do WhatsApp
             </a>
             <div class="success-separator"></div>
-            <div id="remaining-after" style="text-align:center; margin-bottom:4px;"></div>
+            <div id="remaining-after" style="text-align:center;margin-bottom:4px;"></div>
             <button class="add-another hidden" onclick="resetForm()" id="btn-another">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="14" height="14">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/>
@@ -257,28 +217,18 @@
 </div>
 
 <script>
-// ═══════════════════════════════════════════════════════
-//  CONFIGURAÇÕES
-//  O webhook do n8n é responsável por:
-//  1. GET  ?action=count&email=X  → retornar { "count": N }
-//  2. POST action=register        → criar contato no AC + salvar registro
-// ═══════════════════════════════════════════════════════
 const CONFIG = {
     maxInvites:  2,
-    webhookUrl:  'https://n8nwebhook.escolatocha.com.br/webhook/convite-tocha',
-    pixelEvent:  'convidado-tocha',
-    // Dados do AC passados ao n8n para ele cadastrar server-side (sem CORS)
+    webhookUrl:  "https://n8nwebhook.escolatocha.com.br/webhook/convite-tocha",
+    pixelEvent:  "convidado-tocha",
     ac: {
-        url:     'https://gruposoul.api-us1.com',
-        token:   '90d74a42f0495ead928e7a047e53a10e536e85c9ebc8e46be54dab8d5f1508c149eb23e3',
+        url:     "https://gruposoul.api-us1.com",
+        token:   "90d74a42f0495ead928e7a047e53a10e536e85c9ebc8e46be54dab8d5f1508c149eb23e3",
         tagId:   474,
-        tagSlug: 'db-convidado-tocha'
+        tagSlug: "db-convidado-tocha"
     }
 };
 
-// ═══════════════════════════════════════════════════════
-//  1.045 ALUNOS AUTORIZADOS
-// ═══════════════════════════════════════════════════════
 const AUTHORIZED_EMAILS = new Set([
         'terapeutasilviamaria@hotmail.com',
         'patricia.depieri@gmail.com',
@@ -1325,134 +1275,98 @@ const AUTHORIZED_EMAILS = new Set([
         'agruiz71@gmail.com',
         'contato@comexar.com.br',
         'danielle.antunes@gmail.com'
-    ]);
+]);
 
-// ═══════════════════════════════════════════════════════
-//  HELPERS
-// ═══════════════════════════════════════════════════════
-const $ = id => document.getElementById(id);
-let currentUser = null;
-let serverCount  = 0;
-
-// ─── Captura parâmetros da URL (UTMs, fbclid, gclid, etc.) ───
-function getUrlParams() {
-    const p = {};
-    new URLSearchParams(window.location.search).forEach((v, k) => { p[k] = v; });
+// Captura todos os params da URL (UTMs, fbclid, gclid, ref, etc.)
+const URL_PARAMS = (function() {
+    var p = {};
+    new URLSearchParams(window.location.search).forEach(function(v, k) { p[k] = v; });
     return p;
-}
-const URL_PARAMS = getUrlParams();
+})();
 
-function showFeedback(msg, type = 'info') {
-    const el = $('feedback');
+var currentUser = null;
+var serverCount = 0;
+
+function $(id) { return document.getElementById(id); }
+
+function showFeedback(msg, type) {
+    var el = $("feedback");
     el.innerHTML = msg;
-    el.className = type;
-    el.style.display = 'block';
+    el.className = type || "info";
+    el.style.display = "block";
 }
-function hideFeedback() { $('feedback').style.display = 'none'; }
+function hideFeedback() { $("feedback").style.display = "none"; }
 
-// ─── Consulta contagem de convites já usados (n8n responde com { count: N }) ───
-async function fetchUsedCount(email) {
-    try {
-        const res  = await fetch(CONFIG.webhookUrl + '?action=count&email=' + encodeURIComponent(email));
-        const data = await res.json();
-        return parseInt(data.count ?? data.used ?? 0, 10);
-    } catch {
-        return 0; // se falhar, permite entrar (n8n bloqueia no POST se ultrapassar)
-    }
-}
-
-// ═══════════════════════════════════════════════════════
-//  ETAPA 1 — VERIFICAR ACESSO
-// ═══════════════════════════════════════════════════════
-async function verifyAccess() {
-    const email = $('auth-email').value.trim().toLowerCase();
-    const btn   = $('btn-verify');
-
-    if (!email || !email.includes('@')) {
-        showFeedback('Digite um e-mail válido.', 'error');
-        return;
-    }
-    if (!AUTHORIZED_EMAILS.has(email)) {
-        showFeedback('E-mail não encontrado. Verifique se digitou o mesmo e-mail usado no cadastro do curso.', 'error');
-        return;
-    }
-
-    btn.disabled = true;
-    btn.innerHTML = '<div class="loader"></div><span>Verificando...</span>';
-    showFeedback('Consultando seus convites disponíveis...', 'info');
-
-    const used = await fetchUsedCount(email);
-
-    if (used >= CONFIG.maxInvites) {
-        showFeedback('Você já utilizou todos os seus <strong>' + CONFIG.maxInvites + ' convites</strong> disponíveis.', 'error');
-        btn.disabled = false;
-        btn.innerHTML = '<span>Verificar Acesso</span>';
-        return;
-    }
-
-    currentUser = email;
-    serverCount = used;
-    hideFeedback();
-    $('auth-section').classList.add('hidden');
-    $('form-section').classList.remove('hidden');
-    $('step-desc').innerText = 'Preencha os dados do convidado';
-    renderInviteBadge();
-}
-
-// ═══════════════════════════════════════════════════════
-//  BADGE DE CONVITES
-// ═══════════════════════════════════════════════════════
 function renderInviteBadge() {
-    const remaining = CONFIG.maxInvites - serverCount;
-    const pct = (serverCount / CONFIG.maxInvites) * 100;
-    $('invite-status').innerHTML =
+    var remaining = CONFIG.maxInvites - serverCount;
+    var pct = (serverCount / CONFIG.maxInvites) * 100;
+    $("invite-status").innerHTML =
         '<div class="invite-badge"><span class="dot"></span>' +
-        remaining + ' convite' + (remaining !== 1 ? 's' : '') + ' restante' + (remaining !== 1 ? 's' : '') +
-        ' de ' + CONFIG.maxInvites + ' disponíveis</div>' +
+        remaining + ' convite' + (remaining !== 1 ? "s" : "") + ' restante' + (remaining !== 1 ? "s" : "") +
+        ' de ' + CONFIG.maxInvites + ' dispon\u00edveis</div>' +
         '<div class="quota-bar-wrap"><div class="quota-bar" style="width:' + pct + '%"></div></div>' +
         '<div style="height:16px"></div>';
 }
 
-// ═══════════════════════════════════════════════════════
-//  ETAPA 2 — CADASTRAR CONVIDADO
-//  Tudo vai via POST para o n8n, que:
-//  - cria/atualiza o contato no ActiveCampaign
-//  - aplica a tag db-convidado-tocha (id 474)
-//  - registra o uso do convite no banco de dados
-// ═══════════════════════════════════════════════════════
-async function submitGuest() {
-    const name  = $('guest-name').value.trim();
-    const email = $('guest-email').value.trim();
-    const phone = $('guest-phone').value.trim();
-    const btn   = $('btn-submit');
+async function fetchUsedCount(email) {
+    try {
+        var res = await fetch(CONFIG.webhookUrl + "?action=count&email=" + encodeURIComponent(email));
+        if (!res.ok) return 0;
+        var data = await res.json();
+        return parseInt(data.count || data.used || 0, 10);
+    } catch(e) { return 0; }
+}
 
-    if (!name || !email || !phone) {
-        showFeedback('Por favor, preencha todos os campos.', 'error');
-        return;
+async function verifyAccess() {
+    var email = $("auth-email").value.trim().toLowerCase();
+    var btn   = $("btn-verify");
+    if (!email || email.indexOf("@") === -1) {
+        showFeedback("Digite um e-mail v\u00e1lido.", "error"); return;
     }
-    if (!email.includes('@')) {
-        showFeedback('Digite um e-mail válido para o convidado.', 'error');
-        return;
+    if (!AUTHORIZED_EMAILS.has(email)) {
+        showFeedback("E-mail n\u00e3o encontrado. Verifique se digitou o mesmo e-mail usado no cadastro do curso.", "error"); return;
+    }
+    btn.disabled = true;
+    btn.innerHTML = '<div class="loader"></div><span>Verificando...</span>';
+    showFeedback("Consultando seus convites dispon\u00edveis...", "info");
+    var used = await fetchUsedCount(email);
+    if (used >= CONFIG.maxInvites) {
+        showFeedback("Voc\u00ea j\u00e1 utilizou todos os seus <strong>" + CONFIG.maxInvites + " convites</strong> dispon\u00edveis.", "error");
+        btn.disabled = false;
+        btn.innerHTML = "<span>Verificar Acesso</span>"; return;
+    }
+    currentUser = email;
+    serverCount = used;
+    hideFeedback();
+    $("auth-section").classList.add("hidden");
+    $("form-section").classList.remove("hidden");
+    $("step-desc").innerText = "Preencha os dados do convidado";
+    renderInviteBadge();
+}
+
+async function submitGuest() {
+    var name  = $("guest-name").value.trim();
+    var email = $("guest-email").value.trim();
+    var phone = $("guest-phone").value.trim();
+    var btn   = $("btn-submit");
+    if (!name || !email || !phone) {
+        showFeedback("Por favor, preencha todos os campos.", "error"); return;
+    }
+    if (email.indexOf("@") === -1) {
+        showFeedback("Digite um e-mail v\u00e1lido para o convidado.", "error"); return;
     }
     if (serverCount >= CONFIG.maxInvites) {
-        showFeedback('Limite de convites atingido.', 'error');
-        btn.disabled = true;
-        return;
+        showFeedback("Limite de convites atingido.", "error");
+        btn.disabled = true; return;
     }
-
     btn.disabled = true;
     btn.innerHTML = '<div class="loader"></div><span>Enviando convite...</span>';
-    showFeedback('Processando...', 'info');
-
+    showFeedback("Processando...", "info");
     try {
-        const payload = {
-            action:     'register',
-            alunoEmail: currentUser,
-            guest: {
-                name:  name,
-                email: email,
-                phone: phone
-            },
+        var payload = {
+            action:       "register",
+            alunoEmail:   currentUser,
+            guest: { name: name, email: email, phone: phone },
             ac: {
                 url:     CONFIG.ac.url,
                 token:   CONFIG.ac.token,
@@ -1470,78 +1384,59 @@ async function submitGuest() {
             ref:          URL_PARAMS.ref          || null,
             url_params:   URL_PARAMS
         };
-
-        const res = await fetch(CONFIG.webhookUrl, {
-            method:  'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body:    JSON.stringify(payload)
+        var res = await fetch(CONFIG.webhookUrl, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
         });
-
-        // Aceita qualquer 2xx como sucesso
         if (!res.ok) {
-            const txt = await res.text();
-            throw new Error('Webhook retornou ' + res.status + ': ' + txt.slice(0, 120));
+            var txt = await res.text();
+            throw new Error("Webhook retornou " + res.status + ": " + txt.slice(0, 120));
         }
-
         serverCount += 1;
-
-        // Pixel do Facebook
-        try { if (typeof fbq === 'function') fbq('trackCustom', CONFIG.pixelEvent); } catch(e) {}
-
+        try { if (typeof fbq === "function") fbq("trackCustom", CONFIG.pixelEvent); } catch(e) {}
         showSuccessScreen();
-
-    } catch (err) {
+    } catch(err) {
         console.error(err);
-        showFeedback('Erro ao enviar convite: ' + err.message, 'error');
+        showFeedback("Erro ao enviar convite: " + err.message, "error");
         btn.disabled = false;
-        btn.innerHTML = '<span>Cadastrar Convidado</span>';
+        btn.innerHTML = "<span>Cadastrar Convidado</span>";
     }
 }
 
-// ═══════════════════════════════════════════════════════
-//  TELA DE SUCESSO
-// ═══════════════════════════════════════════════════════
 function showSuccessScreen() {
-    $('form-section').classList.add('hidden');
+    $("form-section").classList.add("hidden");
     hideFeedback();
-    $('success-section').classList.remove('hidden');
-    $('step-desc').innerText = 'Cadastro concluído';
-
-    const emblem = $('emblem');
-    emblem.style.background = 'linear-gradient(135deg, #2E7D52, #3DA06A)';
-    emblem.style.boxShadow  = '0 4px 20px rgba(46,125,82,0.4)';
-    $('emblem-icon').innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 13l4 4L19 7"/>';
-
-    const remaining = CONFIG.maxInvites - serverCount;
+    $("success-section").classList.remove("hidden");
+    $("step-desc").innerText = "Cadastro conclu\u00eddo";
+    var emblem = $("emblem");
+    emblem.style.background = "linear-gradient(135deg,#2E7D52,#3DA06A)";
+    emblem.style.boxShadow  = "0 4px 20px rgba(46,125,82,.4)";
+    $("emblem-icon").innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 13l4 4L19 7"/>';
+    var remaining = CONFIG.maxInvites - serverCount;
     if (remaining > 0) {
-        $('remaining-after').innerHTML =
-            '<span style="font-size:0.78rem;color:var(--cream-dim)">Você ainda tem <strong style="color:var(--gold)">' +
-            remaining + '</strong> convite' + (remaining !== 1 ? 's' : '') + ' disponível' + (remaining !== 1 ? 'is' : '') + '.</span>';
-        $('btn-another').classList.remove('hidden');
+        $("remaining-after").innerHTML = '<span style="font-size:.78rem;color:var(--cream-dim)">Voc\u00ea ainda tem <strong style="color:var(--gold)">' + remaining + '</strong> convite' + (remaining !== 1 ? "s" : "") + ' dispon\u00edvel' + (remaining !== 1 ? "is" : "") + '.</span>';
+        $("btn-another").classList.remove("hidden");
     } else {
-        $('remaining-after').innerHTML =
-            '<span style="font-size:0.78rem;color:var(--cream-dim)">Você utilizou todos os seus convites disponíveis.</span>';
-        $('btn-another').classList.add('hidden');
+        $("remaining-after").innerHTML = '<span style="font-size:.78rem;color:var(--cream-dim)">Voc\u00ea utilizou todos os seus convites dispon\u00edveis.</span>';
+        $("btn-another").classList.add("hidden");
     }
 }
 
-// ═══════════════════════════════════════════════════════
-//  RESETAR PARA NOVO CONVIDADO
-// ═══════════════════════════════════════════════════════
 function resetForm() {
-    $('guest-name').value  = '';
-    $('guest-email').value = '';
-    $('guest-phone').value = '';
-    $('success-section').classList.add('hidden');
-    $('form-section').classList.remove('hidden');
-    $('step-desc').innerText = 'Preencha os dados do convidado';
-    const emblem = $('emblem');
-    emblem.style.background = '';
-    emblem.style.boxShadow  = '';
-    $('emblem-icon').innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>';
-    const btn = $('btn-submit');
+    $("guest-name").value  = "";
+    $("guest-email").value = "";
+    $("guest-phone").value = "";
+    $("success-section").classList.add("hidden");
+    $("form-section").classList.remove("hidden");
+    $("step-desc").innerText = "Preencha os dados do convidado";
+    var emblem = $("emblem");
+    emblem.style.background = "";
+    emblem.style.boxShadow  = "";
+    $("emblem-icon").innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>';
+    var btn = $("btn-submit");
     btn.disabled = false;
-    btn.innerHTML = '<span>Cadastrar Convidado</span>';
+    btn.innerHTML = "<span>Cadastrar Convidado</span>";
     hideFeedback();
     renderInviteBadge();
 }
